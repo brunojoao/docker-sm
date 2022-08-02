@@ -25,7 +25,7 @@ services:
     ports: 
       - 80:80
     volumes:
-      - ./injetaveis:/var/www/html
+      - ../projects/injetaveis:/var/www/html
       - ./configs/php.ini:/usr/local/etc/php/conf.d/local.ini
       - ./configs/mysql.cnf:/etc/mysql/conf.d/custom.cnf
     links:
