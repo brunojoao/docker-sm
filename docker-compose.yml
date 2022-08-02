@@ -11,7 +11,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 789123
     ports:
-      - 3306:3306
+      - 3349:3306
 
   adminer:
     image: adminer
