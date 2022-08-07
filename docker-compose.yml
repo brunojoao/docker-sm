@@ -21,10 +21,11 @@ services:
     ports:
       - 8080:80
     volumes:
-      - ../projects/injetaveis:/var/www/html/injetaveis
+      - ../projects/injetaveisadmin:/var/www/html/injetaveisadmin
       # Espaço para outros projetos...
       - ./configs/php7.4/php.ini:/usr/local/etc/php/conf.d/local.ini
       - ./configs/php7.4/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
+    command: sh -c "a2enmod rewrite"
     links:
       - db
 
@@ -36,10 +37,11 @@ services:
     volumes:
       - ../projects/supermonitor-hkm:/var/www/html/supermonitor-hkm
       - ../projects/supermonitor-smart:/var/www/html/supermonitor-smart
-      - ../projects/gpe:/var/www/html/gpe
+      - ../projects/gateway-payment-essentia:/var/www/html/gateway-payment-essentia
       # Espaço para outros projetos...
       - ./configs/php5.6/php.ini:/usr/local/etc/php/conf.d/local.ini
       - ./configs/php5.6/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
+    command: sh -c "a2enmod rewrite"
     links:
       - db
     

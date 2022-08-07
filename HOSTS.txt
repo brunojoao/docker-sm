@@ -1,0 +1,12 @@
+127.0.0.1 injetaveis.docker.local
+127.0.0.1 sm-hkm.docker.local
+127.0.0.1 sm-smart.docker.local
+127.0.0.1 gpe.docker.local
+
+
+
+ACESSOS:
+sm-hkm.docker.local
+sm-smart.docker.local
+gpe.docker.local
+injetaveis.docker.local:8080
