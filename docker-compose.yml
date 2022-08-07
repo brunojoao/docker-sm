@@ -19,7 +19,7 @@ services:
     image: php:7.4-apache
     container_name: php7-projects
     ports:
-      - 79:80
+      - 8080:80
     volumes:
       - ../projects/injetaveis:/var/www/html/injetaveis
       # Espaço para outros projetos...
