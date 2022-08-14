@@ -25,7 +25,8 @@ services:
       # Espaço para outros projetos...
       - ./configs/php7.4/php.ini:/usr/local/etc/php/conf.d/local.ini
       - ./configs/php7.4/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
-    command: sh -c "a2enmod rewrite"
+    command: >
+      bash -c "a2enmod rewrite && apache2-foreground"
     links:
       - db
 
@@ -41,7 +42,8 @@ services:
       # Espaço para outros projetos...
       - ./configs/php5.6/php.ini:/usr/local/etc/php/conf.d/local.ini
       - ./configs/php5.6/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
-    command: sh -c "a2enmod rewrite"
+    command: >
+      bash -c "a2enmod rewrite && apache2-foreground && apt-get -y install firebird-dev && docker-php-ext-install interbase && docker-php-ext-enable interbase"
     links:
       - db
     
