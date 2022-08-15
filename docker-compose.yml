@@ -26,7 +26,21 @@ services:
       - ./configs/php7.4/php.ini:/usr/local/etc/php/conf.d/local.ini
       - ./configs/php7.4/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
     command: >
-      bash -c "a2enmod rewrite && apache2-foreground"
+      bash -c "a2enmod rewrite 
+      && docker pull mlocati/php-extension-installer 
+      && apt-get install -y libmcrypt-dev libfreetype6-dev libfreetype6-dev libpng-dev 
+      && apt-get -y install firebird-dev 
+      && docker-php-ext-install interbase 
+      && docker-php-ext-enable interbase 
+      && docker-php-ext-install simplexml 
+      && docker-php-ext-enable simplexml 
+      && docker-php-ext-install dom 
+      && docker-php-ext-enable dom 
+      && docker-php-ext-install intl 
+      && docker-php-ext-enable intl 
+      && docker-php-ext-install soap 
+      && docker-php-ext-enable soap 
+      && apache2-foreground"
     links:
       - db
 
@@ -43,7 +57,21 @@ services:
       - ./configs/php5.6/php.ini:/usr/local/etc/php/conf.d/local.ini
       - ./configs/php5.6/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
     command: >
-      bash -c "a2enmod rewrite && apache2-foreground && apt-get -y install firebird-dev && docker-php-ext-install interbase && docker-php-ext-enable interbase"
+      bash -c "a2enmod rewrite 
+      && docker pull mlocati/php-extension-installer 
+      && apt-get install -y libmcrypt-dev libfreetype6-dev libfreetype6-dev libpng-dev 
+      && apt-get -y install firebird-dev 
+      && docker-php-ext-install interbase 
+      && docker-php-ext-enable interbase 
+      && docker-php-ext-install simplexml 
+      && docker-php-ext-enable simplexml 
+      && docker-php-ext-install dom 
+      && docker-php-ext-enable dom 
+      && docker-php-ext-install intl 
+      && docker-php-ext-enable intl 
+      && docker-php-ext-install soap 
+      && docker-php-ext-enable soap 
+      && apache2-foreground"
     links:
       - db
     
