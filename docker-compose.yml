@@ -27,11 +27,8 @@ services:
       - ./configs/php7.4/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
     command: >
       bash -c "a2enmod rewrite 
-      && docker pull mlocati/php-extension-installer 
-      && apt-get install -y libmcrypt-dev libfreetype6-dev libfreetype6-dev libpng-dev 
-      && apt-get -y install firebird-dev 
-      && docker-php-ext-install interbase 
-      && docker-php-ext-enable interbase 
+      && apt-get update 
+      && apt-get -y install libxml2-dev 
       && docker-php-ext-install simplexml 
       && docker-php-ext-enable simplexml 
       && docker-php-ext-install dom 
@@ -58,11 +55,11 @@ services:
       - ./configs/php5.6/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
     command: >
       bash -c "a2enmod rewrite 
-      && docker pull mlocati/php-extension-installer 
-      && apt-get install -y libmcrypt-dev libfreetype6-dev libfreetype6-dev libpng-dev 
+      && apt-get update 
       && apt-get -y install firebird-dev 
-      && docker-php-ext-install interbase 
-      && docker-php-ext-enable interbase 
+      && apt-get -y install libxml2-dev 
+      && docker-php-ext-install pdo_firebird 
+      && docker-php-ext-enable pdo_firebird 
       && docker-php-ext-install simplexml 
       && docker-php-ext-enable simplexml 
       && docker-php-ext-install dom 
