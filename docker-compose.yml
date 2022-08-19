@@ -25,6 +25,7 @@ services:
       # Espaço para outros projetos...
       - ./configs/php7.4/php.ini:/usr/local/etc/php/conf.d/local.ini
       - ./configs/php7.4/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
+      - ./configs/php7.4/apache2.conf:/etc/apache2/apache2.conf
     command: >
       bash -c "a2enmod rewrite 
       && apt-get update 
@@ -52,7 +53,8 @@ services:
       - ../projects/gateway-payment-essentia:/var/www/html/gateway-payment-essentia
       # Espaço para outros projetos...
       - ./configs/php5.6/php.ini:/usr/local/etc/php/conf.d/local.ini
-      - ./configs/php5.6/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
+      - ./configs/php5.6/000-default.conf:/etc/apache2/sites-enabled/000-default.conf 
+      - ./configs/php5.6/apache2.conf:/etc/apache2/apache2.conf 
     command: >
       bash -c "a2enmod rewrite 
       && apt-get update 
