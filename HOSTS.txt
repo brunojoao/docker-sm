@@ -1,7 +1,11 @@
 127.0.0.1 injetaveis.docker.local
+::1 injetaveis.docker.local
 127.0.0.1 sm-hkm.docker.local
+::1 sm-hkm.docker.local
 127.0.0.1 sm-smart.docker.local
+::1 sm-smart.docker.local
 127.0.0.1 gpe.docker.local
+::1 gpe.docker.local
 
 
 
