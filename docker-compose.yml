@@ -40,7 +40,7 @@ services:
       && docker-php-ext-install soap 
       && docker-php-ext-enable soap 
       && apache2-foreground
-      && chmod -R /var/www/html 777"
+      && chmod -R 777 /var/www/html"
     links:
       - db
 
@@ -75,7 +75,7 @@ services:
       && docker-php-ext-install soap 
       && docker-php-ext-enable soap 
       && apache2-foreground
-      && chmod -R /var/www/html 777"
+      && chmod -R 777 /var/www/html"
     links:
       - db
     
