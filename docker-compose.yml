@@ -58,6 +58,8 @@ services:
       && apt-get update 
       && apt-get -y install firebird-dev 
       && apt-get -y install libxml2-dev 
+      && docker-php-ext-install interbase 
+      && docker-php-ext-enable interbase 
       && docker-php-ext-install pdo_firebird 
       && docker-php-ext-enable pdo_firebird 
       && docker-php-ext-install simplexml 
