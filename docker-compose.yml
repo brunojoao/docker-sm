@@ -21,13 +21,13 @@ services:
     ports:
       - 8080:80
     volumes:
-      - ../projects/injetaveisadmin:/var/www/html/injetaveisadmin
+      - /var/www/injetaveisadmin:/var/www/html/injetaveisadmin
       # Espaço para outros projetos...
       - ./configs/php7.4/php.ini:/usr/local/etc/php/conf.d/local.ini
       - ./configs/php7.4/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
-      - ./configs/php7.4/apache2.conf:/etc/apache2/apache2.conf
+      #- ./configs/php7.4/apache2.conf:/etc/apache2/apache2.conf
       - ./configs/php7.4/ports.conf:/etc/apache2/ports.conf
-    command: >
+    command: > 
       bash -c "a2enmod rewrite 
       && apt-get update 
       && apt-get -y install libxml2-dev 
@@ -39,7 +39,7 @@ services:
       && docker-php-ext-enable intl 
       && docker-php-ext-install soap 
       && docker-php-ext-enable soap 
-      && apache2-foreground
+      && apache2-foreground 
       && chmod -R 777 /var/www/html"
     links:
       - db
@@ -50,13 +50,14 @@ services:
     ports:
       - 8081:80
     volumes:
-      - ../projects/supermonitor-hkm:/var/www/html/supermonitor-hkm
-      - ../projects/supermonitor-smart:/var/www/html/supermonitor-smart
-      - ../projects/gateway-payment-essentia:/var/www/html/gateway-payment-essentia
+      - /var/www/supermonitor-hkm:/var/www/html/supermonitor-hkm
+      - /var/www/supermonitor-smart:/var/www/html/supermonitor-smart
+      - /var/www/gateway-payment-essentia:/var/www/html/gateway-payment-essentia
       # Espaço para outros projetos...
       - ./configs/php5.6/php.ini:/usr/local/etc/php/conf.d/local.ini
       - ./configs/php5.6/000-default.conf:/etc/apache2/sites-enabled/000-default.conf 
-      - ./configs/php5.6/apache2.conf:/etc/apache2/apache2.conf 
+      - ./configs/php5.6/ports.conf:/etc/apache2/ports.conf
+      # - ./configs/php5.6/apache2.conf:/etc/apache2/apache2.conf 
     command: >
       bash -c "a2enmod rewrite 
       && apt-get update 
