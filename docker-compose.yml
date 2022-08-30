@@ -3,13 +3,14 @@ version: '3.1'
 
 services:
   db:
-    image: mysql
+    image: mysql:5.7.31
     # NOTE: use of "mysql_native_password" is not recommended: https://dev.mysql.com/doc/refman/8.0/en/upgrading-from-previous-series.html#upgrade-caching-sha2-password
     # (this is just an example, not intended to be a production configuration)
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     volumes:
       - ./configs/mysql.cnf:/etc/mysql/conf.d/custom.cnf
+      - mysql_data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: 789123
     ports:
@@ -83,4 +84,5 @@ services:
       && chmod -R 777 /var/www/html"
     links:
       - db
-    
+volumes:
+  mysql_data:
