@@ -42,7 +42,6 @@ services:
       && docker-php-ext-enable pdo_mysql 
       && docker-php-ext-install soap 
       && docker-php-ext-enable soap 
-      && pecl install xdebug 
       && apache2-foreground 
       && chmod -R 777 /var/www/html"
     links:
@@ -81,7 +80,6 @@ services:
       && docker-php-ext-enable intl 
       && docker-php-ext-install soap 
       && docker-php-ext-enable soap 
-      && pecl install xdebug-2.5.5 
       && apache2-foreground
       && chmod -R 777 /var/www/html"
     links:
