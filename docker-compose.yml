@@ -46,6 +46,8 @@ services:
       && chmod -R 777 /var/www/html"
     links:
       - db
+    extra_hosts:
+    - "injetaveis.docker.local:172.18.0.4"
 
   php5.6:
     image: php:5.6-apache
@@ -84,5 +86,9 @@ services:
       && chmod -R 777 /var/www/html"
     links:
       - db
+    extra_hosts:
+    - "sm-hkm.docker.local:172.18.0.3"
+    - "sm-smart.docker.local:172.18.0.3"
+    - "gpe.docker.local:172.18.0.3"
 volumes:
   mysql_data:
