@@ -74,5 +74,25 @@ services:
     - "sm-hkm.docker.local:127.0.0.1"
     - "sm-smart.docker.local:127.0.0.1"
     - "gpe.docker.local:127.0.0.1"
+
+  node:
+    image: node:19-alpine
+    user: "node"
+    container_name: sockets
+    ports:
+      - 3003:3003
+      - 3004:3004
+    volumes:
+      - ../projects/node_server_sm:/var/www/html/node_server_sm
+      - ../projects/node_server_injetaveis:/var/www/html/node_server_injetaveis
+    command: > 
+      bash -c "npm install pm2 
+      && cd /var/www/html/node_server_sm 
+      && npm update 
+      && pm2 start /var/www/html/node_server_sm/index.js --watch 
+      && cd /var/www/html/node_server_injetaveis 
+      && pm2 start /var/www/html/node_server_injetaveis --watch 
+      && npm update"
+
 volumes:
   mysql_data:
