@@ -4,6 +4,7 @@ version: '3.1'
 services:
   db:
     image: mysql:5.7.31
+    container_name: db-1
     # NOTE: use of "mysql_native_password" is not recommended: https://dev.mysql.com/doc/refman/8.0/en/upgrading-from-previous-series.html#upgrade-caching-sha2-password
     # (this is just an example, not intended to be a production configuration)
     command: --default-authentication-plugin=mysql_native_password
@@ -31,23 +32,17 @@ services:
     command: > 
       bash -c "a2enmod rewrite 
       && apt-get update 
-      && apt-get -y install libxml2-dev 
-      && docker-php-ext-install simplexml 
-      && docker-php-ext-enable simplexml 
-      && docker-php-ext-install dom 
-      && docker-php-ext-enable dom 
-      && docker-php-ext-install intl 
-      && docker-php-ext-enable intl 
-      && docker-php-ext-install pdo_mysql 
-      && docker-php-ext-enable pdo_mysql 
-      && docker-php-ext-install soap 
-      && docker-php-ext-enable soap 
+      && apt-get -y install libxml2-dev unzip firebird-dev 
+      && docker-php-ext-install simplexml dom intl pdo_mysql soap pdo_firebird  
       && apache2-foreground 
-      && chmod -R 777 /var/www/html"
+      && chmod -R 777 /var/www/html 
+      && curl -sS https://getcomposer.org/installer -o /tmp/composer-setup.php 
+      && php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer 
+      && composer self-update --1"
     links:
       - db
     extra_hosts:
-    - "injetaveis.docker.local:172.18.0.4"
+    - "injetaveis.docker.local:127.0.0.1"
 
   php5.6:
     image: php:5.6-apache
@@ -66,29 +61,18 @@ services:
     command: >
       bash -c "a2enmod rewrite 
       && apt-get update 
-      && apt-get -y install firebird-dev 
-      && apt-get -y install libxml2-dev 
-      && docker-php-ext-install interbase 
-      && docker-php-ext-enable interbase 
-      && docker-php-ext-install pdo_firebird 
-      && docker-php-ext-enable pdo_firebird 
-      && docker-php-ext-install pdo_mysql 
-      && docker-php-ext-enable pdo_mysql 
-      && docker-php-ext-install simplexml 
-      && docker-php-ext-enable simplexml 
-      && docker-php-ext-install dom 
-      && docker-php-ext-enable dom 
-      && docker-php-ext-install intl 
-      && docker-php-ext-enable intl 
-      && docker-php-ext-install soap 
-      && docker-php-ext-enable soap 
-      && apache2-foreground
-      && chmod -R 777 /var/www/html"
+      && apt-get -y install libxml2-dev unzip firebird-dev 
+      && docker-php-ext-install interbase pdo_mysql simplexml dom intl soap pdo_firebird interbase
+      && apache2-foreground 
+      && chmod -R 777 /var/www/html 
+      && curl -sS https://getcomposer.org/installer -o /tmp/composer-setup.php 
+      && php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer 
+      && composer self-update --1"
     links:
       - db
     extra_hosts:
-    - "sm-hkm.docker.local:172.18.0.3"
-    - "sm-smart.docker.local:172.18.0.3"
-    - "gpe.docker.local:172.18.0.3"
+    - "sm-hkm.docker.local:127.0.0.1"
+    - "sm-smart.docker.local:127.0.0.1"
+    - "gpe.docker.local:127.0.0.1"
 volumes:
   mysql_data:
