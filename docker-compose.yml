@@ -2,9 +2,9 @@
 version: '3.1'
 
 services:
-  db:
+  db-mysql-host:
     image: mysql:5.7.31
-    container_name: db-1
+    container_name: db-mysql
     # NOTE: use of "mysql_native_password" is not recommended: https://dev.mysql.com/doc/refman/8.0/en/upgrading-from-previous-series.html#upgrade-caching-sha2-password
     # (this is just an example, not intended to be a production configuration)
     command: --default-authentication-plugin=mysql_native_password
@@ -15,7 +15,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 789123
     ports:
-      - 3349:3306
+      - 3306:3306
 
   php7.4:
     image: php:7.4-apache
@@ -40,7 +40,7 @@ services:
       && composer self-update --1
       && apache2-foreground"
     links:
-      - db
+      - db-mysql-host
     extra_hosts:
     - "injetaveis.docker.local:127.0.0.1"
 
@@ -69,30 +69,35 @@ services:
       && composer self-update --1 
       && apache2-foreground"
     links:
-      - db
+      - db-mysql-host
     extra_hosts:
     - "sm-hkm.docker.local:127.0.0.1"
     - "sm-smart.docker.local:127.0.0.1"
     - "gpe.docker.local:127.0.0.1"
 
-  node:
-    image: node:19-alpine
-    user: "node"
-    container_name: sockets
+  node-socket-sm:
+    image: node:12.22.9
+    user: "root"
+    container_name: socket_sm
+    working_dir: /home/node/app
     ports:
       - 3003:3003
+    volumes:
+      - ../projects/node_server_sm:/home/node/app
+    command: >
+      bash -c "npm config set unsafe-perm true && npm install -f && npm install pm2 -g && pm2-runtime start index.js --watch"
+
+  node-socket-injetaveis:
+    image: node:12.22.9
+    user: "root"
+    container_name: socket_injetaveis
+    working_dir: /home/node/app
+    ports:
       - 3004:3004
     volumes:
-      - ../projects/node_server_sm:/var/www/html/node_server_sm
-      - ../projects/node_server_injetaveis:/var/www/html/node_server_injetaveis
-    command: > 
-      bash -c "npm install pm2 
-      && cd /var/www/html/node_server_sm 
-      && npm update 
-      && pm2 start /var/www/html/node_server_sm/index.js --watch 
-      && cd /var/www/html/node_server_injetaveis 
-      && pm2 start /var/www/html/node_server_injetaveis --watch 
-      && npm update"
+      - ../projects/node_server_injetaveis:/home/node/app
+    command: >
+      bash -c "npm config set unsafe-perm true && npm install -f && npm install pm2 -g && pm2-runtime start index.js --watch"
 
 volumes:
   mysql_data:
