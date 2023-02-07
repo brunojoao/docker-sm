@@ -32,13 +32,12 @@ services:
     command: > 
       bash -c "a2enmod rewrite 
       && apt-get update 
-      && apt-get -y install libxml2-dev unzip firebird-dev curl 
+      && apt-get -y install libxml2-dev unzip firebird-dev curl git 
       && docker-php-ext-install simplexml dom intl pdo_mysql soap pdo_firebird  
       && chmod -R 777 /var/www/html 
       && curl --show-error https://getcomposer.org/installer -o /tmp/composer-setup.php 
       && php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer 
       && composer self-update --1 
-      && sed -i 's/APACHE_RUN_USER:=www-data/APACHE_RUN_USER:=1000/g' /etc/apache2/envvars 
       && sed -i 's/APACHE_RUN_GROUP:=www-data/APACHE_RUN_GROUP:=root/g' /etc/apache2/envvars 
       && apache2-foreground"
     links:
@@ -63,13 +62,12 @@ services:
     command: >
       bash -c "a2enmod rewrite 
       && apt-get update 
-      && apt-get -y install libxml2-dev unzip firebird-dev curl 
+      && apt-get -y install libxml2-dev unzip firebird-dev curl git 
       && docker-php-ext-install interbase pdo_mysql simplexml dom intl soap pdo_firebird interbase  
       && chmod -R 777 /var/www/html 
       && curl --show-error https://getcomposer.org/installer -o /tmp/composer-setup.php 
       && php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer 
-      && composer self-update --1  
-      && sed -i 's/APACHE_RUN_USER:=www-data/APACHE_RUN_USER:=1000/g' /etc/apache2/envvars
+      && composer self-update --1 
       && sed -i 's/APACHE_RUN_GROUP:=www-data/APACHE_RUN_GROUP:=root/g' /etc/apache2/envvars 
       && apache2-foreground"
     links:
