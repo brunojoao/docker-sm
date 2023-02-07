@@ -51,19 +51,19 @@ services:
     ports:
       - 8081:80
     volumes:
-      - ../projects/supermonitor-hkm:/var/www/html/supermonitor-hkm
-      - ../projects/supermonitor-smart:/var/www/html/supermonitor-smart
-      - ../projects/gateway-payment-essentia:/var/www/html/gateway-payment-essentia
+      - ../projects/supermonitor-hkm:/var/www/html/supermonitor-hkm 
+      - ../projects/supermonitor-smart:/var/www/html/supermonitor-smart 
+      - ../projects/gateway-payment-essentia:/var/www/html/gateway-payment-essentia 
       # Espaço para outros projetos...
-      - ./configs/php5.6/php.ini:/usr/local/etc/php/conf.d/local.ini
+      - ./configs/php5.6/php.ini:/usr/local/etc/php/conf.d/local.ini 
       - ./configs/php5.6/000-default.conf:/etc/apache2/sites-enabled/000-default.conf 
-      - ./configs/php5.6/ports.conf:/etc/apache2/ports.conf
+      - ./configs/php5.6/ports.conf:/etc/apache2/ports.conf 
       # - ./configs/php5.6/apache2.conf:/etc/apache2/apache2.conf 
     command: >
       bash -c "a2enmod rewrite 
       && apt-get update 
       && apt-get -y install libxml2-dev unzip firebird-dev curl git 
-      && docker-php-ext-install interbase pdo_mysql simplexml dom intl soap pdo_firebird interbase  
+      && docker-php-ext-install interbase pdo_mysql simplexml dom intl soap pdo_firebird interbase 
       && chmod -R 777 /var/www/html 
       && curl --show-error https://getcomposer.org/installer -o /tmp/composer-setup.php 
       && php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer 
