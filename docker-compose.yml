@@ -57,10 +57,11 @@ services:
       - ./configs/php5.6/000-default.conf:/etc/apache2/sites-enabled/000-default.conf 
       - ./configs/php5.6/ports.conf:/etc/apache2/ports.conf 
       - ./configs/php5.6/status.conf:/etc/apache2/mods-enabled/status.conf 
+      - ./configs/server-status/server-status.lua:/var/www/html/server-status/server-status.lua 
       # - ./configs/php5.6/apache2.conf:/etc/apache2/apache2.conf 
     command: >
       bash -c "a2enmod rewrite 
-      && a2enmod status
+      && a2enmod status 
       && apt-get update 
       && apt-get -y install libxml2-dev unzip firebird-dev curl git libjpeg-dev libpng-dev libfreetype6-dev libz-dev libtiff-dev 
       && docker-php-ext-install interbase pdo pdo_mysql simplexml dom intl soap pdo_firebird interbase gd 
