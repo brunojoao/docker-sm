@@ -16,23 +16,26 @@ services:
       MYSQL_ROOT_PASSWORD: 789123
     ports:
       - 3306:3306
-
   php7.4:
     image: php:7.4-apache
     container_name: php7-projects
     ports:
       - 8080:80
+      - 9000:9000
     volumes:
       - ../projects/injetaveisadmin:/var/www/html/injetaveisadmin
       - ./configs/php7.4/php.ini:/usr/local/etc/php/conf.d/local.ini
       - ./configs/php7.4/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
       #- ./configs/php7.4/apache2.conf:/etc/apache2/apache2.conf
       - ./configs/php7.4/ports.conf:/etc/apache2/ports.conf
+      - ./configs/php7.4/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
     command: > 
       bash -c "a2enmod rewrite 
       && apt-get update 
       && apt-get -y install libxml2-dev unzip firebird-dev curl git 
+      && pecl install xdebug-3.1.6 
       && docker-php-ext-install simplexml dom intl pdo_mysql soap pdo_firebird 
+      && docker-php-ext-enable xdebug 
       && chmod -R 777 /var/www/html 
       && curl --show-error https://getcomposer.org/installer -o /tmp/composer-setup.php 
       && php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer 
@@ -49,6 +52,7 @@ services:
     container_name: php5-projects
     ports:
       - 8081:80
+      - 9001:9001
     volumes:
       - ../projects/supermonitor-hkm:/var/www/html/supermonitor-hkm 
       - ../projects/supermonitor-smart:/var/www/html/supermonitor-smart 
@@ -57,14 +61,16 @@ services:
       - ./configs/php5.6/000-default.conf:/etc/apache2/sites-enabled/000-default.conf 
       - ./configs/php5.6/ports.conf:/etc/apache2/ports.conf 
       - ./configs/php5.6/status.conf:/etc/apache2/mods-enabled/status.conf 
-      - ./configs/server-status/server-status.lua:/var/www/html/server-status/server-status.lua 
+      - ./configs/php5.6/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
       # - ./configs/php5.6/apache2.conf:/etc/apache2/apache2.conf 
     command: >
       bash -c "a2enmod rewrite 
       && a2enmod status 
       && apt-get update 
       && apt-get -y install libxml2-dev unzip firebird-dev curl git libjpeg-dev libpng-dev libfreetype6-dev libz-dev libtiff-dev 
+      && pecl install xdebug-2.5.5
       && docker-php-ext-install interbase pdo pdo_mysql simplexml dom intl soap pdo_firebird interbase gd 
+      && docker-php-ext-enable xdebug 
       && chmod -R 777 /var/www/html 
       && curl --show-error https://getcomposer.org/installer -o /tmp/composer-setup.php 
       && php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer 
