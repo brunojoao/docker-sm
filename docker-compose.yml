@@ -31,15 +31,15 @@ services:
       - ./configs/php7.4/ports.conf:/etc/apache2/ports.conf
       - ./configs/php7.4/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
     command: >
-      bash -c "a2enmod rewrite 
+      bash -c "a2enmod rewrite || true
       && apt-get update 
       && apt-get -y install libxml2-dev unzip firebird-dev curl git || true
       && pecl install xdebug-3.1.6 || true 
       && docker-php-ext-install simplexml dom intl pdo_mysql soap pdo_firebird || true
       && docker-php-ext-enable xdebug || true
       && chmod -R 777 /var/www/html 
-      && curl --show-error https://getcomposer.org/installer -o /tmp/composer-setup.php || true
-      && php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer || true
+      && curl --show-error https://getcomposer.org/installer -o /tmp/composer-setup.php
+      && php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer
       && composer self-update --1 
       && sed -i 's/APACHE_RUN_GROUP:=www-data/APACHE_RUN_GROUP:=root/g' /etc/apache2/envvars 
       && apache2-foreground"
@@ -67,7 +67,6 @@ services:
       # - ./configs/php5.6/apache2.conf:/etc/apache2/apache2.conf
     command: >
       bash -c "a2enmod rewrite || true
-      && a2enmod status 
       && apt-get update 
       && apt-get -y install libxml2-dev unzip firebird-dev curl git libjpeg-dev libpng-dev libfreetype6-dev libz-dev libtiff-dev || true
       && pecl install xdebug-2.5.5 || true
