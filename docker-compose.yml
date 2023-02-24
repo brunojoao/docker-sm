@@ -1,5 +1,5 @@
 # Use root/example as user/password credentials
-version: '3.1'
+version: "3.1"
 
 services:
   db-mysql-host:
@@ -23,13 +23,13 @@ services:
       - 8080:80
       - 9000:9000
     volumes:
-      - ../projects/injetaveisadmin:/var/www/html/injetaveisadmin
+      - C:/wamp64/www/injetaveisadmin:/var/www/html/injetaveisadmin
       - ./configs/php7.4/php.ini:/usr/local/etc/php/conf.d/local.ini
       - ./configs/php7.4/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
       #- ./configs/php7.4/apache2.conf:/etc/apache2/apache2.conf
       - ./configs/php7.4/ports.conf:/etc/apache2/ports.conf
       - ./configs/php7.4/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-    command: > 
+    command: >
       bash -c "a2enmod rewrite 
       && apt-get update 
       && apt-get -y install libxml2-dev unzip firebird-dev curl git || true
@@ -45,7 +45,7 @@ services:
     links:
       - db-mysql-host
     extra_hosts:
-    - "injetaveis.docker.local:127.0.0.1"
+      - "injetaveis.docker.local:127.0.0.1"
 
   php5.6:
     image: php:5.6-apache
@@ -54,15 +54,15 @@ services:
       - 8081:80
       - 9001:9001
     volumes:
-      - ../projects/supermonitor-hkm:/var/www/html/supermonitor-hkm 
-      - ../projects/supermonitor-smart:/var/www/html/supermonitor-smart 
-      - ../projects/gateway-payment-essentia:/var/www/html/gateway-payment-essentia 
-      - ./configs/php5.6/php.ini:/usr/local/etc/php/conf.d/local.ini 
-      - ./configs/php5.6/000-default.conf:/etc/apache2/sites-enabled/000-default.conf 
-      - ./configs/php5.6/ports.conf:/etc/apache2/ports.conf 
-      - ./configs/php5.6/status.conf:/etc/apache2/mods-enabled/status.conf 
+      - C:/wamp64/www/supermonitor-hkm:/var/www/html/supermonitor-hkm
+      - C:/wamp64/www/supermonitor-smart:/var/www/html/supermonitor-smart
+      - C:/wamp64/www/gateway-payment-essentia:/var/www/html/gateway-payment-essentia
+      - ./configs/php5.6/php.ini:/usr/local/etc/php/conf.d/local.ini
+      - ./configs/php5.6/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
+      - ./configs/php5.6/ports.conf:/etc/apache2/ports.conf
+      - ./configs/php5.6/status.conf:/etc/apache2/mods-enabled/status.conf
       - ./configs/php5.6/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-      # - ./configs/php5.6/apache2.conf:/etc/apache2/apache2.conf 
+      # - ./configs/php5.6/apache2.conf:/etc/apache2/apache2.conf
     command: >
       bash -c "a2enmod rewrite || true
       && a2enmod status 
@@ -80,9 +80,9 @@ services:
     links:
       - db-mysql-host
     extra_hosts:
-    - "sm-hkm.docker.local:127.0.0.1"
-    - "sm-smart.docker.local:127.0.0.1"
-    - "gpe.docker.local:127.0.0.1"
+      - "sm-hkm.docker.local:127.0.0.1"
+      - "sm-smart.docker.local:127.0.0.1"
+      - "gpe.docker.local:127.0.0.1"
 
   node-socket-sm:
     image: node:12.22.9
