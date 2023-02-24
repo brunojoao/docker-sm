@@ -24,7 +24,7 @@ services:
       - 8080:80
       - 9000:9000
     volumes:
-      - C:/wamp64/www/injetaveisadmin:/var/www/html/injetaveisadmin
+      - ../projects/injetaveisadmin:/var/www/html/injetaveisadmin
       - ./configs/php7.4/php.ini:/usr/local/etc/php/conf.d/local.ini
       - ./configs/php7.4/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
       #- ./configs/php7.4/apache2.conf:/etc/apache2/apache2.conf
@@ -56,9 +56,9 @@ services:
       - 8081:80
       - 9001:9001
     volumes:
-      - C:/wamp64/www/supermonitor-hkm:/var/www/html/supermonitor-hkm
-      - C:/wamp64/www/supermonitor-smart:/var/www/html/supermonitor-smart
-      - C:/wamp64/www/gateway-payment-essentia:/var/www/html/gateway-payment-essentia
+      - ../projects/supermonitor-hkm:/var/www/html/supermonitor-hkm
+      - ../projects/supermonitor-smart:/var/www/html/supermonitor-smart
+      - ../projects/gateway-payment-essentia:/var/www/html/gateway-payment-essentia
       - ./configs/php5.6/php.ini:/usr/local/etc/php/conf.d/local.ini
       - ./configs/php5.6/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
       - ./configs/php5.6/ports.conf:/etc/apache2/ports.conf
