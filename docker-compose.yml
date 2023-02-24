@@ -18,6 +18,7 @@ services:
       - 3306:3306
   php7.4:
     image: php:7.4-apache
+    user: "root"
     container_name: php7-projects
     ports:
       - 8080:80
@@ -49,6 +50,7 @@ services:
 
   php5.6:
     image: php:5.6-apache
+    user: "root"
     container_name: php5-projects
     ports:
       - 8081:80
