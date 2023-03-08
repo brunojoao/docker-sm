@@ -1,5 +1,7 @@
 127.0.0.1 injetaveis.docker.local
 ::1 injetaveis.docker.local
+127.0.0.1 injetaveis-cron.docker.local
+::1 injetaveis-cron.docker.local
 127.0.0.1 sm-hkm.docker.local
 ::1 sm-hkm.docker.local
 127.0.0.1 sm-smart.docker.local
@@ -14,3 +16,4 @@ sm-hkm.docker.local:8081
 sm-smart.docker.local:8081
 gpe.docker.local:8081
 injetaveis.docker.local:8080
+injetaveis-cron.docker.local:8080
