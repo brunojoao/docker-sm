@@ -4,9 +4,10 @@ version: "3.1"
 services:
   portainer:
     image: portainer/portainer
+    container_name: sdock_portainer_1
     restart: always
     ports:
-      - 9000:9000
+      - 9999:9000
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data
