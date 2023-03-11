@@ -41,9 +41,9 @@ services:
       - ./configs/php7.4/ports.conf:/etc/apache2/ports.conf
       - ./configs/php7.4/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
     command: >
-      bash -c "a2enmod rewrite || true
+      bash -c "a2enmod rewrite || true 
       && apt-get update 
-      && apt-get -y install libxml2-dev unzip firebird-dev curl git || true
+      && apt-get -y install libxml2-dev zip unzip firebird-dev curl || true
       && pecl install xdebug-3.1.6 || true 
       && docker-php-ext-install simplexml dom intl pdo_mysql soap pdo_firebird || true
       && docker-php-ext-enable xdebug || true
@@ -78,7 +78,7 @@ services:
     command: >
       bash -c "a2enmod rewrite || true
       && apt-get update 
-      && apt-get -y install libxml2-dev unzip firebird-dev curl git libjpeg-dev libpng-dev libfreetype6-dev libz-dev libtiff-dev || true
+      && apt-get -y install libxml2-dev zip unzip firebird-dev curl libjpeg-dev libpng-dev libfreetype6-dev libz-dev libtiff-dev || true
       && pecl install xdebug-2.5.5 || true
       && docker-php-ext-install interbase pdo pdo_mysql simplexml dom intl soap pdo_firebird interbase gd || true
       && docker-php-ext-enable xdebug || true
