@@ -41,12 +41,12 @@ services:
       - ./configs/php7.4/ports.conf:/etc/apache2/ports.conf
       - ./configs/php7.4/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
     command: >
-      bash -c "a2enmod rewrite || true
-      && apt-get update || true
-      && apt-get -y install libxml2-dev zip unzip firebird-dev curl || true
-      && pecl install xdebug-3.1.6 || true 
-      && docker-php-ext-install simplexml dom intl pdo_mysql soap pdo_firebird || true
-      && docker-php-ext-enable xdebug || true
+      bash -c "a2enmod rewrite 
+      && apt-get update 
+      && apt-get -y install libxml2-dev zip unzip firebird-dev curl 
+      && pecl install xdebug-3.1.6  
+      && docker-php-ext-install simplexml dom intl mysqli pdo pdo_mysql soap pdo_firebird 
+      && docker-php-ext-enable xdebug 
       && chmod -R 777 /var/www/html 
       && curl --show-error https://getcomposer.org/installer -o /tmp/composer-setup.php
       && php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer
@@ -76,15 +76,15 @@ services:
       - ./configs/php5.6/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
       # - ./configs/php5.6/apache2.conf:/etc/apache2/apache2.conf
     command: >
-      bash -c "a2enmod rewrite || true
-      && apt-get update || true
-      && apt-get -y install libxml2-dev zip unzip firebird-dev curl libjpeg-dev libpng-dev libfreetype6-dev libz-dev libtiff-dev || true
-      && pecl install xdebug-2.5.5 || true
-      && docker-php-ext-install interbase pdo pdo_mysql simplexml dom intl soap pdo_firebird interbase gd || true
-      && docker-php-ext-enable xdebug || true
+      bash -c "a2enmod rewrite 
+      && apt-get update 
+      && apt-get -y install libxml2-dev zip unzip firebird-dev curl libjpeg-dev libpng-dev libfreetype6-dev libz-dev libtiff-dev 
+      && pecl install xdebug-2.5.5 
+      && docker-php-ext-install interbase pdo pdo_mysql simplexml dom intl soap pdo_firebird interbase gd 
+      && docker-php-ext-enable xdebug 
       && chmod -R 777 /var/www/html 
-      && curl --show-error https://getcomposer.org/installer -o /tmp/composer-setup.php || true
-      && php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer || true
+      && curl --show-error https://getcomposer.org/installer -o /tmp/composer-setup.php 
+      && php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer 
       && composer self-update --1 
       && sed -i 's/APACHE_RUN_GROUP:=www-data/APACHE_RUN_GROUP:=root/g' /etc/apache2/envvars 
       && apache2-foreground"
