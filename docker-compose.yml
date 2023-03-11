@@ -34,7 +34,7 @@ services:
       - 9000:9000
     volumes:
       - ../projects/injetaveisadmin:/var/www/html/injetaveisadmin
-      - ../projects/injetaveiscron:/var/www/html/inj_cron
+      - ../projects/injetaveiscron:/var/www/html/injetaveiscron
       - ./configs/php7.4/php.ini:/usr/local/etc/php/conf.d/local.ini
       - ./configs/php7.4/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
       #- ./configs/php7.4/apache2.conf:/etc/apache2/apache2.conf
