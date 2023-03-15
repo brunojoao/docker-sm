@@ -58,7 +58,8 @@ services:
       && php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer
       && composer self-update --1 
       && sed -i 's/APACHE_RUN_GROUP:=www-data/APACHE_RUN_GROUP:=root/g' /etc/apache2/envvars 
-      && chown -R www-data:root /var/www/html/
+      && chown -R www-data:root /var/www/html/ 
+      && apt-get install -y git 
       && apache2-foreground"
     networks:
       dev_network:
@@ -98,7 +99,7 @@ services:
       && php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer 
       && composer self-update --1 
       && sed -i 's/APACHE_RUN_GROUP:=www-data/APACHE_RUN_GROUP:=root/g' /etc/apache2/envvars 
-      && chown -R www-data:root /var/www/html/
+      && apt-get install -y git 
       && apache2-foreground"
     networks:
       dev_network:
