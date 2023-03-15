@@ -6,6 +6,9 @@ services:
     image: portainer/portainer
     container_name: sdock_portainer_1
     restart: always
+    networks:
+      dev_network:
+        ipv4_address: 172.20.0.4
     ports:
       - 9999:9000
     volumes:
@@ -23,14 +26,18 @@ services:
       - mysql_data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: 789123
+    networks:
+      dev_network:
+        ipv4_address: 172.20.0.5
     ports:
       - 3306:3306
+
   php7.4:
     image: php:7.4-apache
     user: "root"
     container_name: php7-projects
     ports:
-      - 8080:80
+      - 8080:8080
       - 9000:9000
     volumes:
       - ../projects/injetaveisadmin:/var/www/html/injetaveisadmin
@@ -52,17 +59,22 @@ services:
       && composer self-update --1 
       && sed -i 's/APACHE_RUN_GROUP:=www-data/APACHE_RUN_GROUP:=root/g' /etc/apache2/envvars 
       && apache2-foreground"
+    networks:
+      dev_network:
+        ipv4_address: 172.20.0.6
     links:
       - db-mysql-host
     extra_hosts:
-      - "injetaveis.docker.local:127.0.0.1"
+      - "sm-hkm.docker.local:172.20.0.7"
+      - "sm-smart.docker.local:172.20.0.7"
+      - "gpe.docker.local:172.20.0.7"
 
   php5.6:
     image: php:5.6-apache
     user: "root"
     container_name: php5-projects
     ports:
-      - 8081:80
+      - 8081:8081
       - 9001:9001
     volumes:
       - ../projects/supermonitor-hkm:/var/www/html/supermonitor-hkm
@@ -86,18 +98,23 @@ services:
       && composer self-update --1 
       && sed -i 's/APACHE_RUN_GROUP:=www-data/APACHE_RUN_GROUP:=root/g' /etc/apache2/envvars 
       && apache2-foreground"
+    networks:
+      dev_network:
+        ipv4_address: 172.20.0.7
     links:
       - db-mysql-host
     extra_hosts:
-      - "sm-hkm.docker.local:127.0.0.1"
-      - "sm-smart.docker.local:127.0.0.1"
-      - "gpe.docker.local:127.0.0.1"
+      - "injetaveis.docker.local:172.20.0.6"
+      - "injetaveis-cron.docker.local:172.20.0.6"
 
   node-socket-sm:
     image: node:12.22.9
     user: "root"
     container_name: socket_sm
     working_dir: /home/node/app
+    networks:
+      dev_network:
+        ipv4_address: 172.20.0.8
     ports:
       - 3003:3003
     volumes:
@@ -110,6 +127,9 @@ services:
     user: "root"
     container_name: socket_injetaveis
     working_dir: /home/node/app
+    networks:
+      dev_network:
+        ipv4_address: 172.20.0.9
     ports:
       - 3004:3004
     volumes:
@@ -120,3 +140,12 @@ services:
 volumes:
   mysql_data:
   portainer_data:
+
+
+networks:
+  dev_network:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.20.0.0/16
+          gateway: 172.20.0.1
