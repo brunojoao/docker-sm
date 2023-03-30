@@ -49,8 +49,7 @@ services:
       - ./configs/php7.4/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
     command: >
       bash -c "a2enmod rewrite 
-      && apt-get update 
-      && apt-get -y install libxml2-dev zip unzip firebird-dev curl 
+      && apt-get update || true && apt-get -y install libxml2-dev zip unzip firebird-dev curl 
       && pecl install xdebug-3.1.6 || true
       && docker-php-ext-install simplexml dom intl mysqli pdo pdo_mysql soap pdo_firebird 
       && chmod -R 777 /var/www/html 
