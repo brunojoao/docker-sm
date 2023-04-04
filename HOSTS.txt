@@ -8,3 +8,5 @@
 ::1 sm-smart.docker.local
 127.0.0.1 gpe.docker.local
 ::1 gpe.docker.local
+127.0.0.1 gerenciador-compras.docker.local
+::1 gerenciador-compras.docker.local
