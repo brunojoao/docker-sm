@@ -45,7 +45,7 @@ services:
       dev_network:
         ipv4_address: 172.20.0.5
     ports:
-      - 3307:3307
+      - 3307:3306
 
   php5.6:
     image: php:5.6-apache
