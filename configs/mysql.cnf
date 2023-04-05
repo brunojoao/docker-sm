@@ -1,3 +1,5 @@
+innodb_temp_data_file_path = ibtmp1:12M:autoextend:max:5G
+
 [mysqldump]
 max_allowed_packet	= 8000M
 
