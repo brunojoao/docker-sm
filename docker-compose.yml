@@ -124,6 +124,7 @@ services:
       - 8082:8082
     volumes:
       - ../projects/gerenciador-compras:/var/www/html/gerenciador-compras
+      - ../projects/aldoimoveis:/var/www/html/aldoimoveis
       - ./configs/php8.1/php.ini:/usr/local/etc/php/conf.d/local.ini
       - ./configs/php8.1/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
       - ./configs/php8.1/ports.conf:/etc/apache2/ports.conf
