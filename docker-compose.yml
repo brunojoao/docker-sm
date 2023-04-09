@@ -116,23 +116,19 @@ services:
       - "gpe.docker.local:172.20.0.6"
       - "gerenciador-compras.local:172.20.0.8"
 
-  php8.0.26:
-    image: php:8.0.26-apache
+  drupal9:
+    image: drupal:9.5.7-apache
     user: "root"
-    container_name: php8-projects
+    container_name: drupal9
     ports:
       - 8082:8082
     volumes:
-      - ../projects/gerenciador-compras:/var/www/html/gerenciador-compras
       - ../projects/aldoimoveis:/var/www/html/aldoimoveis
       - ./configs/php8.1/php.ini:/usr/local/etc/php/conf.d/local.ini
       - ./configs/php8.1/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
       - ./configs/php8.1/ports.conf:/etc/apache2/ports.conf
     command: >
-      bash -c "a2enmod rewrite 
-      && apt-get update 
-      && apt-get -y install zlib1g-dev libxml2-dev libonig-dev libpng-dev zip unzip firebird-dev curl git
-      && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd 
+      bash -c "apt-get update 
       && curl --show-error https://getcomposer.org/installer -o /tmp/composer-setup.php 
       && php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer 
       && chmod -R 777 /var/www/html 
@@ -141,13 +137,7 @@ services:
       dev_network:
         ipv4_address: 172.20.0.8
     links:
-      - db-mysql-host
-    extra_hosts:
-      - "sm-hkm.docker.local:172.20.0.6"
-      - "sm-smart.docker.local:172.20.0.6"
-      - "gpe.docker.local:172.20.0.6"
-      - "injetaveis.docker.local:172.20.0.7"
-      - "injetaveis-cron.docker.local:172.20.0.7"
+      - db-mysql8-host
 
   node-socket-sm:
     image: node:12.22.9
