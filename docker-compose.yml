@@ -140,7 +140,7 @@ services:
       dev_network:
         ipv4_address: 172.20.0.8
     links:
-      - db-mysql-host
+      - db-mysql8-host
     extra_hosts:
       - "sm-hkm.docker.local:172.20.0.6"
       - "sm-smart.docker.local:172.20.0.6"
