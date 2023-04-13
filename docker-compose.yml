@@ -135,11 +135,13 @@ services:
       && curl --show-error https://getcomposer.org/installer -o /tmp/composer-setup.php 
       && php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer 
       && chmod -R 777 /var/www/html 
-      && curl -LO https://nodejs.org/dist/v19.9.0/node-v19.9.0-linux-x64.tar.xz
-      && tar -xvf node-v19.9.0-linux-x64.tar.xz
-      && mv node-v19.9.0-linux-x64 /usr/local/
-      && ln -s /usr/local/node-v19.9.0-linux-x64/bin/node /usr/local/bin/node
-      && ln -s /usr/local/node-v19.9.0-linux-x64/bin/npm /usr/local/bin/npm
+      && if [ ! -d /usr/local/node-v19.9.0-linux-x64 ]; then 
+      curl -LO https://nodejs.org/dist/v19.9.0/node-v19.9.0-linux-x64.tar.xz 
+      && tar -xvf node-v19.9.0-linux-x64.tar.xz 
+      && mv node-v19.9.0-linux-x64 /usr/local/ 
+      && ln -s /usr/local/node-v19.9.0-linux-x64/bin/node /usr/local/bin/node 
+      && ln -s /usr/local/node-v19.9.0-linux-x64/bin/npm /usr/local/bin/npm; 
+      fi
       && apache2-foreground"
     networks:
       dev_network:
