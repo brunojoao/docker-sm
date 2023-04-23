@@ -52,7 +52,9 @@ services:
     user: "root"
     container_name: php5-projects
     ports:
-      - 8080:8080
+      - 81:81
+      - 82:82
+      - 83:83
     volumes:
       - ../projects/supermonitor-hkm:/var/www/html/supermonitor-hkm
       - ../projects/supermonitor-smart:/var/www/html/supermonitor-smart
@@ -87,7 +89,8 @@ services:
     user: "root"
     container_name: php7-projects
     ports:
-      - 8081:8081
+      - 84:84
+      - 85:85
     volumes:
       - ../projects/injetaveisadmin:/var/www/html/injetaveisadmin
       - ../projects/injetaveiscron:/var/www/html/injetaveiscron
@@ -121,7 +124,7 @@ services:
     user: "root"
     container_name: php8-projects
     ports:
-      - 8082:8082
+      - 86:86
       - 5173:5173
     volumes:
       - ../projects/gerenciador-compras:/var/www/html/gerenciador-compras
