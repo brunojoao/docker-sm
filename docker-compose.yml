@@ -70,7 +70,7 @@ services:
       && add-apt-repository ppa:ondrej/php 
       && apt-get update 
       && apt upgrade 
-      && apt-get -y install php5.6 libxml2-dev zip unzip firebird-dev curl libjpeg-dev libpng-dev libfreetype6-dev libz-dev libtiff-dev git 
+      && apt-get -y install libxml2-dev zip unzip firebird-dev curl libjpeg-dev libpng-dev libfreetype6-dev libz-dev libtiff-dev git 
       && docker-php-ext-install interbase pdo pdo_mysql simplexml dom intl soap pdo_firebird gd 
       && chmod -R 777 /var/www/html 
       && curl --show-error https://getcomposer.org/installer -o /tmp/composer-setup.php 
