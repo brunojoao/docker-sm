@@ -48,7 +48,7 @@ services:
       - 3307:3306
 
   php5.6:
-    image: php:5.6-apache
+    image: php:5.6-apache-jessie
     user: "root"
     container_name: php5-projects
     ports:
