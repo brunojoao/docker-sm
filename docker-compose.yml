@@ -81,7 +81,8 @@ services:
       && composer self-update --1 
       && sed -i 's/APACHE_RUN_GROUP:=www-data/APACHE_RUN_GROUP:=root/g' /etc/apache2/envvars 
       && a2enmod rewrite 
-      && service apache2 restart"
+      && service apache2 stop 
+      && apache2-foreground"
     networks:
       dev_network:
         ipv4_address: 172.20.0.6
