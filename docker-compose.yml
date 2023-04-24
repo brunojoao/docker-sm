@@ -81,6 +81,7 @@ services:
       && sed -i 's/APACHE_RUN_GROUP:=www-data/APACHE_RUN_GROUP:=root/g' /etc/apache2/envvars 
       && a2enmod rewrite 
       && service apache2 stop 
+      && rm /var/www/html/index.html 
       && apache2-foreground"
     networks:
       dev_network:
