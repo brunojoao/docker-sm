@@ -29,7 +29,7 @@ services:
       dev_network:
         ipv4_address: 172.20.0.4
     ports:
-      - 3344:3306
+      - 3306:3306
 
   db-mysql8-host:
     image: mysql:8.0.32
@@ -118,7 +118,7 @@ services:
       dev_network:
         ipv4_address: 172.20.0.7
     links:
-      - db-mysql8-host
+      - db-mysql-host
 
   php8.1:
     image: php:8.1-apache
