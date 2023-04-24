@@ -48,7 +48,7 @@ services:
       - 3307:3306
 
   php5.6:
-    image: php:5.6-apache
+    image: ubuntu/apache2:2.4-22.04_beta 
     user: "root"
     container_name: php5-projects
     ports:
@@ -64,8 +64,7 @@ services:
     environment:
       - TZ=America/Sao_Paulo
     command: >
-      bash -c "
-      apt-get update 
+      bash -c "apt-get update 
       && apt-get upgrade -y 
       && apt-get install -y software-properties-common 
       && add-apt-repository ppa:ondrej/php 
