@@ -61,7 +61,7 @@ services:
       - ./configs/php5.6/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
       - ./configs/php5.6/ports.conf:/etc/apache2/ports.conf
       # - ./configs/php5.6/apache2.conf:/etc/apache2/apache2.conf
-   environment:
+    environment:
       - TZ=America/Sao_Paulo
     command: >
       bash -c "
