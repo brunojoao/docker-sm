@@ -61,16 +61,26 @@ services:
       - ./configs/php5.6/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
       - ./configs/php5.6/ports.conf:/etc/apache2/ports.conf
       # - ./configs/php5.6/apache2.conf:/etc/apache2/apache2.conf
+   environment:
+      - TZ=America/Sao_Paulo
     command: >
-      bash -c "a2enmod rewrite 
+      bash -c "
+      apt-get update 
+      && apt-get upgrade -y 
+      && apt-get install -y software-properties-common 
+      && add-apt-repository ppa:ondrej/php 
       && apt-get update 
-      && apt-get -y install libxml2-dev zip unzip firebird-dev curl libjpeg-dev libpng-dev libfreetype6-dev libz-dev libtiff-dev git 
-      && docker-php-ext-install interbase pdo pdo_mysql simplexml dom intl soap pdo_firebird gd 
+      && apt-get install -y php5.6 libxml2-dev zip unzip firebird-dev curl libjpeg-dev libpng-dev libfreetype6-dev libz-dev libtiff-dev git 
+      && apt-get install -y php5.6-interbase php5.6-pdo php5.6-mysql php5.6-simplexml php5.6-dom php5.6-intl php5.6-soap php5.6-pdo-firebird php5.6-gd php5.6-mbstring 
       && chmod -R 777 /var/www/html 
       && curl --show-error https://getcomposer.org/installer -o /tmp/composer-setup.php 
       && php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer 
       && composer self-update --1 
       && sed -i 's/APACHE_RUN_GROUP:=www-data/APACHE_RUN_GROUP:=root/g' /etc/apache2/envvars 
+      && a2enmod rewrite 
+      && service apache2 stop 
+      && rm /var/www/html/index.html 
+      && chown -R www-data:root /var/www/html/ 
       && apache2-foreground"
     networks:
       dev_network:
