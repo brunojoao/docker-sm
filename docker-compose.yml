@@ -148,9 +148,10 @@ services:
       && if [ ! -d /usr/local/node-v19.9.0-linux-x64 ]; then 
       curl -LO https://nodejs.org/dist/v19.9.0/node-v19.9.0-linux-x64.tar.xz 
       && tar -xvf node-v19.9.0-linux-x64.tar.xz 
-      && mv node-v19.9.0-linux-x64 /usr/local/ 
+      && mv node-v19.9.0-linux-x64 /usr/local/
       && ln -s /usr/local/node-v19.9.0-linux-x64/bin/node /usr/local/bin/node 
-      && ln -s /usr/local/node-v19.9.0-linux-x64/bin/npm /usr/local/bin/npm; 
+      && ln -s /usr/local/node-v19.9.0-linux-x64/bin/npm /usr/local/bin/npm
+      && ln -s /usr/local/node-v19.9.0-linux-x64/bin/npx /usr/local/bin/npx;
       fi
       && apache2-foreground"
     networks:
