@@ -82,6 +82,7 @@ services:
       && a2enmod rewrite 
       && if [ -f /var/www/html/index.html ]; then rm /var/www/html/index.html; fi 
       && chown -R www-data:root /var/www/html/ 
+      && service apache2 restart 
       && apache2-foreground"
     networks:
       dev_network:
