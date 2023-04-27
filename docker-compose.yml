@@ -77,9 +77,9 @@ services:
       && composer self-update --1 
       && sed -i 's/APACHE_RUN_GROUP:=www-data/APACHE_RUN_GROUP:=root/g' /etc/apache2/envvars 
       && a2enmod rewrite 
-      && service apache2 stop 
-      && rm /var/www/html/index.html || true 
+      && if [ -f /var/www/html/index.html ]; then rm /var/www/html/index.html; fi 
       && chown -R www-data:root /var/www/html/ 
+      && service apache2 stop 
       && apache2-foreground"
     networks:
       dev_network:
