@@ -142,9 +142,10 @@ services:
       && rm /tmp/composer-setup.php 
       && chmod -R 777 /var/www/html 
       && if [ ! -d /usr/local/node19 ]; then 
-      curl --show-error https://nodejs.org/dist/v19.9.0/node-v19.9.0-linux-x64.tar.xz -o /tmp/node19.tar.xz
-      && tar -xvf /tmp/node19.tar.xz 
-      && mv /tmp/node19.tar.xz /usr/local/ 
+      curl -o /tmp/node19.tar.xz https://nodejs.org/dist/v19.9.0/node-v19.9.0-linux-x64.tar.xz 
+      && tar -xvf /tmp/node19.tar.xz -C /tmp --strip-components=1 --one-top-level=node19
+      && rm /tmp/node19.tar.xz 
+      && mv /tmp/node19 /usr/local/ 
       && ln -s /usr/local/node19/bin/node /usr/local/bin/node 
       && ln -s /usr/local/node19/bin/npm /usr/local/bin/npm
       && ln -s /usr/local/node19/bin/npx /usr/local/bin/npx;
