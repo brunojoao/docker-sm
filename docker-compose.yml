@@ -124,6 +124,7 @@ services:
     container_name: php8-projects
     ports:
       - 8082:8082
+      - 8083:8083
       - 5173:5173
     volumes:
       - ../projects/selfcheckout:/var/www/html/selfcheckout
