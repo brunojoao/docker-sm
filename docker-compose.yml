@@ -126,6 +126,7 @@ services:
       - 8082:8082
       - 5173:5173
     volumes:
+      - ../projects/selfcheckout:/var/www/html/selfcheckout
       - ../projects/gerenciador-compras:/var/www/html/gerenciador-compras
       - ./configs/php8.1/php.ini:/usr/local/etc/php/conf.d/local.ini
       - ./configs/php8.1/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
