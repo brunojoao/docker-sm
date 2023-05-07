@@ -36,7 +36,7 @@ services:
     user: "root"
     container_name: drupal9
     ports:
-      - 8082:8082
+      - 5555:5555
     volumes:
       - ../projects/aldoimoveis:/var/www/html/aldoimoveis
       - ./configs/php8.1/php.ini:/usr/local/etc/php/conf.d/local.ini
