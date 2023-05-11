@@ -55,8 +55,10 @@ services:
       - 900:900
       - 901:901
       - 902:902
+      - 999:999
     volumes:
       - ../projects/supermonitor-hkm:/var/www/html/supermonitor-hkm
+      - ../projects/supermonitor-hkm-jose:/var/www/html/supermonitor-hkm-jose
       - ../projects/supermonitor-smart:/var/www/html/supermonitor-smart
       - ../projects/gateway-payment-essentia:/var/www/html/gateway-payment-essentia
       - ./configs/php5.6/php.ini:/usr/local/etc/php/conf.d/local.ini
