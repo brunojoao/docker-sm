@@ -85,6 +85,7 @@ services:
       - "injetaveis.docker.local:172.20.0.7"
       - "injetaveis-cron.docker.local:172.20.0.7"
       - "gerenciador-compras.local:172.20.0.8"
+      - "selfchechout.docker.local:172.20.0.8"
 
   php7.4:
     image: php:7.4-apache
@@ -122,9 +123,11 @@ services:
     container_name: php8-projects
     ports:
       - 905:905
+      - 906:906
       - 5173:5173
     volumes:
       - ../projects/gerenciador-compras:/var/www/html/gerenciador-compras
+      - ../projects/selfcheckout:/var/www/html/selfcheckout
       - ./configs/php8.1/php.ini:/usr/local/etc/php/conf.d/local.ini
       - ./configs/php8.1/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
       - ./configs/php8.1/ports.conf:/etc/apache2/ports.conf
