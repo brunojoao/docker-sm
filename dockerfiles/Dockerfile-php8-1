@@ -1,10 +1,5 @@
 FROM php:8.1-apache
 
-# Copiar os arquivos de configuração
-COPY ./configs/php8.1/php.ini /usr/local/etc/php/conf.d/local.ini
-COPY ./configs/php8.1/000-default.conf /etc/apache2/sites-enabled/000-default.conf
-COPY ./configs/php8.1/ports.conf /etc/apache2/ports.conf
-
 # Executar o comando
 RUN a2enmod rewrite \
     && apt-get update \
