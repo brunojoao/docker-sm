@@ -1,0 +1,6 @@
+FROM mysql-8.0.32
+
+ENV MYSQL_ROOT_AUTH_PLUGIN=mysql_native_password
+
+# Copiar o arquivo de configuração personalizado
+COPY ./configs/mysql.cnf /etc/mysql/conf.d/custom.cnf

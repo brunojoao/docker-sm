@@ -1,0 +1,17 @@
+FROM php:7.4-apache
+
+COPY ./configs/php7.4/php.ini /usr/local/etc/php/conf.d/local.ini
+COPY ./configs/php7.4/000-default.conf /etc/apache2/sites-enabled/000-default.conf
+COPY ./configs/php7.4/ports.conf /etc/apache2/ports.conf
+
+RUN a2enmod rewrite \
+    && apt-get update || true && apt-get -y install libxml2-dev zip unzip firebird-dev curl git \
+    && docker-php-ext-install simplexml dom intl mysqli pdo pdo_mysql soap pdo_firebird \
+    && chmod -R 777 /var/www/html \
+    && curl --show-error https://getcomposer.org/installer -o /tmp/composer-setup.php \
+    && php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer \
+    && composer self-update --1 \
+    && sed -i 's/APACHE_RUN_GROUP:=www-data/APACHE_RUN_GROUP:=root/g' /etc/apache2/envvars \
+    && chown -R www-data:root /var/www/html/
+
+CMD ["apache2-foreground"]

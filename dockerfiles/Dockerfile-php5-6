@@ -1,0 +1,20 @@
+FROM php:5.6-apache
+
+COPY ./configs/php5.6/php.ini /usr/local/etc/php/conf.d/local.ini
+COPY ./configs/php5.6/000-default.conf /etc/apache2/sites-enabled/000-default.conf
+COPY ./configs/php5.6/ports.conf /etc/apache2/ports.conf
+
+RUN a2enmod rewrite \
+    && sed -i 's/deb.debian.org/archive.debian.org/g' /etc/apt/sources.list \
+    && sed -i 's|security.debian.org|archive.debian.org/|g' /etc/apt/sources.list \
+    && sed -i '/stretch-updates/d' /etc/apt/sources.list \
+    && apt-get update \
+    && apt-get -y install libxml2-dev zip unzip firebird-dev curl libjpeg-dev libpng-dev libfreetype6-dev libz-dev libtiff-dev git \
+    && docker-php-ext-install interbase pdo pdo_mysql simplexml dom intl soap pdo_firebird gd \
+    && chmod -R 777 /var/www/html \
+    && curl --show-error https://getcomposer.org/installer -o /tmp/composer-setup.php \
+    && php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer \
+    && composer self-update --1 \
+    && sed -i 's/APACHE_RUN_GROUP:=www-data/APACHE_RUN_GROUP:=root/g' /etc/apache2/envvars
+
+CMD ["apache2-foreground"]

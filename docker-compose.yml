@@ -16,12 +16,13 @@ services:
       - portainer_data:/data
 
   db-mysql-host:
-    image: mysql:5.7.31
+    build:
+      context: ./dockerfiles
+      dockerfile: Dockerfile-db-mysql-host
+    image: brunojoao3/docker-sm:mysql-5.7.31
     container_name: db-mysql-5.7
-    command: --default-authentication-plugin=mysql_native_password
     restart: always
     volumes:
-      - ./configs/mysql.cnf:/etc/mysql/conf.d/custom.cnf
       - mysql_data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: 789123
@@ -32,12 +33,13 @@ services:
       - 3306:3306
 
   db-mysql8-host:
-    image: mysql:8.0.32
+    build:
+      context: ./dockerfiles
+      dockerfile: Dockerfile-db-mysql8-host
+    image: brunojoao3/docker-sm:mysql-8.0.32
     container_name: db-mysql-8.0
-    command: --default-authentication-plugin=mysql_native_password
     restart: always
     volumes:
-      - ./configs/mysql.cnf:/etc/mysql/conf.d/custom.cnf
       - mysql8_data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: 789123
@@ -48,7 +50,10 @@ services:
       - 3307:3306
 
   php5.6:
-    image: php:5.6-apache
+    build:
+      context: ./dockerfiles
+      dockerfile: Dockerfile-php5-6
+    image: brunojoao3/docker-sm:php-5.6-apache
     user: "root"
     container_name: php5-projects
     ports:
@@ -57,23 +62,6 @@ services:
       - ../projects/supermonitor-hkm:/var/www/html/supermonitor-hkm
       - ../projects/supermonitor-smart:/var/www/html/supermonitor-smart
       - ../projects/gateway-payment-essentia:/var/www/html/gateway-payment-essentia
-      - ./configs/php5.6/php.ini:/usr/local/etc/php/conf.d/local.ini
-      - ./configs/php5.6/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
-      - ./configs/php5.6/ports.conf:/etc/apache2/ports.conf
-    command: >
-      bash -c "a2enmod rewrite 
-      && sed -i s/deb.debian.org/archive.debian.org/g /etc/apt/sources.list 
-      && sed -i 's|security.debian.org|archive.debian.org/|g' /etc/apt/sources.list 
-      && sed -i '/stretch-updates/d' /etc/apt/sources.list 
-      && apt-get update 
-      && apt-get -y install libxml2-dev zip unzip firebird-dev curl libjpeg-dev libpng-dev libfreetype6-dev libz-dev libtiff-dev git 
-      && docker-php-ext-install interbase pdo pdo_mysql simplexml dom intl soap pdo_firebird gd 
-      && chmod -R 777 /var/www/html 
-      && curl --show-error https://getcomposer.org/installer -o /tmp/composer-setup.php 
-      && php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer 
-      && composer self-update --1 
-      && sed -i 's/APACHE_RUN_GROUP:=www-data/APACHE_RUN_GROUP:=root/g' /etc/apache2/envvars 
-      && apache2-foreground"
     networks:
       dev_network:
         ipv4_address: 172.20.0.6
@@ -85,7 +73,10 @@ services:
       - "gerenciador-compras.local:172.20.0.8"
 
   php7.4:
-    image: php:7.4-apache
+    build:
+      context: ./dockerfiles
+      dockerfile: Dockerfile-php7-4
+    image: brunojoao3/docker-sm:php-7.4-apache
     user: "root"
     container_name: php7-projects
     ports:
@@ -93,20 +84,6 @@ services:
     volumes:
       - ../projects/injetaveisadmin:/var/www/html/injetaveisadmin
       - ../projects/injetaveiscron:/var/www/html/injetaveiscron
-      - ./configs/php7.4/php.ini:/usr/local/etc/php/conf.d/local.ini
-      - ./configs/php7.4/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
-      - ./configs/php7.4/ports.conf:/etc/apache2/ports.conf
-    command: >
-      bash -c "a2enmod rewrite 
-      && apt-get update || true && apt-get -y install libxml2-dev zip unzip firebird-dev curl git 
-      && docker-php-ext-install simplexml dom intl mysqli pdo pdo_mysql soap pdo_firebird 
-      && chmod -R 777 /var/www/html 
-      && curl --show-error https://getcomposer.org/installer -o /tmp/composer-setup.php
-      && php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer
-      && composer self-update --1 
-      && sed -i 's/APACHE_RUN_GROUP:=www-data/APACHE_RUN_GROUP:=root/g' /etc/apache2/envvars 
-      && chown -R www-data:root /var/www/html/ 
-      && apache2-foreground"
     networks:
       dev_network:
         ipv4_address: 172.20.0.7
@@ -119,7 +96,10 @@ services:
       - "gerenciador-compras.local:172.20.0.8"
 
   php8.1:
-    image: php:8.1-apache
+    build:
+      context: ./dockerfiles
+      dockerfile: Dockerfile-php8-1
+    image: brunojoao3/docker-sm:php-8.1-apache
     user: "root"
     container_name: php8-projects
     ports:
@@ -129,28 +109,6 @@ services:
     volumes:
       - ../projects/selfcheckout:/var/www/html/selfcheckout
       - ../projects/gerenciador-compras:/var/www/html/gerenciador-compras
-      - ./configs/php8.1/php.ini:/usr/local/etc/php/conf.d/local.ini
-      - ./configs/php8.1/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
-      - ./configs/php8.1/ports.conf:/etc/apache2/ports.conf
-    command: >
-      bash -c "a2enmod rewrite 
-      && apt-get update 
-      && apt-get -y install zlib1g-dev libxml2-dev libonig-dev libpng-dev zip unzip firebird-dev curl git 
-      && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd 
-      && curl --show-error https://getcomposer.org/installer -o /tmp/composer-setup.php 
-      && php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer 
-      && rm /tmp/composer-setup.php 
-      && chmod -R 777 /var/www/html 
-      && if [ ! -d /usr/local/node19 ]; then 
-      curl -o /tmp/node19.tar.xz https://nodejs.org/dist/v19.9.0/node-v19.9.0-linux-x64.tar.xz 
-      && tar -xvf /tmp/node19.tar.xz -C /tmp --strip-components=1 --one-top-level=node19
-      && rm /tmp/node19.tar.xz 
-      && mv /tmp/node19 /usr/local/ 
-      && ln -s /usr/local/node19/bin/node /usr/local/bin/node 
-      && ln -s /usr/local/node19/bin/npm /usr/local/bin/npm
-      && ln -s /usr/local/node19/bin/npx /usr/local/bin/npx;
-      fi
-      && apache2-foreground"
     networks:
       dev_network:
         ipv4_address: 172.20.0.8
@@ -164,10 +122,11 @@ services:
       - "injetaveis-cron.docker.local:172.20.0.7"
 
   node-socket-sm:
-    image: node:12.22.9
-    user: "root"
+    build:
+      context: ./dockerfiles
+      dockerfile: Dockerfile-socket-sm
+    image: brunojoao3/node:socket-sm-12.22.9
     container_name: socket_sm
-    working_dir: /home/node/app
     networks:
       dev_network:
         ipv4_address: 172.20.0.9
@@ -175,14 +134,14 @@ services:
       - 3003:3003
     volumes:
       - ../projects/node_server_sm:/home/node/app
-    command: >
-      bash -c "npm config set unsafe-perm true && npm install -f && npm install pm2 -g && pm2-runtime start index.js --watch"
 
   node-socket-injetaveis:
-    image: node:12.22.9
+    build:
+      context: ./dockerfiles
+      dockerfile: Dockerfile-socket-inj
+    image: brunojoao3/node:socket-inj-12.22.9
     user: "root"
     container_name: socket_injetaveis
-    working_dir: /home/node/app
     networks:
       dev_network:
         ipv4_address: 172.20.0.10
@@ -190,8 +149,6 @@ services:
       - 3004:3004
     volumes:
       - ../projects/node_server_injetaveis:/home/node/app
-    command: >
-      bash -c "npm config set unsafe-perm true && npm install -f && npm install pm2 -g && pm2-runtime start index.js --watch"
 
 volumes:
   mysql_data:
