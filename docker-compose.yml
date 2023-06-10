@@ -156,6 +156,7 @@ services:
       - ../projects/node_server_injetaveis:/home/node/app
 
   jenkins:
+    container_name: jenkins
     image: jenkins/jenkins:lts
     ports:
       - 9998:8080
