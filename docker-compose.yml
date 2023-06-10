@@ -155,6 +155,15 @@ services:
     volumes:
       - ../projects/node_server_injetaveis:/home/node/app
 
+  jenkins:
+    image: jenkins/jenkins:lts
+    ports:
+      - 9998:8080
+    volumes:
+      - jenkins_home:/var/jenkins_home
+    networks:
+      - dev_network
+
   cy-sm-hkm:
     container_name: cy-sm-hkm
     image: cypress/included:12.11.0
@@ -166,6 +175,11 @@ services:
     links:
       - db-mysql-host
     command: ["cypress", "run"]
+    extra_hosts:
+      - "sm-hkm.docker.local:172.20.0.6"
+      - "sm-smart.docker.local:172.20.0.6"
+      - "gpe.docker.local:172.20.0.6"
+      - "gerenciador-compras.local:172.20.0.8"
     networks:
       dev_network:
         ipv4_address: 172.20.0.11
@@ -174,6 +188,7 @@ volumes:
   mysql_data:
   mysql8_data:
   portainer_data:
+  jenkins_home:
 
 networks:
   dev_network:
