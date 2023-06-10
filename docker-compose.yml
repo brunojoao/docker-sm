@@ -155,6 +155,21 @@ services:
     volumes:
       - ../projects/node_server_injetaveis:/home/node/app
 
+  cypress-sm-hkm:
+    container_name: cypress-sm-hkm
+    image: cypress/included:12.11.0
+    working_dir: /e2e
+    entrypoint: cypress open --project /e2e
+    volumes:
+      - ../projects/cy-sm-hkm:/e2e
+      - /dev/shm:/dev/shm  # necessário para execução no modo headless
+    links:
+      - db-mysql-host
+    command: ["cypress", "run"]
+    networks:
+      dev_network:
+        ipv4_address: 172.20.0.11
+
 volumes:
   mysql_data:
   mysql8_data:
