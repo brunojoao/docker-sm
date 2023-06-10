@@ -155,8 +155,8 @@ services:
     volumes:
       - ../projects/node_server_injetaveis:/home/node/app
 
-  cypress-sm-hkm:
-    container_name: cypress-sm-hkm
+  cy-sm-hkm:
+    container_name: cy-sm-hkm
     image: cypress/included:12.11.0
     working_dir: /e2e
     entrypoint: cypress open --project /e2e
