@@ -21,7 +21,6 @@ services:
       dockerfile: Dockerfile-db-mysql-host
     image: brunojoao3/docker-sm:mysql-5.7.31
     container_name: db-mysql-5.7
-    command: --default-authentication-plugin=mysql_native_password
     restart: always
     volumes:
       - ./configs/mysql.cnf:/etc/mysql/conf.d/custom.cnf
@@ -39,7 +38,6 @@ services:
       context: ./dockerfiles
       dockerfile: Dockerfile-db-mysql8-host
     container_name: db-mysql-8.0
-    command: --default-authentication-plugin=mysql_native_password
     restart: always
     volumes:
       - ./configs/mysql.cnf:/etc/mysql/conf.d/custom.cnf
@@ -72,20 +70,6 @@ services:
       - ./configs/php5.6/php.ini:/usr/local/etc/php/conf.d/local.ini
       - ./configs/php5.6/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
       - ./configs/php5.6/ports.conf:/etc/apache2/ports.conf
-    command: >
-      bash -c "a2enmod rewrite 
-      && sed -i s/deb.debian.org/archive.debian.org/g /etc/apt/sources.list 
-      && sed -i 's|security.debian.org|archive.debian.org/|g' /etc/apt/sources.list 
-      && sed -i '/stretch-updates/d' /etc/apt/sources.list 
-      && apt-get update 
-      && apt-get -y install libxml2-dev zip unzip firebird-dev curl libjpeg-dev libpng-dev libfreetype6-dev libz-dev libtiff-dev git 
-      && docker-php-ext-install interbase pdo pdo_mysql simplexml dom intl soap pdo_firebird gd 
-      && chmod -R 777 /var/www/html 
-      && curl --show-error https://getcomposer.org/installer -o /tmp/composer-setup.php 
-      && php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer 
-      && composer self-update --1 
-      && sed -i 's/APACHE_RUN_GROUP:=www-data/APACHE_RUN_GROUP:=root/g' /etc/apache2/envvars 
-      && apache2-foreground"
     networks:
       dev_network:
         ipv4_address: 172.20.0.6
@@ -108,17 +92,6 @@ services:
       - ./configs/php7.4/php.ini:/usr/local/etc/php/conf.d/local.ini
       - ./configs/php7.4/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
       - ./configs/php7.4/ports.conf:/etc/apache2/ports.conf
-    command: >
-      bash -c "a2enmod rewrite 
-      && apt-get update || true && apt-get -y install libxml2-dev zip unzip firebird-dev curl git 
-      && docker-php-ext-install simplexml dom intl mysqli pdo pdo_mysql soap pdo_firebird 
-      && chmod -R 777 /var/www/html 
-      && curl --show-error https://getcomposer.org/installer -o /tmp/composer-setup.php
-      && php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer
-      && composer self-update --1 
-      && sed -i 's/APACHE_RUN_GROUP:=www-data/APACHE_RUN_GROUP:=root/g' /etc/apache2/envvars 
-      && chown -R www-data:root /var/www/html/ 
-      && apache2-foreground"
     networks:
       dev_network:
         ipv4_address: 172.20.0.7
@@ -142,22 +115,6 @@ services:
       - ./configs/php8.1/php.ini:/usr/local/etc/php/conf.d/local.ini
       - ./configs/php8.1/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
       - ./configs/php8.1/ports.conf:/etc/apache2/ports.conf
-    command: >
-      bash -c "a2enmod rewrite 
-      && apt-get update 
-      && apt-get -y install zlib1g-dev libxml2-dev libonig-dev libpng-dev zip unzip firebird-dev curl git 
-      && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd 
-      && curl --show-error https://getcomposer.org/installer -o /tmp/composer-setup.php 
-      && php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer 
-      && chmod -R 777 /var/www/html 
-      && if [ ! -d /usr/local/node-v19.9.0-linux-x64 ]; then 
-      curl -LO https://nodejs.org/dist/v19.9.0/node-v19.9.0-linux-x64.tar.xz 
-      && tar -xvf node-v19.9.0-linux-x64.tar.xz 
-      && mv node-v19.9.0-linux-x64 /usr/local/ 
-      && ln -s /usr/local/node-v19.9.0-linux-x64/bin/node /usr/local/bin/node 
-      && ln -s /usr/local/node-v19.9.0-linux-x64/bin/npm /usr/local/bin/npm; 
-      fi
-      && apache2-foreground"
     networks:
       dev_network:
         ipv4_address: 172.20.0.8
@@ -179,8 +136,6 @@ services:
       - 3003:3003
     volumes:
       - ../projects/node_server_sm:/home/node/app
-    command: >
-      bash -c "npm config set unsafe-perm true && npm install -f && npm install pm2 -g && pm2-runtime start index.js --watch"
 
   node-socket-injetaveis:
     build:
@@ -197,8 +152,6 @@ services:
       - 3004:3004
     volumes:
       - ../projects/node_server_injetaveis:/home/node/app
-    command: >
-      bash -c "npm config set unsafe-perm true && npm install -f && npm install pm2 -g && pm2-runtime start index.js --watch"
 
   jenkins:
     container_name: jenkins
@@ -224,7 +177,7 @@ services:
     networks:
       dev_network:
         ipv4_address: 172.20.0.11
-        
+
 volumes:
   mysql_data:
   mysql8_data:
