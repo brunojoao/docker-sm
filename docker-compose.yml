@@ -16,7 +16,10 @@ services:
       - portainer_data:/data
 
   db-mysql-host:
-    image: mysql:5.7.31
+    build:
+      context: ./dockerfiles
+      dockerfile: Dockerfile-db-mysql-host
+    image: brunojoao3/docker-sm:mysql-5.7.31
     container_name: db-mysql-5.7
     command: --default-authentication-plugin=mysql_native_password
     restart: always
@@ -32,7 +35,9 @@ services:
       - 3306:3306
 
   db-mysql8-host:
-    image: mysql:8.0.32
+    build:
+      context: ./dockerfiles
+      dockerfile: Dockerfile-db-mysql8-host
     container_name: db-mysql-8.0
     command: --default-authentication-plugin=mysql_native_password
     restart: always
@@ -48,7 +53,10 @@ services:
       - 3307:3306
 
   php5.6:
-    image: php:5.6-apache
+    build:
+      context: ./dockerfiles
+      dockerfile: Dockerfile-php5-6
+    image: brunojoao3/docker-sm:php-5.6-apache
     user: "root"
     container_name: php5-projects
     ports:
@@ -83,14 +91,12 @@ services:
         ipv4_address: 172.20.0.6
     links:
       - db-mysql-host
-    extra_hosts:
-      - "injetaveis.docker.local:172.20.0.7"
-      - "injetaveis-cron.docker.local:172.20.0.7"
-      - "gerenciador-compras.local:172.20.0.8"
-      - "selfchechout.docker.local:172.20.0.8"
 
   php7.4:
-    image: php:7.4-apache
+    build:
+      context: ./dockerfiles
+      dockerfile: Dockerfile-php7-4
+    image: brunojoao3/docker-sm:php-7.4-apache
     user: "root"
     container_name: php7-projects
     ports:
@@ -118,15 +124,12 @@ services:
         ipv4_address: 172.20.0.7
     links:
       - db-mysql-host
-    extra_hosts:
-      - "sm-hkm.docker.local:172.20.0.6"
-      - "sm-smart.docker.local:172.20.0.6"
-      - "gpe.docker.local:172.20.0.6"
-      - "gerenciador-compras.local:172.20.0.8"
-      - "selfchechout.docker.local:172.20.0.8"
 
   php8.1:
-    image: php:8.1-apache
+    build:
+      context: ./dockerfiles
+      dockerfile: Dockerfile-php8-1
+    image: brunojoao3/docker-sm:php-8.1-apache
     user: "root"
     container_name: php8-projects
     ports:
@@ -160,15 +163,12 @@ services:
         ipv4_address: 172.20.0.8
     links:
       - db-mysql8-host
-    extra_hosts:
-      - "sm-hkm.docker.local:172.20.0.6"
-      - "sm-smart.docker.local:172.20.0.6"
-      - "gpe.docker.local:172.20.0.6"
-      - "injetaveis.docker.local:172.20.0.7"
-      - "gerenciador-compras.local:172.20.0.8"
 
   node-socket-sm:
-    image: node:12.22.9
+    build:
+      context: ./dockerfiles
+      dockerfile: Dockerfile-socket-sm
+    image: brunojoao3/docker-sm:socket-sm-12.22.9
     user: "root"
     container_name: socket_sm
     working_dir: /home/node/app
@@ -183,7 +183,10 @@ services:
       bash -c "npm config set unsafe-perm true && npm install -f && npm install pm2 -g && pm2-runtime start index.js --watch"
 
   node-socket-injetaveis:
-    image: node:12.22.9
+    build:
+      context: ./dockerfiles
+      dockerfile: Dockerfile-socket-inj
+    image: brunojoao3/docker-sm:socket-inj-12.22.9
     user: "root"
     container_name: socket_injetaveis
     working_dir: /home/node/app
@@ -197,10 +200,36 @@ services:
     command: >
       bash -c "npm config set unsafe-perm true && npm install -f && npm install pm2 -g && pm2-runtime start index.js --watch"
 
+  jenkins:
+    container_name: jenkins
+    image: jenkins/jenkins:lts
+    ports:
+      - 9998:8080
+    volumes:
+      - jenkins_home:/var/jenkins_home
+    networks:
+      - dev_network
+
+  cy-sm-hkm:
+    container_name: cy-sm-hkm
+    image: cypress/included:12.11.0
+    working_dir: /e2e
+    entrypoint: cypress open --project /e2e
+    volumes:
+      - ../projects/cy-sm-hkm:/e2e
+      - /dev/shm:/dev/shm  # necessário para execução no modo headless
+    links:
+      - db-mysql-host
+    command: ["cypress", "run"]
+    networks:
+      dev_network:
+        ipv4_address: 172.20.0.11
+        
 volumes:
   mysql_data:
   mysql8_data:
   portainer_data:
+  jenkins_home:
 
 networks:
   dev_network:
