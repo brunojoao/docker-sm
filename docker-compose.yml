@@ -23,7 +23,7 @@ services:
     container_name: db-mysql-5.7
     restart: always
     volumes:
-      - ./configs/mysql.cnf:/etc/mysql/conf.d/custom.cnf
+      - ./dockerfiles/configs/mysql.cnf:/etc/mysql/conf.d/custom.cnf
       - mysql_data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: 789123
@@ -40,7 +40,7 @@ services:
     container_name: db-mysql-8.0
     restart: always
     volumes:
-      - ./configs/mysql.cnf:/etc/mysql/conf.d/custom.cnf
+      - ./dockerfiles/configs/mysql.cnf:/etc/mysql/conf.d/custom.cnf
       - mysql8_data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: 789123
@@ -67,9 +67,9 @@ services:
       - ../projects/supermonitor-hkm-jose:/var/www/html/supermonitor-hkm-jose
       - ../projects/supermonitor-smart:/var/www/html/supermonitor-smart
       - ../projects/gateway-payment-essentia:/var/www/html/gateway-payment-essentia
-      - ./configs/php5.6/php.ini:/usr/local/etc/php/conf.d/local.ini
-      - ./configs/php5.6/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
-      - ./configs/php5.6/ports.conf:/etc/apache2/ports.conf
+      - ./dockerfiles/configs/php5.6/php.ini:/usr/local/etc/php/conf.d/local.ini
+      - ./dockerfiles/configs/php5.6/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
+      - ./dockerfiles/configs/php5.6/ports.conf:/etc/apache2/ports.conf
     networks:
       dev_network:
         ipv4_address: 172.20.0.6
@@ -89,9 +89,9 @@ services:
     volumes:
       - ../projects/injetaveisadmin:/var/www/html/injetaveisadmin
       - ../projects/injetaveiscron:/var/www/html/injetaveiscron
-      - ./configs/php7.4/php.ini:/usr/local/etc/php/conf.d/local.ini
-      - ./configs/php7.4/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
-      - ./configs/php7.4/ports.conf:/etc/apache2/ports.conf
+      - ./dockerfiles/configs/php7.4/php.ini:/usr/local/etc/php/conf.d/local.ini
+      - ./dockerfiles/configs/php7.4/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
+      - ./dockerfiles/configs/php7.4/ports.conf:/etc/apache2/ports.conf
     networks:
       dev_network:
         ipv4_address: 172.20.0.7
@@ -112,9 +112,9 @@ services:
     volumes:
       - ../projects/gerenciador-compras:/var/www/html/gerenciador-compras
       - ../projects/selfcheckout:/var/www/html/selfcheckout
-      - ./configs/php8.1/php.ini:/usr/local/etc/php/conf.d/local.ini
-      - ./configs/php8.1/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
-      - ./configs/php8.1/ports.conf:/etc/apache2/ports.conf
+      - ./dockerfiles/configs/php8.1/php.ini:/usr/local/etc/php/conf.d/local.ini
+      - ./dockerfiles/configs/php8.1/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
+      - ./dockerfiles/configs/php8.1/ports.conf:/etc/apache2/ports.conf
     networks:
       dev_network:
         ipv4_address: 172.20.0.8
