@@ -2,6 +2,6 @@ FROM jenkins/jenkins
 
 USER root
 
-RUN groupadd -g 993 docker && gpasswd -a jenkins docker && chmod 777 /var/run/docker.sock
+RUN groupadd -g 993 docker && gpasswd -a jenkins docker
 
 USER jenkins
