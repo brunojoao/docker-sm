@@ -159,7 +159,6 @@ services:
       dockerfile: Dockerfile-jenkins
     container_name: jenkins
     image: brunojoao3/docker-sm:jenkins
-    user: root
     privileged: true
     ports:
       - 9998:8080
