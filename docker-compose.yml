@@ -158,8 +158,8 @@ services:
   jenkins:
     build:
       context: ./dockerfiles
-      dockerfile: Dockerfile-jenkins
-    container_name: jenkins
+      dockerfile: Dockerfile-jenkins-khan
+    container_name: jenkins-khan
     image: brunojoao3/docker-sm:jenkins-khan
     user: root
     privileged: true
