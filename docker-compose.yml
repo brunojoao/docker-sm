@@ -156,6 +156,8 @@ services:
   jenkins:
     container_name: jenkins
     image: jenkins/jenkins:lts
+    user: root
+    privileged: true
     ports:
       - 9998:8080
     volumes:
