@@ -157,8 +157,8 @@ services:
     build:
       context: ./dockerfiles
       dockerfile: Dockerfile-db-mysql-host
-    container_name: brunojoao3/jenkins
-    image: jenkins/docker-sm:jenkins
+    container_name: jenkins
+    image: brunojoao3/docker-sm:jenkins
     user: root
     privileged: true
     ports:
