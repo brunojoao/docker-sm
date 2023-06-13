@@ -156,8 +156,11 @@ services:
       - ../projects/node_server_injetaveis:/home/node/app
 
   jenkins:
+    build:
+      context: ./dockerfiles
+      dockerfile: Dockerfile-jenkins
     container_name: jenkins
-    image: jenkins/jenkins:lts
+    image: brunojoao3/docker-sm:jenkins
     user: root
     privileged: true
     ports:
