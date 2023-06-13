@@ -71,8 +71,6 @@ services:
       - ./dockerfiles/configs/php5.6/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
       - ./dockerfiles/configs/php5.6/ports.conf:/etc/apache2/ports.conf
       - ./ssh-keys:/root/.ssh
-    command: >
-      bash -c "cd /var/www/html/supermonitor-hkm && git remote set-url origin git@bitbucket.org:renanguzmanessentia/supermonitor-hkm.git"
 
     networks:
       dev_network:
