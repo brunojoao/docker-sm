@@ -71,10 +71,6 @@ services:
       - ./dockerfiles/configs/php5.6/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
       - ./dockerfiles/configs/php5.6/ports.conf:/etc/apache2/ports.conf
       - ./ssh-keys:/root/.ssh
-    security_opt:
-      - label:disable
-      - label:seccomp=unconfined
-      - apparmor:unconfined
 
     networks:
       dev_network:
