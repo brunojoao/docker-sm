@@ -176,6 +176,8 @@ services:
     container_name: cy-sm-hkm
     image: cypress/included:12.11.0
     working_dir: /e2e
+    ports:
+      - 56964:56964
     entrypoint: cypress open --project /e2e
     volumes:
       - ../projects/cy-sm-hkm:/e2e
