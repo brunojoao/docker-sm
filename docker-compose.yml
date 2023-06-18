@@ -175,22 +175,11 @@ services:
 
   cy-sm-hkm:
     container_name: cy-sm-hkm
-    image: cypress/included:12.14.0
+    image: brunojoao3/docker-sm:cy-sm-hkm
     working_dir: /e2e
-    ports:
-      - 56964:56964
     volumes:
       - ../projects/cy-sm-hkm:/e2e
       - /dev/shm:/dev/shm  # necessário para execução no modo headless
-    links:
-      - db-mysql-host
-    depends_on:
-      - php5.6
-    entrypoint: cypress open --project /e2e
-    command: ["cypress", "run"]
-    networks:
-      dev_network:
-        ipv4_address: 172.20.0.11
 
 volumes:
   mysql_data:
