@@ -1,0 +1,5 @@
+USE ESTE COMANDO NO LINUX OU NO WSL2:
+xhost +
+
+Certifique-se que o seu diplay é o :0
+echo $DISPLAY
