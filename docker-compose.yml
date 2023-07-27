@@ -180,6 +180,7 @@ services:
     volumes:
       - ../projects/cy-sm-hkm:/e2e
       - /dev/shm:/dev/shm  # necessário para execução no modo headless
+      - ./ssh-keys:/root/.ssh
     network_mode: host
 
 volumes:
