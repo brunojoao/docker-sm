@@ -1,0 +1,31 @@
+FROM node:lts-bullseye
+
+# Atualiza os pacotes do sistema
+RUN apt-get update
+
+# Atualiza o sistema e instala as dependências necessárias
+RUN apt-get install -y \
+    libgtk2.0-0 \
+    libgtk-3-0 \
+    libgbm-dev \
+    libnotify-dev \
+    libgconf-2-4 \
+    libnss3 \
+    libxss1 \
+    libasound2 \
+    libxtst6 \
+    xauth \
+    xvfb
+
+# Define o diretório de trabalho
+WORKDIR /e2e
+
+# Instala o Cypress usando npm
+RUN npx cypress install
+
+# Configuração do Xvfb
+ENV DISPLAY=:0
+
+# Define o comando padrão do contêiner
+CMD Xvfb :0 -screen 0 1024x768x16 & \
+    sleep infinity 
