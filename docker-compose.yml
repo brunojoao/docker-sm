@@ -182,7 +182,7 @@ services:
       - /dev/shm:/dev/shm  # necessário para execução no modo headless
       - ./ssh-keys:/root/.ssh
     command: >
-        bash -c 'chmod 600 /root/.ssh/config && chmod 600 /root/.ssh/master-key-all && chown -R root:root /root/.ssh'
+        bash -c 'chmod 600 /root/.ssh/config && chmod 600 /root/.ssh/master-key-all && chown -R root:root /root/.ssh && sleep infinity'
     network_mode: host
 
 volumes:
