@@ -1,4 +1,4 @@
-FROM node:lts-bullseye
+FROM --platform=linux/amd64 node:lts-bullseye
 
 # Atualiza os pacotes do sistema
 RUN apt-get update 

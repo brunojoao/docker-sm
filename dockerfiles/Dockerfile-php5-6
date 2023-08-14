@@ -1,4 +1,4 @@
-FROM php:5.6-apache
+FROM --platform=linux/amd64 php:5.6-apache
 
 RUN a2enmod rewrite \
     && sed -i 's/deb.debian.org/archive.debian.org/g' /etc/apt/sources.list \
