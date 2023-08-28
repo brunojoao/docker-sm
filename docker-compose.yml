@@ -63,7 +63,7 @@ services:
       - 9220:9220
       - 9240:9240
     volumes:
-      - ../projects/supermonitor-hkm:/var/www/html/supermonitor-hkm
+      - ../projects/supermonitor-hkm-1:/var/www/html/supermonitor-hkm-1
       - ../projects/supermonitor-hkm-2:/var/www/html/supermonitor-hkm-2
       - ../projects/supermonitor-smart:/var/www/html/supermonitor-smart
       - ../projects/gateway-payment-essentia:/var/www/html/gateway-payment-essentia
@@ -109,10 +109,12 @@ services:
     container_name: php8-projects
     ports:
       - 9400:9400
+      - 9401:9401
       - 9420:9420
-      - 5173:5173 #vite
+      - 5173:5173 #vite 
     volumes:
-      - ../projects/gerenciador-compras:/var/www/html/gerenciador-compras
+      - ../projects/gerenciador-compras-1:/var/www/html/gerenciador-compras-1
+      - ../projects/gerenciador-compras-2:/var/www/html/gerenciador-compras-2
       - ../projects/selfcheckout:/var/www/html/selfcheckout
       - ./dockerfiles/configs/php8.1/php.ini:/usr/local/etc/php/conf.d/local.ini
       - ./dockerfiles/configs/php8.1/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
