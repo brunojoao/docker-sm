@@ -1,0 +1,12 @@
+FROM --platform=linux/amd64 php:8.2-apache
+
+RUN a2enmod rewrite \
+    && apt-get update \
+    && apt-get -y install libxml2-dev zip unzip firebird-dev curl libjpeg-dev libpng-dev libfreetype6-dev libz-dev libtiff-dev git \
+    && docker-php-ext-install pdo pdo_mysql simplexml dom intl soap pdo_firebird gd \
+    && chmod -R 777 /var/www/html \
+    && curl --show-error https://getcomposer.org/installer -o /tmp/composer-setup.php \
+    && php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer \
+    && sed -i 's/APACHE_RUN_GROUP:=www-data/APACHE_RUN_GROUP:=root/g' /etc/apache2/envvars
+
+CMD ["apache2-foreground"]

@@ -103,7 +103,7 @@ services:
       dockerfile: Dockerfile-php8-1
     image: brunojoao3/docker-sm:php-8.1-apache
     user: "root"
-    container_name: php8-projects
+    container_name: php8.1-projects
     ports:
       - 8082:8082
       - 8083:8083
@@ -126,6 +126,30 @@ services:
       - "injetaveis.docker.local:172.20.0.7"
       - "injetaveis-cron.docker.local:172.20.0.7"
 
+  php8.2:
+    build:
+      context: ./dockerfiles
+      dockerfile: Dockerfile-php8-2
+    image: brunojoao3/docker-sm:php-8.2-apache
+    user: "root"
+    container_name: php8.2-projects
+    ports:
+      - 8085:8085
+    volumes:
+      - ../projects/ultramonitor:/var/www/html/ultramonitor
+      - ./dockerfiles/configs/php5.6/php.ini:/usr/local/etc/php/conf.d/local.ini
+      - ./dockerfiles/configs/php5.6/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
+      - ./dockerfiles/configs/php5.6/ports.conf:/etc/apache2/ports.conf
+    networks:
+      dev_network:
+        ipv4_address: 172.20.0.9
+    links:
+      - db-mysql8-host
+    extra_hosts:
+      - "injetaveis.docker.local:172.20.0.7"
+      - "injetaveis-cron.docker.local:172.20.0.7"
+      - "gerenciador-compras.local:172.20.0.8"
+
   node-socket-sm:
     build:
       context: ./dockerfiles
@@ -134,7 +158,7 @@ services:
     container_name: socket_sm
     networks:
       dev_network:
-        ipv4_address: 172.20.0.9
+        ipv4_address: 172.20.0.50
     ports:
       - 3003:3003
     volumes:
@@ -149,7 +173,7 @@ services:
     container_name: socket_injetaveis
     networks:
       dev_network:
-        ipv4_address: 172.20.0.10
+        ipv4_address: 172.20.0.51
     ports:
       - 3004:3004
     volumes:
