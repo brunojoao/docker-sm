@@ -115,6 +115,7 @@ services:
       - 9420:9420
       - 9421:9421
       - 5173:5173 #vite 
+      - 5174:5174 #vite 
     volumes:
       - ../projects/gerenciador-compras-1:/var/www/html/gerenciador-compras-1
       - ../projects/gerenciador-compras-2:/var/www/html/gerenciador-compras-2
