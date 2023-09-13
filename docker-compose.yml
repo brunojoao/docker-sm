@@ -159,6 +159,22 @@ services:
     volumes:
       - ../projects/node_server_injetaveis:/home/node/app
 
+  node-socket-sm-especial:
+    build:
+      context: ./dockerfiles
+      dockerfile: Dockerfile-socket-sm
+    image: brunojoao3/docker-sm:socket-sm-12.22.9
+    user: "root"
+    container_name: socket_sm
+    working_dir: /home/node/app
+    networks:
+      dev_network:
+        ipv4_address: 172.20.0.11
+    ports:
+      - 3005:3003
+    volumes:
+      - ../projects/node_server_sm:/home/node/app
+
   jenkins:
     build:
       context: ./dockerfiles
@@ -182,10 +198,10 @@ services:
     working_dir: /e2e
     volumes:
       - ../projects/cy-sm-hkm:/e2e
-      - /dev/shm:/dev/shm  # necessário para execução no modo headless
+      - /dev/shm:/dev/shm # necessário para execução no modo headless
       - ./ssh-keys:/root/.ssh
     command: >
-        bash -c 'chmod 600 /root/.ssh/config && chmod 600 /root/.ssh/master-key-all && chown -R root:root /root/.ssh && sleep infinity'
+      bash -c 'chmod 600 /root/.ssh/config && chmod 600 /root/.ssh/master-key-all && chown -R root:root /root/.ssh && sleep infinity'
     network_mode: host
 
 volumes:
@@ -193,6 +209,7 @@ volumes:
   mysql8_data:
   portainer_data:
   jenkins_home:
+
 
 networks:
   dev_network:
