@@ -63,6 +63,7 @@ services:
       - 9220:9220
       - 9240:9240
     volumes:
+      - ../projects/supermonitor-hkm-especial:/var/www/html/supermonitor-hkm-especial
       - ../projects/supermonitor-hkm-1:/var/www/html/supermonitor-hkm-1
       - ../projects/supermonitor-hkm-2:/var/www/html/supermonitor-hkm-2
       - ../projects/supermonitor-smart:/var/www/html/supermonitor-smart
