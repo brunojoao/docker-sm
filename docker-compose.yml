@@ -58,15 +58,15 @@ services:
     user: "root"
     container_name: php5-projects
     ports:
-      - 9199:9199
       - 9200:9200
       - 9201:9201
+      - 9202:9202
       - 9220:9220
       - 9240:9240
     volumes:
-      - ../projects/supermonitor-hkm-especial:/var/www/html/supermonitor-hkm-especial
       - ../projects/supermonitor-hkm-1:/var/www/html/supermonitor-hkm-1
       - ../projects/supermonitor-hkm-2:/var/www/html/supermonitor-hkm-2
+      - ../projects/supermonitor-hkm-especial:/var/www/html/supermonitor-hkm-especial
       - ../projects/supermonitor-smart:/var/www/html/supermonitor-smart
       - ../projects/gateway-payment-essentia:/var/www/html/gateway-payment-essentia
       - ./dockerfiles/configs/php5.6/php.ini:/usr/local/etc/php/conf.d/local.ini
@@ -113,10 +113,12 @@ services:
       - 9400:9400
       - 9401:9401
       - 9420:9420
+      - 9421:9421
       - 5173:5173 #vite 
     volumes:
       - ../projects/gerenciador-compras-1:/var/www/html/gerenciador-compras-1
       - ../projects/gerenciador-compras-2:/var/www/html/gerenciador-compras-2
+      - ../projects/selfcheckout-especial:/var/www/html/selfcheckout-especial
       - ../projects/selfcheckout:/var/www/html/selfcheckout
       - ./dockerfiles/configs/php8.1/php.ini:/usr/local/etc/php/conf.d/local.ini
       - ./dockerfiles/configs/php8.1/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
