@@ -114,9 +114,12 @@ services:
       - 9401:9401
       - 9420:9420
       - 9421:9421
+      - 9430:9430
       - 5173:5173 #vite 
       - 5174:5174 #vite 
+      - 5175:5175 #vite 
     volumes:
+      - ../projects/prateleira-infinita:/var/www/html/prateleira-infinita
       - ../projects/gerenciador-compras-1:/var/www/html/gerenciador-compras-1
       - ../projects/gerenciador-compras-2:/var/www/html/gerenciador-compras-2
       - ../projects/selfcheckout-especial:/var/www/html/selfcheckout-especial
