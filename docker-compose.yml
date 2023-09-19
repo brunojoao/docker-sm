@@ -134,13 +134,13 @@ services:
     links:
       - db-mysql8-host
 
-  node-socket-sm:
+  node-socket-sm-hkm:
     build:
       context: ./dockerfiles
       dockerfile: Dockerfile-socket-sm
     image: brunojoao3/docker-sm:socket-sm-12.22.9
     user: "root"
-    container_name: socket_sm
+    container_name: socket_sm_hkm
     working_dir: /home/node/app
     networks:
       dev_network:
@@ -148,7 +148,23 @@ services:
     ports:
       - 3003:3003
     volumes:
-      - ../projects/node_server_sm:/home/node/app
+      - ../projects/node_server_sm_hkm:/home/node/app
+
+  node-socket-sm-smart:
+    build:
+      context: ./dockerfiles
+      dockerfile: Dockerfile-socket-sm
+    image: brunojoao3/docker-sm:socket-sm-12.22.9
+    user: "root"
+    container_name: socket_sm_hkm
+    working_dir: /home/node/app
+    networks:
+      dev_network:
+        ipv4_address: 172.20.0.10
+    ports:
+      - 3004:3004
+    volumes:
+      - ../projects/node_server_sm_smart:/home/node/app
 
   node-socket-injetaveis:
     build:
@@ -160,9 +176,9 @@ services:
     working_dir: /home/node/app
     networks:
       dev_network:
-        ipv4_address: 172.20.0.10
+        ipv4_address: 172.20.0.11
     ports:
-      - 3004:3004
+      - 3005:3003
     volumes:
       - ../projects/node_server_injetaveis:/home/node/app
 
@@ -176,11 +192,11 @@ services:
     working_dir: /home/node/app
     networks:
       dev_network:
-        ipv4_address: 172.20.0.11
+        ipv4_address: 172.20.0.12
     ports:
-      - 3005:3003
+      - 3006:3006
     volumes:
-      - ../projects/node_server_sm:/home/node/app
+      - ../projects/node_server_sm_especial:/home/node/app
 
   jenkins:
     build:
