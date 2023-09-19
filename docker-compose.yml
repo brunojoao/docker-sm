@@ -199,6 +199,7 @@ services:
       - 3006:3006
     volumes:
       - ../projects/node_server_sm_especial:/home/node/app
+    command: sh -c "npm update && pm2-runtimestart index.js"
 
   jenkins:
     build:
