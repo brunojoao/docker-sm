@@ -163,6 +163,7 @@ services:
       - 3003:3003
     volumes:
       - ../projects/node_server_sm_hkm:/home/node/app
+    command: sh -c "npm update && pm2-runtimestart index.js"
 
   node-socket-sm-smart:
     build:
@@ -177,6 +178,7 @@ services:
       - 3004:3004
     volumes:
       - ../projects/node_server_sm_smart:/home/node/app
+    command: sh -c "npm update && pm2-runtimestart index.js"
 
   node-socket-injetaveis:
     build:
