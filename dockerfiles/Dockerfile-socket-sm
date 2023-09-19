@@ -10,4 +10,4 @@ RUN npm config set unsafe-perm true && \
 
 EXPOSE 3003
 
-CMD ["pm2-runtime", "start", "index.js", "--watch"]
+CMD ["npm","update","&&","pm2-runtime","start","index.js","--watch"]
