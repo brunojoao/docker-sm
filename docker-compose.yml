@@ -150,7 +150,7 @@ services:
       - "injetaveis-cron.docker.local:172.20.0.7"
       - "gerenciador-compras.local:172.20.0.8"
 
-  node-socket-sm:
+  node-socket-sm-hkm:
     build:
       context: ./dockerfiles
       dockerfile: Dockerfile-socket-sm
@@ -162,7 +162,21 @@ services:
     ports:
       - 3003:3003
     volumes:
-      - ../projects/node_server_sm:/home/node/app
+      - ../projects/node_server_sm_hkm:/home/node/app
+
+  node-socket-sm-smart:
+    build:
+      context: ./dockerfiles
+      dockerfile: Dockerfile-socket-sm
+    image: brunojoao3/docker-sm:socket-sm-12.22.9
+    container_name: socket_sm
+    networks:
+      dev_network:
+        ipv4_address: 172.20.0.51
+    ports:
+      - 3004:3004
+    volumes:
+      - ../projects/node_server_sm_smart:/home/node/app
 
   node-socket-injetaveis:
     build:
@@ -173,9 +187,9 @@ services:
     container_name: socket_injetaveis
     networks:
       dev_network:
-        ipv4_address: 172.20.0.51
+        ipv4_address: 172.20.0.52
     ports:
-      - 3004:3004
+      - 3005:3005
     volumes:
       - ../projects/node_server_injetaveis:/home/node/app
 
