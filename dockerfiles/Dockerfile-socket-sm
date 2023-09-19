@@ -6,7 +6,7 @@ WORKDIR /home/node/app
 
 RUN npm config set unsafe-perm true && \
     npm install -f && \
-    npm install pm2 -g
+    npm install -g --unsafe-perm=true --allow-root pm2
 
 EXPOSE 3003
 
