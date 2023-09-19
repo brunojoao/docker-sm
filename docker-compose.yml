@@ -156,7 +156,7 @@ services:
       dockerfile: Dockerfile-socket-sm
     image: brunojoao3/docker-sm:socket-sm-12.22.9
     user: "root"
-    container_name: socket_sm_hkm
+    container_name: socket_sm_smart
     working_dir: /home/node/app
     networks:
       dev_network:
