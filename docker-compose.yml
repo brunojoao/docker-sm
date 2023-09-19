@@ -62,12 +62,14 @@ services:
       - 9201:9201
       - 9202:9202
       - 9220:9220
+      - 9222:9222
       - 9240:9240
     volumes:
       - ../projects/supermonitor-hkm-1:/var/www/html/supermonitor-hkm-1
       - ../projects/supermonitor-hkm-2:/var/www/html/supermonitor-hkm-2
       - ../projects/supermonitor-hkm-especial:/var/www/html/supermonitor-hkm-especial
       - ../projects/supermonitor-smart:/var/www/html/supermonitor-smart
+      - ../projects/supermonitor-smart-especial:/var/www/html/supermonitor-smart-especial
       - ../projects/gateway-payment-essentia:/var/www/html/gateway-payment-essentia
       - ./dockerfiles/configs/php5.6/php.ini:/usr/local/etc/php/conf.d/local.ini
       - ./dockerfiles/configs/php5.6/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
@@ -184,7 +186,7 @@ services:
     volumes:
       - ../projects/node_server_injetaveis:/home/node/app
 
-  node-socket-sm-especial:
+  node-socket-sm-hkm-especial:
     build:
       context: ./dockerfiles
       dockerfile: Dockerfile-socket-sm
@@ -198,7 +200,24 @@ services:
     ports:
       - 3006:3006
     volumes:
-      - ../projects/node_server_sm_especial:/home/node/app
+      - ../projects/node_server_sm_hkm_especial:/home/node/app
+    command: sh -c "npm update && npm start index.js"
+
+  node-socket-sm-smart-especial:
+    build:
+      context: ./dockerfiles
+      dockerfile: Dockerfile-socket-sm
+    image: brunojoao3/docker-sm:socket-sm-12.22.9
+    user: "root"
+    container_name: socket_sm_especial
+    working_dir: /home/node/app
+    networks:
+      dev_network:
+        ipv4_address: 172.20.0.13
+    ports:
+      - 3007:3007
+    volumes:
+      - ../projects/node_server_sm_smart_especial:/home/node/app
     command: sh -c "npm update && npm start index.js"
 
   jenkins:
