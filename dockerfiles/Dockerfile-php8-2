@@ -7,6 +7,15 @@ RUN a2enmod rewrite \
     && chmod -R 777 /var/www/html \
     && curl --show-error https://getcomposer.org/installer -o /tmp/composer-setup.php \
     && php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer \
-    && sed -i 's/APACHE_RUN_GROUP:=www-data/APACHE_RUN_GROUP:=root/g' /etc/apache2/envvars
+    && sed -i 's/APACHE_RUN_GROUP:=www-data/APACHE_RUN_GROUP:=root/g' /etc/apache2/envvars \
+    && if [ ! -d /usr/local/node19 ]; then \
+        curl -o /tmp/node20.tar.xz https://nodejs.org/dist/v20.7.0/node-v20.7.0-linux-x64.tar.xz \
+        && tar -xvf /tmp/node20.tar.xz -C /tmp --strip-components=1 --one-top-level=node20 \
+        && rm /tmp/node20.tar.xz \
+        && mv /tmp/node20 /usr/local/ \
+        && ln -s /usr/local/node20/bin/node /usr/local/bin/node \
+        && ln -s /usr/local/node20/bin/npm /usr/local/bin/npm \
+        && ln -s /usr/local/node20/bin/npx /usr/local/bin/npx; \
+    fi
 
 CMD ["apache2-foreground"]
