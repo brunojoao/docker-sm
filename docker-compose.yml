@@ -219,6 +219,8 @@ services:
     container_name: cy-sm-hkm
     image: brunojoao3/docker-sm:cy-sm-hkm
     working_dir: /e2e
+    environment:
+      - DISPLAY=${DISPLAY} # espelha o valor do display do server (host) para o client (container)
     volumes:
       - ../projects/cy-sm-hkm:/e2e
       - /dev/shm:/dev/shm  # necessário para execução no modo headless

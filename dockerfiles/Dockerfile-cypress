@@ -26,9 +26,6 @@ WORKDIR /e2e
 # Instala o Cypress usando npm
 RUN npx cypress install
 
-# Configuração do Xvfb
-ENV DISPLAY=:0
-
 # Define o comando padrão do contêiner
-CMD Xvfb :0 -screen 0 1024x768x16 & \
+CMD Xvfb :$DISPLAY -screen 0 1024x768x16 & \
     sleep infinity 
