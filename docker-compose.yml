@@ -83,6 +83,7 @@ services:
     volumes:
       - ../projects/injetaveisadmin:/var/www/html/injetaveisadmin
       - ../projects/injetaveiscron:/var/www/html/injetaveiscron
+      - ../projects/sm-tracking:/var/www/html/sm-tracking
       - ./dockerfiles/configs/php7.4/php.ini:/usr/local/etc/php/conf.d/local.ini
       - ./dockerfiles/configs/php7.4/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
       - ./dockerfiles/configs/php7.4/ports.conf:/etc/apache2/ports.conf
