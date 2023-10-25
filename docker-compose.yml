@@ -108,7 +108,6 @@ services:
     ports:
       - 8082:8082
       - 8083:8083
-      - 5173:5173
     volumes:
       - ../projects/selfcheckout:/var/www/html/selfcheckout
       - ../projects/gerenciador-compras:/var/www/html/gerenciador-compras
@@ -140,6 +139,7 @@ services:
     volumes:
       - ../projects/ultramonitor:/var/www/html/ultramonitor
       - ../projects/selfcheckout:/var/www/html/selfcheckout
+      - ../projects/gerenciador-compras:/var/www/html/gerenciador-compras
       - ./dockerfiles/configs/php8.2/php.ini:/usr/local/etc/php/conf.d/local.ini
       - ./dockerfiles/configs/php8.2/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
       - ./dockerfiles/configs/php8.2/ports.conf:/etc/apache2/ports.conf
