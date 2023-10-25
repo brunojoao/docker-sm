@@ -2,11 +2,21 @@ FROM --platform=linux/amd64 php:8.2-apache
 
 RUN a2enmod rewrite \
     && apt-get update \
-    && apt-get -y install libxml2-dev zip unzip firebird-dev curl libjpeg-dev libpng-dev libfreetype6-dev libz-dev libtiff-dev git \
+    && apt-get -y install libxml2-dev zip unzip firebird-dev curl libjpeg-dev libpng-dev libfreetype6-dev libz-dev libtiff-dev git zlib1g-dev libonig-dev \
     && docker-php-ext-install pdo pdo_mysql simplexml dom intl soap pdo_firebird gd \
-    && chmod -R 777 /var/www/html \
     && curl --show-error https://getcomposer.org/installer -o /tmp/composer-setup.php \
     && php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer \
+    && rm /tmp/composer-setup.php \
+    && chmod -R 777 /var/www/html \
+    && if [ ! -d /usr/local/node19 ]; then \
+        curl -o /tmp/node19.tar.xz https://nodejs.org/dist/v19.9.0/node-v19.9.0-linux-x64.tar.xz \
+        && tar -xvf /tmp/node19.tar.xz -C /tmp --strip-components=1 --one-top-level=node19 \
+        && rm /tmp/node19.tar.xz \
+        && mv /tmp/node19 /usr/local/ \
+        && ln -s /usr/local/node19/bin/node /usr/local/bin/node \
+        && ln -s /usr/local/node19/bin/npm /usr/local/bin/npm \
+        && ln -s /usr/local/node19/bin/npx /usr/local/bin/npx; \
+    fi \
     && sed -i 's/APACHE_RUN_GROUP:=www-data/APACHE_RUN_GROUP:=root/g' /etc/apache2/envvars
 
 
