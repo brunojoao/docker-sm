@@ -1,10 +1,9 @@
-FROM php:8.1-apache
+FROM --platform=linux/amd64 php:8.2-apache
 
-# Executar o comando
 RUN a2enmod rewrite \
     && apt-get update \
-    && apt-get -y install zlib1g-dev libxml2-dev libonig-dev libpng-dev zip unzip firebird-dev curl git \
-    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd \
+    && apt-get -y install libxml2-dev zip unzip firebird-dev curl libjpeg-dev libpng-dev libfreetype6-dev libz-dev libtiff-dev git zlib1g-dev libonig-dev \
+    && docker-php-ext-install pdo pdo_mysql simplexml dom intl soap pdo_firebird gd \
     && curl --show-error https://getcomposer.org/installer -o /tmp/composer-setup.php \
     && php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer \
     && rm /tmp/composer-setup.php \
@@ -17,8 +16,8 @@ RUN a2enmod rewrite \
         && ln -s /usr/local/node19/bin/node /usr/local/bin/node \
         && ln -s /usr/local/node19/bin/npm /usr/local/bin/npm \
         && ln -s /usr/local/node19/bin/npx /usr/local/bin/npx; \
-    fi
+    fi \
+    && sed -i 's/APACHE_RUN_GROUP:=www-data/APACHE_RUN_GROUP:=root/g' /etc/apache2/envvars
+
 
 CMD ["apache2-foreground"]
-
-# Restante do Dockerfile...
