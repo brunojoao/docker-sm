@@ -106,9 +106,11 @@ services:
     user: "root"
     container_name: php8.2-projects
     ports:
+      - 8084:8084
       - 8085:8085
       - 5173:5173
     volumes:
+      - ../projects/essentia-test-list:/var/www/html/essentia-test-list
       - ../projects/ultramonitor:/var/www/html/ultramonitor
       - ../projects/selfcheckout:/var/www/html/selfcheckout
       - ../projects/gerenciador-compras:/var/www/html/gerenciador-compras
