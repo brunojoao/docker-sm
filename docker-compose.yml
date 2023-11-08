@@ -65,12 +65,23 @@ services:
       - 9222:9222
       - 9240:9240
     volumes:
+      - ../projects/supermonitor-hkm-especial:/var/www/html/supermonitor-hkm-especial
       - ../projects/supermonitor-hkm-1:/var/www/html/supermonitor-hkm-1
       - ../projects/supermonitor-hkm-2:/var/www/html/supermonitor-hkm-2
-      - ../projects/supermonitor-hkm-especial:/var/www/html/supermonitor-hkm-especial
-      - ../projects/supermonitor-smart:/var/www/html/supermonitor-smart
+      - ../projects/supermonitor-hkm-3:/var/www/html/supermonitor-hkm-3
+      - ../projects/supermonitor-hkm-4:/var/www/html/supermonitor-hkm-4
+      - ../projects/supermonitor-hkm-5:/var/www/html/supermonitor-hkm-5
       - ../projects/supermonitor-smart-especial:/var/www/html/supermonitor-smart-especial
-      - ../projects/gateway-payment-essentia:/var/www/html/gateway-payment-essentia
+      - ../projects/supermonitor-smart-1:/var/www/html/supermonitor-smart-1
+      - ../projects/supermonitor-smart-2:/var/www/html/supermonitor-smart-2
+      - ../projects/supermonitor-smart-3:/var/www/html/supermonitor-smart-3
+      - ../projects/supermonitor-smart-4:/var/www/html/supermonitor-smart-4
+      - ../projects/supermonitor-smart-5:/var/www/html/supermonitor-smart-5
+      - ../projects/gateway-payment-essentia-1:/var/www/html/gateway-payment-essentia-1
+      - ../projects/gateway-payment-essentia-2:/var/www/html/gateway-payment-essentia-2
+      - ../projects/gateway-payment-essentia-3:/var/www/html/gateway-payment-essentia-3
+      - ../projects/gateway-payment-essentia-4:/var/www/html/gateway-payment-essentia-4
+      - ../projects/gateway-payment-essentia-5:/var/www/html/gateway-payment-essentia-5
       - ./dockerfiles/configs/php5.6/php.ini:/usr/local/etc/php/conf.d/local.ini
       - ./dockerfiles/configs/php5.6/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
       - ./dockerfiles/configs/php5.6/ports.conf:/etc/apache2/ports.conf
@@ -92,8 +103,8 @@ services:
       - 9300:9300
       - 9320:9320
     volumes:
-      - ../projects/injetaveisadmin:/var/www/html/injetaveisadmin
-      - ../projects/injetaveiscron:/var/www/html/injetaveiscron
+      - ../projects/injetaveisadmin-1:/var/www/html/injetaveisadmin-1
+      - ../projects/injetaveiscron-1:/var/www/html/injetaveiscron-1
       - ./dockerfiles/configs/php7.4/php.ini:/usr/local/etc/php/conf.d/local.ini
       - ./dockerfiles/configs/php7.4/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
       - ./dockerfiles/configs/php7.4/ports.conf:/etc/apache2/ports.conf
@@ -113,10 +124,17 @@ services:
     container_name: php8-projects
     ports:
       - 80:80
-      - 9400:9400
       - 9401:9401
+      - 9402:9402
+      - 9403:9403
+      - 9404:9404
+      - 9405:9405
       - 9420:9420
       - 9421:9421
+      - 9422:9422
+      - 9423:9423
+      - 9424:9424
+      - 9425:9425
       - 9430:9430
       - 5173:5173 #vite 
       - 5174:5174 #vite 
@@ -126,8 +144,15 @@ services:
       - ../projects/prateleira-infinita:/var/www/html/prateleira-infinita
       - ../projects/gerenciador-compras-1:/var/www/html/gerenciador-compras-1
       - ../projects/gerenciador-compras-2:/var/www/html/gerenciador-compras-2
+      - ../projects/gerenciador-compras-3:/var/www/html/gerenciador-compras-3
+      - ../projects/gerenciador-compras-4:/var/www/html/gerenciador-compras-4
+      - ../projects/gerenciador-compras-5:/var/www/html/gerenciador-compras-5
       - ../projects/selfcheckout-especial:/var/www/html/selfcheckout-especial
-      - ../projects/selfcheckout:/var/www/html/selfcheckout
+      - ../projects/selfcheckout-1:/var/www/html/selfcheckout-1
+      - ../projects/selfcheckout-2:/var/www/html/selfcheckout-2
+      - ../projects/selfcheckout-3:/var/www/html/selfcheckout-3
+      - ../projects/selfcheckout-4:/var/www/html/selfcheckout-4
+      - ../projects/selfcheckout-5:/var/www/html/selfcheckout-5  
       - ./dockerfiles/configs/php8.2/php.ini:/usr/local/etc/php/conf.d/local.ini
       - ./dockerfiles/configs/php8.2/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
       - ./dockerfiles/configs/php8.2/ports.conf:/etc/apache2/ports.conf
