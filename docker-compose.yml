@@ -61,9 +61,20 @@ services:
       - 9200:9200
       - 9201:9201
       - 9202:9202
+      - 9203:9203
+      - 9204:9204
+      - 9205:9205
       - 9220:9220
+      - 9221:9221
       - 9222:9222
-      - 9240:9240
+      - 9223:9223
+      - 9224:9224
+      - 9225:9225
+      - 9241:9241
+      - 9242:9242
+      - 9243:9243
+      - 9244:9244
+      - 9245:9245
     volumes:
       - ../projects/supermonitor-hkm-especial:/var/www/html/supermonitor-hkm-especial
       - ../projects/supermonitor-hkm-1:/var/www/html/supermonitor-hkm-1
