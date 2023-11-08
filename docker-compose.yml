@@ -168,6 +168,7 @@ services:
       - ./dockerfiles/configs/php8.2/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
       - ./dockerfiles/configs/php8.2/ports.conf:/etc/apache2/ports.conf
       - ./ssh-keys:/root/.ssh
+      - /var/run/docker.sock:/var/run/docker.sock
     networks:
       dev_network:
         ipv4_address: 172.20.0.8
