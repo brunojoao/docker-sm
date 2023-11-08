@@ -130,7 +130,7 @@ services:
     build:
       context: ./dockerfiles
       dockerfile: Dockerfile-php8-2
-    image: brunojoao3/docker-sm:php-8.2-apache
+    image: brunojoao3/docker-sm:php-8.2-apache-docker-in-docker
     user: "root"
     container_name: php8-projects
     ports:
