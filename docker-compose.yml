@@ -230,6 +230,7 @@ services:
       - EMAIL_TRANSPORT_DEFAULT_TIMEOUT=30
       - EMAIL_TRANSPORT_DEFAULT_USERNAME=naoresponda@essentia.com.br
       - EMAIL_TRANSPORT_DEFAULT_PASSWORD=${EMAIL_TRANSPORT_DEFAULT_PASSWORD}
+      - EMAIL_TRANSPORT_DEFAULT_TLS=true
     ports:
       - "9997:80"
     networks:
