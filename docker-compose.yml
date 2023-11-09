@@ -318,6 +318,8 @@ services:
       - db-mysql8-host
     links:
       - db-mysql8-host
+    volumes:
+      - passbolt_data:/var/www/passbolt
 
 volumes:
   mysql_data:
