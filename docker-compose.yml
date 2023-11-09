@@ -326,6 +326,7 @@ volumes:
   mysql8_data:
   portainer_data:
   jenkins_home:
+  passbolt_data:
 
 networks:
   dev_network:
