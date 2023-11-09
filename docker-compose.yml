@@ -217,6 +217,7 @@ services:
       - DATASOURCES_DEFAULT_USERNAME=root
       - DATASOURCES_DEFAULT_PASSWORD=789123
       - DATASOURCES_DEFAULT_DATABASE=passbolt
+      - DATASOURCES_DEFAULT_PORT=3309
       - APP_FULL_BASE_URL=http://localhost:9997
       - SECURED_PASSBOLT_API=http://localhost:9997
       - PASSBOLT_KEY_SERVER=http://keyserver.ubuntu.com/
