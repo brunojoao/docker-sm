@@ -113,7 +113,9 @@ services:
     ports:
       - 9300:9300
       - 9320:9320
+      - 9340:9340
     volumes:
+      - ../projects/sm-tracking-1:/var/www/html/sm-tracking-1
       - ../projects/injetaveisadmin-1:/var/www/html/injetaveisadmin-1
       - ../projects/injetaveiscron-1:/var/www/html/injetaveiscron-1
       - ./dockerfiles/configs/php7.4/php.ini:/usr/local/etc/php/conf.d/local.ini
