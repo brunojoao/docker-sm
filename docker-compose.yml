@@ -209,46 +209,11 @@ services:
       - "gerenciador-compras.local:172.20.0.8"
     network_mode: host
 
-  passbolt:
-    image: passbolt/passbolt:latest
-    container_name: passbolt
-    environment:
-      - DATASOURCES_DEFAULT_HOST=db-mysql8-host
-      - DATASOURCES_DEFAULT_USERNAME=root
-      - DATASOURCES_DEFAULT_PASSWORD=789123
-      - DATASOURCES_DEFAULT_DATABASE=passbolt
-      - DATASOURCES_DEFAULT_PORT=3306
-      - APP_FULL_BASE_URL=http://localhost:9997
-      - SECURED_PASSBOLT_API=http://localhost:9997
-      - PASSBOLT_KEY_SERVER=http://keyserver.ubuntu.com/
-      - GPG_SERVER=keyserver.ubuntu.com
-      - GPG_SERVER_PORT=80
-      - EMAIL_TRANSPORT_DEFAULT_CLASS_NAME=Smtp
-      - EMAIL_DEFAULT_FROM=naoresponda@essentia.com.br
-      - EMAIL_TRANSPORT_DEFAULT_HOST=smtp.gmail.com
-      - EMAIL_TRANSPORT_DEFAULT_PORT=465
-      - EMAIL_TRANSPORT_DEFAULT_TIMEOUT=30
-      - EMAIL_TRANSPORT_DEFAULT_USERNAME=naoresponda@essentia.com.br
-      - EMAIL_TRANSPORT_DEFAULT_PASSWORD=${EMAIL_TRANSPORT_DEFAULT_PASSWORD}
-      - EMAIL_TRANSPORT_DEFAULT_TLS=true
-    ports:
-      - "9997:80"
-    networks:
-      dev_network:
-        ipv4_address: 172.20.0.53
-    depends_on:
-      - db-mysql8-host
-    links:
-      - db-mysql8-host
-    volumes:
-      - passbolt_data:/var/www/passbolt
-
 volumes:
   mysql_data:
   mysql8_data:
   portainer_data:
   jenkins_home:
-  passbolt_data:
 
 networks:
   dev_network:
