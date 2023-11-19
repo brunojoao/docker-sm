@@ -109,7 +109,6 @@ services:
       - 8085:8085
       - 5173:5173
     volumes:
-      - ../projects/essentia-test-list:/var/www/html/essentia-test-list
       - ../projects/ultramonitor:/var/www/html/ultramonitor
       - ../projects/selfcheckout:/var/www/html/selfcheckout
       - ../projects/gerenciador-compras:/var/www/html/gerenciador-compras
@@ -127,6 +126,21 @@ services:
       - "gerenciador-compras.local:172.20.0.8"
       - "sm-hkm.docker.local:172.20.0.6"
       - "sm-smart.docker.local:172.20.0.6"
+
+  node-projects:
+    build:
+      context: ./dockerfiles
+      dockerfile: Dockerfile-alpine-node
+    image: brunojoao3/docker-sm:alpine-node
+    container_name: node-projects
+    networks:
+      dev_network:
+        ipv4_address: 172.20.0.40
+    ports:
+      - 8090:8090
+    volumes:
+      - ../projects/api-monitor:/home/node/app/api-monitor
+    command: sh -c "tail -f /dev/null"
 
   node-socket-sm-hkm:
     build:
