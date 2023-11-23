@@ -120,12 +120,14 @@ services:
         ipv4_address: 172.20.0.9
     links:
       - db-mysql8-host
+      - db-mysql-host
     extra_hosts:
       - "injetaveis.docker.local:172.20.0.7"
       - "injetaveis-cron.docker.local:172.20.0.7"
       - "gerenciador-compras.local:172.20.0.8"
       - "sm-hkm.docker.local:172.20.0.6"
       - "sm-smart.docker.local:172.20.0.6"
+      - "gpe.docker.local:172.20.0.6"
 
   node-projects:
     build:
