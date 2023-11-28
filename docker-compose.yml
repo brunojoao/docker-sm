@@ -69,7 +69,7 @@ services:
     extra_hosts:
       - "injetaveis.docker.local:172.20.0.7"
       - "injetaveis-cron.docker.local:172.20.0.7"
-      - "gerenciador-compras.local:172.20.0.8"
+      - "gerenciador-compras.local:172.20.0.9"
 
   php7.4:
     build:
@@ -96,38 +96,40 @@ services:
       - "sm-hkm.docker.local:172.20.0.6"
       - "sm-smart.docker.local:172.20.0.6"
       - "gpe.docker.local:172.20.0.6"
-      - "gerenciador-compras.local:172.20.0.8"
+      - "gerenciador-compras.local:172.20.0.9"
 
-  php8.2:
+  php8.3:
     build:
       context: ./dockerfiles
-      dockerfile: Dockerfile-php8-2
-    image: brunojoao3/docker-sm:php-8.2-apache
-    user: "root"
-    container_name: php8.2-projects
+      dockerfile: Dockerfile-php8-3
+    image: brunojoao3/docker-sm:php-8.3-apache
+    user: 'root'
+    container_name: php8.3-projects
     ports:
-      - 8085:8085
-      - 5173:5173
+      - '8085:8085'
+      - '5173:5173'
     volumes:
-      - ../projects/ultramonitor:/var/www/html/ultramonitor
-      - ../projects/selfcheckout:/var/www/html/selfcheckout
-      - ../projects/gerenciador-compras:/var/www/html/gerenciador-compras
-      - ./dockerfiles/configs/php8.2/php.ini:/usr/local/etc/php/conf.d/local.ini
-      - ./dockerfiles/configs/php8.2/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
-      - ./dockerfiles/configs/php8.2/ports.conf:/etc/apache2/ports.conf
+      - '../projects/ultramonitor:/var/www/html/ultramonitor'
+      - '../projects/selfcheckout:/var/www/html/selfcheckout'
+      - '../projects/gerenciador-compras:/var/www/html/gerenciador-compras'
+      - './dockerfiles/configs/php8.3/php.ini:/usr/local/etc/php/conf.d/local.ini'
+      - './dockerfiles/configs/php8.3/000-default.conf:/etc/apache2/sites-enabled/000-default.conf'
+      - './dockerfiles/configs/php8.3/ports.conf:/etc/apache2/ports.conf'
     networks:
       dev_network:
         ipv4_address: 172.20.0.9
     links:
       - db-mysql8-host
       - db-mysql-host
+      - php5.6
     extra_hosts:
-      - "injetaveis.docker.local:172.20.0.7"
-      - "injetaveis-cron.docker.local:172.20.0.7"
-      - "gerenciador-compras.local:172.20.0.8"
-      - "sm-hkm.docker.local:172.20.0.6"
-      - "sm-smart.docker.local:172.20.0.6"
-      - "gpe.docker.local:172.20.0.6"
+      - 'injetaveis.docker.local:172.20.0.7'
+      - 'injetaveis-cron.docker.local:172.20.0.7'
+      - 'gerenciador-compras.local:172.20.0.9'
+      - 'sm-hkm.docker.local:172.20.0.6'
+      - 'sm-smart.docker.local:172.20.0.6'
+      - 'gpe.docker.local:172.20.0.6'
+      - 'selfcheckout.docker.local:172.20.0.9'
 
   node-projects:
     build:
@@ -222,7 +224,7 @@ services:
       - "sm-hkm.docker.local:172.20.0.6"
       - "sm-smart.docker.local:172.20.0.6"
       - "gpe.docker.local:172.20.0.6"
-      - "gerenciador-compras.local:172.20.0.8"
+      - "gerenciador-compras.local:172.20.0.9"
     network_mode: host
 
 volumes:
