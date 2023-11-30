@@ -128,11 +128,11 @@ services:
     links:
       - db-mysql-host
 
-  php8.2:
+  php8.3:
     build:
       context: ./dockerfiles
-      dockerfile: Dockerfile-php8-2
-    image: brunojoao3/docker-sm:php-8.2-apache-docker-in-docker
+      dockerfile: ./Dockerfile-php8-3
+    image: brunojoao3/docker-sm:php-8.3-apache-docker-in-docker
     user: "root"
     container_name: php8-projects
     ports:
@@ -166,9 +166,9 @@ services:
       - ../projects/selfcheckout-3:/var/www/html/selfcheckout-3
       - ../projects/selfcheckout-4:/var/www/html/selfcheckout-4
       - ../projects/selfcheckout-5:/var/www/html/selfcheckout-5
-      - ./dockerfiles/configs/php8.2/php.ini:/usr/local/etc/php/conf.d/local.ini
-      - ./dockerfiles/configs/php8.2/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
-      - ./dockerfiles/configs/php8.2/ports.conf:/etc/apache2/ports.conf
+      - ./dockerfiles/configs/php8.3/php.ini:/usr/local/etc/php/conf.d/local.ini
+      - ./dockerfiles/configs/php8.3/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
+      - ./dockerfiles/configs/php8.3/ports.conf:/etc/apache2/ports.conf
       - ./ssh-keys:/root/.ssh
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
@@ -176,6 +176,7 @@ services:
         ipv4_address: 172.20.0.8
     links:
       - db-mysql8-host
+      - db-mysql-host
 
   node-socket-sm-hkm:
     build:

@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 php:8.2-apache
+FROM --platform=linux/amd64 php:8.3-apache
 
 RUN a2enmod rewrite \
     && apt-get update \
