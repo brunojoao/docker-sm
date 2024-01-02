@@ -144,6 +144,81 @@ services:
       - "gpe.docker.local:172.20.0.6"
       - "gerenciador-compras.local:172.20.0.8"
 
+  injetaveisadmin:
+    build:
+      context: ./dockerfiles
+      dockerfile: Dockerfile-php7-4
+    user: "root"
+    container_name: php7-projects
+    ports:
+      - 8083:80
+    volumes:
+      - ../projects/injetaveisadmin:/var/www/html
+      - ./dockerfiles/configs/php7.4/php.ini:/usr/local/etc/php/conf.d/local.ini
+      - ./dockerfiles/configs/php7.4/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
+      - ./dockerfiles/configs/php7.4/ports.conf:/etc/apache2/ports.conf
+    links:
+      - db-mysql-host
+    labels:
+      virtual.host: injetaveisadmin.local
+      virtual.port: 80
+      virtual.proxy.directives: |
+        header_up Host {http.reverse_proxy.upstream.hostport}
+    extra_hosts:
+      - "sm-hkm.docker.local:172.20.0.6"
+      - "sm-smart.docker.local:172.20.0.6"
+      - "gpe.docker.local:172.20.0.6"
+
+  injetaveiscron:
+    build:
+      context: ./dockerfiles
+      dockerfile: Dockerfile-php7-4
+    user: "root"
+    container_name: injetaveiscron
+    ports:
+      - 8084:80
+    volumes:
+      - ../projects/injetaveiscron:/var/www/html
+      - ./dockerfiles/configs/php7.4/php.ini:/usr/local/etc/php/conf.d/local.ini
+      - ./dockerfiles/configs/php7.4/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
+      - ./dockerfiles/configs/php7.4/ports.conf:/etc/apache2/ports.conf
+    links:
+      - db-mysql-host
+    labels:
+      virtual.host: injetaveiscron.local
+      virtual.port: 80
+      virtual.proxy.directives: |
+        header_up Host {http.reverse_proxy.upstream.hostport}
+    extra_hosts:
+      - "sm-hkm.docker.local:172.20.0.6"
+      - "sm-smart.docker.local:172.20.0.6"
+      - "gpe.docker.local:172.20.0.6"
+
+  sm-tracking:
+    build:
+      context: ./dockerfiles
+      dockerfile: Dockerfile-php7-4
+    user: "root"
+    container_name: sm-tracking
+    ports:
+      - 8085:80
+    volumes:
+      - ../projects/sm-tracking:/var/www/html
+      - ./dockerfiles/configs/php7.4/php.ini:/usr/local/etc/php/conf.d/local.ini
+      - ./dockerfiles/configs/php7.4/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
+      - ./dockerfiles/configs/php7.4/ports.conf:/etc/apache2/ports.conf
+    links:
+      - db-mysql-host
+    labels:
+      virtual.host: sm-tracking.local
+      virtual.port: 80
+      virtual.proxy.directives: |
+        header_up Host {http.reverse_proxy.upstream.hostport}
+    extra_hosts:
+      - "sm-hkm.docker.local:172.20.0.6"
+      - "sm-smart.docker.local:172.20.0.6"
+      - "gpe.docker.local:172.20.0.6"
+
   selfcheckout:
     build:
       context: ./dockerfiles
@@ -151,7 +226,7 @@ services:
     user: 'root'
     container_name: selfcheckout
     ports:
-      - '8082:80'
+      - '8086:80'
       - '5173:5173'
     volumes:
       - '../projects/selfcheckout:/var/www/html'
@@ -176,7 +251,7 @@ services:
     user: 'root'
     container_name: gecom
     ports:
-      - '8083:80'
+      - '8087:80'
       - '5174:5173'
     volumes:
       - '../projects/gerenciador-compras:/var/www/html'
@@ -202,7 +277,7 @@ services:
     user: 'root'
     container_name: ultramonitor
     ports:
-      - '8084:80'
+      - '8088:80'
       - '5175:5173'
     volumes:
       - '../projects/ultramonitor:/var/www/html'
