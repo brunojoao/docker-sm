@@ -52,8 +52,6 @@ services:
     labels:
       virtual.host: sm-hkm.local
       virtual.port: 80
-      virtual.proxy.directives: |
-        header_up Host {http.reverse_proxy.upstream.hostport}
 
   supermonitor-smart:
     build:
@@ -71,8 +69,6 @@ services:
     labels:
       virtual.host: sm-smart.local
       virtual.port: 80
-      virtual.proxy.directives: |
-        header_up Host {http.reverse_proxy.upstream.hostport}
 
   gateway-payment-essentia:
     build:
@@ -91,92 +87,6 @@ services:
       virtual.host: gpe.local
       virtual.port: 80
 
-  php5.6:
-    build:
-      context: ./dockerfiles
-      dockerfile: Dockerfile-php5-6
-    image: brunojoao3/docker-sm:php-5.6-apache
-    user: "root"
-    container_name: php5-projects
-    ports:
-      - 8080:8080
-    volumes:
-      - ../projects/supermonitor-hkm:/var/www/html/supermonitor-hkm
-      - ../projects/supermonitor-smart:/var/www/html/supermonitor-smart
-      - ../projects/gateway-payment-essentia:/var/www/html/gateway-payment-essentia
-      - ./dockerfiles/configs/php5.6/php.ini:/usr/local/etc/php/conf.d/local.ini
-      - ./dockerfiles/configs/php5.6/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
-      - ./dockerfiles/configs/php5.6/ports.conf:/etc/apache2/ports.conf
-    networks:
-      dev_network:
-        ipv4_address: 172.20.0.6
-    links:
-      - db-mysql-host
-    extra_hosts:
-      - "injetaveis.docker.local:172.20.0.7"
-      - "injetaveis-cron.docker.local:172.20.0.7"
-      - "gerenciador-compras.local:172.20.0.9"
-
-  php7.4:
-    build:
-      context: ./dockerfiles
-      dockerfile: Dockerfile-php7-4
-    image: brunojoao3/docker-sm:php-7.4-apache
-    user: "root"
-    container_name: php7-projects
-    ports:
-      - 8081:8081
-    volumes:
-      - ../projects/injetaveisadmin:/var/www/html/injetaveisadmin
-      - ../projects/injetaveiscron:/var/www/html/injetaveiscron
-      - ../projects/sm-tracking:/var/www/html/sm-tracking
-      - ./dockerfiles/configs/php7.4/php.ini:/usr/local/etc/php/conf.d/local.ini
-      - ./dockerfiles/configs/php7.4/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
-      - ./dockerfiles/configs/php7.4/ports.conf:/etc/apache2/ports.conf
-    networks:
-      dev_network:
-        ipv4_address: 172.20.0.7
-    links:
-      - db-mysql-host
-    extra_hosts:
-      - "sm-hkm.docker.local:172.20.0.6"
-      - "sm-smart.docker.local:172.20.0.6"
-      - "gpe.docker.local:172.20.0.6"
-      - "gerenciador-compras.local:172.20.0.9"
-
-  php8.3:
-    build:
-      context: ./dockerfiles
-      dockerfile: Dockerfile-php8-3
-    image: brunojoao3/docker-sm:php-8.3-apache
-    user: 'root'
-    container_name: php8.3-projects
-    ports:
-      - '8085:8085'
-      - '5173:5173'
-    volumes:
-      - '../projects/ultramonitor:/var/www/html/ultramonitor'
-      - '../projects/selfcheckout:/var/www/html/selfcheckout'
-      - '../projects/gerenciador-compras:/var/www/html/gerenciador-compras'
-      - './dockerfiles/configs/php8.3/php.ini:/usr/local/etc/php/conf.d/local.ini'
-      - './dockerfiles/configs/php8.3/000-default.conf:/etc/apache2/sites-enabled/000-default.conf'
-      - './dockerfiles/configs/php8.3/ports.conf:/etc/apache2/ports.conf'
-    networks:
-      dev_network:
-        ipv4_address: 172.20.0.9
-    links:
-      - db-mysql8-host
-      - db-mysql-host
-      - php5.6
-    extra_hosts:
-      - 'injetaveis.docker.local:172.20.0.7'
-      - 'injetaveis-cron.docker.local:172.20.0.7'
-      - 'gerenciador-compras.local:172.20.0.9'
-      - 'sm-hkm.docker.local:172.20.0.6'
-      - 'sm-smart.docker.local:172.20.0.6'
-      - 'gpe.docker.local:172.20.0.6'
-      - 'selfcheckout.docker.local:172.20.0.9'
-
   injetaveisadmin:
     build:
       context: ./dockerfiles
@@ -188,13 +98,9 @@ services:
       - ./dockerfiles/configs/php7.4/php.ini:/usr/local/etc/php/conf.d/local.ini
       - ./dockerfiles/configs/php7.4/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
       - ./dockerfiles/configs/php7.4/ports.conf:/etc/apache2/ports.conf
-    links:
-      - db-mysql-host
     labels:
       virtual.host: injetaveisadmin.local
       virtual.port: 80
-      virtual.proxy.directives: |
-        header_up Host {http.reverse_proxy.upstream.hostport}
     extra_hosts:
       - "sm-hkm.docker.local:172.20.0.6"
       - "sm-smart.docker.local:172.20.0.6"
@@ -211,13 +117,9 @@ services:
       - ./dockerfiles/configs/php7.4/php.ini:/usr/local/etc/php/conf.d/local.ini
       - ./dockerfiles/configs/php7.4/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
       - ./dockerfiles/configs/php7.4/ports.conf:/etc/apache2/ports.conf
-    links:
-      - db-mysql-host
     labels:
       virtual.host: injetaveiscron.local
       virtual.port: 80
-      virtual.proxy.directives: |
-        header_up Host {http.reverse_proxy.upstream.hostport}
     extra_hosts:
       - "sm-hkm.docker.local:172.20.0.6"
       - "sm-smart.docker.local:172.20.0.6"
@@ -234,13 +136,9 @@ services:
       - ./dockerfiles/configs/php7.4/php.ini:/usr/local/etc/php/conf.d/local.ini
       - ./dockerfiles/configs/sm-tracking/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
       - ./dockerfiles/configs/php7.4/ports.conf:/etc/apache2/ports.conf
-    links:
-      - db-mysql-host
     labels:
       virtual.host: sm-tracking.local
       virtual.port: 80
-      virtual.proxy.directives: |
-        header_up Host {http.reverse_proxy.upstream.hostport}
     extra_hosts:
       - "sm-hkm.docker.local:172.20.0.6"
       - "sm-smart.docker.local:172.20.0.6"
@@ -265,8 +163,6 @@ services:
     labels:
       virtual.host: selfcheckout.local
       virtual.port: 80
-      virtual.proxy.directives: |
-        header_up Host {http.reverse_proxy.upstream.hostport}
     command: >
       sh -c "apache2-foreground & npm run dev"
 
@@ -283,15 +179,11 @@ services:
       - './dockerfiles/configs/php8.3/php.ini:/usr/local/etc/php/conf.d/local.ini'
       - './dockerfiles/configs/php8.3/000-default.conf:/etc/apache2/sites-enabled/000-default.conf'
       - './dockerfiles/configs/php8.3/ports.conf:/etc/apache2/ports.conf'
-    links:
-      - db-mysql8-host
     extra_hosts:
       - 'gecom.docker.local:172.20.0.9'
     labels:
       virtual.host: gecom.local
       virtual.port: 80
-      virtual.proxy.directives: |
-        header_up Host {http.reverse_proxy.upstream.hostport}
     command: >
       sh -c "apache2-foreground & npm run dev"
 
@@ -306,13 +198,9 @@ services:
       - './dockerfiles/configs/php8.3/php.ini:/usr/local/etc/php/conf.d/local.ini'
       - './dockerfiles/configs/php8.3/000-default.conf:/etc/apache2/sites-enabled/000-default.conf'
       - './dockerfiles/configs/php8.3/ports.conf:/etc/apache2/ports.conf'
-    links:
-      - db-mysql8-host
     labels:
       virtual.host: ultramonitor.local
       virtual.port: 80
-      virtual.proxy.directives: |
-        header_up Host {http.reverse_proxy.upstream.hostport}
     extra_hosts:
       - 'ultramonitor.docker.local:172.20.0.10'
       - 'gpe.docker.local:172.20.0.6'
