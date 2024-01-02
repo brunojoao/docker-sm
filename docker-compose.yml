@@ -302,7 +302,7 @@ services:
     extra_hosts:
       - 'gecom.docker.local:172.20.0.9'
     labels:
-      virtual.host: selfcheckout.local
+      virtual.host: gecom.local
       virtual.port: 80
       virtual.proxy.directives: |
         header_up Host {http.reverse_proxy.upstream.hostport}
