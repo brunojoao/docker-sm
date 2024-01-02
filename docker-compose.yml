@@ -232,7 +232,7 @@ services:
     volumes:
       - ../projects/sm-tracking:/var/www/html
       - ./dockerfiles/configs/php7.4/php.ini:/usr/local/etc/php/conf.d/local.ini
-      - ./dockerfiles/configs/php7.4/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
+      - ./dockerfiles/configs/sm-tracking/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
       - ./dockerfiles/configs/php7.4/ports.conf:/etc/apache2/ports.conf
     links:
       - db-mysql-host
