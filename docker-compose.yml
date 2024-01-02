@@ -188,7 +188,7 @@ services:
       context: ./dockerfiles
       dockerfile: Dockerfile-php7-4
     user: "root"
-    container_name: php7-projects
+    container_name: injetaveisadmin
     ports:
       - 8083:80
     volumes:
