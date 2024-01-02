@@ -93,6 +93,8 @@ services:
       dockerfile: Dockerfile-php7-4
     user: "root"
     container_name: injetaveisadmin
+    depends_on:
+      - db-mysql-host
     volumes:
       - ../projects/injetaveisadmin:/var/www/html
       - ./dockerfiles/configs/php7.4/php.ini:/usr/local/etc/php/conf.d/local.ini
@@ -112,6 +114,8 @@ services:
       dockerfile: Dockerfile-php7-4
     user: "root"
     container_name: injetaveiscron
+    depends_on:
+      - db-mysql-host
     volumes:
       - ../projects/injetaveiscron:/var/www/html
       - ./dockerfiles/configs/php7.4/php.ini:/usr/local/etc/php/conf.d/local.ini
@@ -131,6 +135,8 @@ services:
       dockerfile: Dockerfile-php7-4
     user: "root"
     container_name: sm-tracking
+    depends_on:
+      - db-mysql-host
     volumes:
       - ../projects/sm-tracking:/var/www/html
       - ./dockerfiles/configs/php7.4/php.ini:/usr/local/etc/php/conf.d/local.ini
@@ -160,6 +166,7 @@ services:
     depends_on:
       - db-mysql-host
       - supermonitor-hkm
+      - supermonitor-smart
     labels:
       virtual.host: selfcheckout.local
       virtual.port: 80
@@ -179,8 +186,8 @@ services:
       - './dockerfiles/configs/php8.3/php.ini:/usr/local/etc/php/conf.d/local.ini'
       - './dockerfiles/configs/php8.3/000-default.conf:/etc/apache2/sites-enabled/000-default.conf'
       - './dockerfiles/configs/php8.3/ports.conf:/etc/apache2/ports.conf'
-    extra_hosts:
-      - 'gecom.docker.local:172.20.0.9'
+    depends_on:
+      - db-mysql8-host
     labels:
       virtual.host: gecom.local
       virtual.port: 80
@@ -207,6 +214,8 @@ services:
       - 'selfcheckout.docker.local:172.20.0.8'
       - 'injetaveis.docker.local:172.20.0.7'
       - 'injetaveis-cron.docker.local:172.20.0.7'
+    depends_on:
+      - db-mysql-host
 
   node-projects:
     build:
