@@ -44,6 +44,7 @@ services:
     container_name: supermonitor-hkm
     depends_on:
       - db-mysql-host
+      - reverse-proxy
     volumes:
       - ../projects/supermonitor-hkm:/var/www/html
       - ./dockerfiles/configs/php5.6/php.ini:/usr/local/etc/php/conf.d/local.ini
@@ -61,6 +62,7 @@ services:
     container_name: supermonitor-smart
     depends_on:
       - db-mysql-host
+      - reverse-proxy
     volumes:
       - ../projects/supermonitor-smart:/var/www/html
       - ./dockerfiles/configs/php5.6/php.ini:/usr/local/etc/php/conf.d/local.ini
@@ -78,6 +80,7 @@ services:
     container_name: gateway-payment-essentia
     depends_on:
       - db-mysql-host
+      - reverse-proxy
     volumes:
       - ../projects/gateway-payment-essentia:/var/www/html
       - ./dockerfiles/configs/php5.6/php.ini:/usr/local/etc/php/conf.d/local.ini
@@ -95,6 +98,7 @@ services:
     container_name: injetaveisadmin
     depends_on:
       - db-mysql-host
+      - reverse-proxy
     volumes:
       - ../projects/injetaveisadmin:/var/www/html
       - ./dockerfiles/configs/php7.4/php.ini:/usr/local/etc/php/conf.d/local.ini
@@ -112,6 +116,7 @@ services:
     container_name: injetaveiscron
     depends_on:
       - db-mysql-host
+      - reverse-proxy
     volumes:
       - ../projects/injetaveiscron:/var/www/html
       - ./dockerfiles/configs/php7.4/php.ini:/usr/local/etc/php/conf.d/local.ini
@@ -129,6 +134,7 @@ services:
     container_name: sm-tracking
     depends_on:
       - db-mysql-host
+      - reverse-proxy
     volumes:
       - ../projects/sm-tracking:/var/www/html
       - ./dockerfiles/configs/php7.4/php.ini:/usr/local/etc/php/conf.d/local.ini
@@ -153,6 +159,7 @@ services:
       - './dockerfiles/configs/php8.3/ports.conf:/etc/apache2/ports.conf'
     depends_on:
       - db-mysql-host
+      - reverse-proxy
       - supermonitor-hkm
       - supermonitor-smart
     labels:
@@ -176,6 +183,7 @@ services:
       - './dockerfiles/configs/php8.3/ports.conf:/etc/apache2/ports.conf'
     depends_on:
       - db-mysql8-host
+      - reverse-proxy
     labels:
       virtual.host: gecom.local
       virtual.port: 80
@@ -198,6 +206,7 @@ services:
       virtual.port: 80
     depends_on:
       - db-mysql-host
+      - reverse-proxy
 
   node-projects:
     build:
