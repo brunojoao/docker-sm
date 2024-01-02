@@ -49,6 +49,11 @@ services:
       - ./dockerfiles/configs/php5.6/php.ini:/usr/local/etc/php/conf.d/local.ini
       - ./dockerfiles/configs/php5.6/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
       - ./dockerfiles/configs/php5.6/ports.conf:/etc/apache2/ports.conf
+    labels:
+      virtual.host: sm-hkm.local
+      virtual.port: 80
+      virtual.proxy.directives: |
+        header_up Host {http.reverse_proxy.upstream.hostport}
     ports:
       - "8080:80"
 
@@ -67,6 +72,30 @@ services:
       - ./dockerfiles/configs/php5.6/php.ini:/usr/local/etc/php/conf.d/local.ini
       - ./dockerfiles/configs/php5.6/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
       - ./dockerfiles/configs/php5.6/ports.conf:/etc/apache2/ports.conf
+    labels:
+      virtual.host: sm-smart.local
+      virtual.port: 80
+      virtual.proxy.directives: |
+        header_up Host {http.reverse_proxy.upstream.hostport}
+
+  gateway-payment-essentia:
+    build:
+      context: ./dockerfiles
+      dockerfile: Dockerfile-php5-6
+    user: "root"
+    container_name: gateway-payment-essentia
+    ports:
+      - "8082:80"
+    depends_on:
+      - db-mysql-host
+    volumes:
+      - ../projects/gateway-payment-essentia:/var/www/html
+      - ./dockerfiles/configs/php5.6/php.ini:/usr/local/etc/php/conf.d/local.ini
+      - ./dockerfiles/configs/php5.6/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
+      - ./dockerfiles/configs/php5.6/ports.conf:/etc/apache2/ports.conf
+    labels:
+      virtual.host: gpe.local
+      virtual.port: 80
 
   php5.6:
     build:
@@ -132,6 +161,11 @@ services:
     depends_on:
       - db-mysql-host
       - supermonitor-hkm
+    labels:
+      virtual.host: selfcheckout.local
+      virtual.port: 80
+      virtual.proxy.directives: |
+        header_up Host {http.reverse_proxy.upstream.hostport}
     command: >
       sh -c "apache2-foreground & npm run dev"
 
@@ -153,6 +187,11 @@ services:
       - db-mysql8-host
     extra_hosts:
       - 'gecom.docker.local:172.20.0.9'
+    labels:
+      virtual.host: selfcheckout.local
+      virtual.port: 80
+      virtual.proxy.directives: |
+        header_up Host {http.reverse_proxy.upstream.hostport}
     command: >
       sh -c "apache2-foreground & npm run dev"
 
@@ -172,6 +211,11 @@ services:
       - './dockerfiles/configs/php8.3/ports.conf:/etc/apache2/ports.conf'
     links:
       - db-mysql8-host
+    labels:
+      virtual.host: ultramonitor.local
+      virtual.port: 80
+      virtual.proxy.directives: |
+        header_up Host {http.reverse_proxy.upstream.hostport}
     extra_hosts:
       - 'ultramonitor.docker.local:172.20.0.10'
       - 'gpe.docker.local:172.20.0.6'
@@ -247,22 +291,17 @@ services:
     network_mode: host
 
   reverse-proxy:
-    image: caddy/caddy:2-alpine
     container_name: reverse-proxy
-    restart: unless-stopped
+    image: "wemakeservices/caddy-gen:latest"
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - /var/lib/docker/volumes/docker-sm_reverse-proxy_data/_data:/data/caddy
     ports:
       - "80:80"
-      - "443:443"
-    volumes:
-      - caddy_data:/data
-      - caddy_config:/config
-#      - $PWD/dockerfiles/configs/caddy/Caddyfile:/etc/caddy/Caddyfile
-#      - $PWD/certs:/data/certs
 
 volumes:
   mysql_data:
   mysql8_data:
   portainer_data:
   jenkins_home:
-  caddy_data:
-  caddy_config:

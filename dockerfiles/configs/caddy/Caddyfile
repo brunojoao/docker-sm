@@ -1,4 +1,0 @@
-dev.sm-hkm.local {
-	tls "/data/certs/local.cert.pem" "/data/certs/local.key.pem"
-	reverse_proxy supermonitor-hkm:80
-}
