@@ -175,7 +175,7 @@ services:
     user: 'root'
     container_name: gecom
     ports:
-      - '5174:5173'
+      - '5174:5174'
     volumes:
       - '../projects/gerenciador-compras:/var/www/html'
       - './dockerfiles/configs/php8.3/php.ini:/usr/local/etc/php/conf.d/local.ini'
