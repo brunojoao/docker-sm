@@ -3,7 +3,7 @@ FROM --platform=linux/amd64 php:8.3-apache
 RUN a2enmod rewrite \
     && apt-get update \
     && apt-get -y install libxml2-dev zip unzip firebird-dev curl libjpeg-dev libpng-dev libfreetype6-dev libz-dev libtiff-dev git zlib1g-dev libonig-dev docker.io \
-    && docker-php-ext-install pdo pdo_mysql simplexml dom intl soap pdo_firebird gd \
+    && docker-php-ext-install pdo pdo_mysql simplexml dom intl soap pdo_firebird gd mysqli \
     && curl --show-error https://getcomposer.org/installer -o /tmp/composer-setup.php \
     && php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer \
     && rm /tmp/composer-setup.php \
