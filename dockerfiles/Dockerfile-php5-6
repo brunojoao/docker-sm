@@ -13,4 +13,6 @@ RUN a2enmod rewrite \
     && composer self-update --1 \
     && sed -i 's/APACHE_RUN_GROUP:=www-data/APACHE_RUN_GROUP:=root/g' /etc/apache2/envvars
 
+WORKDIR /var/www/html
+
 CMD ["apache2-foreground"]

@@ -10,4 +10,6 @@ RUN a2enmod rewrite \
     && sed -i 's/APACHE_RUN_GROUP:=www-data/APACHE_RUN_GROUP:=root/g' /etc/apache2/envvars \
     && chown -R www-data:root /var/www/html/
 
+WORKDIR /var/www/html
+
 CMD ["apache2-foreground"]
