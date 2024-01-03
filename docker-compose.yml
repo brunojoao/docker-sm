@@ -149,6 +149,7 @@ services:
       - 9424:9424
       - 9425:9425
       - 9430:9430
+      - 9440:9440
       - 5173:5173 #vite
       - 5174:5174 #vite
       - 5175:5175 #vite
@@ -166,6 +167,7 @@ services:
       - ../projects/selfcheckout-3:/var/www/html/selfcheckout-3
       - ../projects/selfcheckout-4:/var/www/html/selfcheckout-4
       - ../projects/selfcheckout-5:/var/www/html/selfcheckout-5
+      - ../projects/ultramonitor:/var/www/html/ultramonitor
       - ./dockerfiles/configs/php8.3/php.ini:/usr/local/etc/php/conf.d/local.ini
       - ./dockerfiles/configs/php8.3/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
       - ./dockerfiles/configs/php8.3/ports.conf:/etc/apache2/ports.conf
