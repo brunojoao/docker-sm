@@ -12,3 +12,5 @@
 ::1 gerenciador-compras.docker.local
 127.0.0.1 sm-tracking.docker.local
 ::1 sm-tracking.docker.local
+127.0.0.1 nps-visitacao.docker.local
+::1 nps-visitacao.docker.local
