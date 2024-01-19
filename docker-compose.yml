@@ -103,17 +103,17 @@ services:
       context: ./dockerfiles
       dockerfile: Dockerfile-php8-3
     image: brunojoao3/docker-sm:php-8.3-apache
-    user: 'root'
+    user: "root"
     container_name: php8.3-projects
     ports:
-      - '8085:8085'
-      - '5173:5173'
+      - "8085:8085"
+      - "5173:5173"
     volumes:
-      - '../projects/selfcheckout:/var/www/html/selfcheckout'
-      - '../projects/gerenciador-compras:/var/www/html/gerenciador-compras'
-      - './dockerfiles/configs/php8.3/php.ini:/usr/local/etc/php/conf.d/local.ini'
-      - './dockerfiles/configs/php8.3/000-default.conf:/etc/apache2/sites-enabled/000-default.conf'
-      - './dockerfiles/configs/php8.3/ports.conf:/etc/apache2/ports.conf'
+      - "../projects/selfcheckout:/var/www/html/selfcheckout"
+      - "../projects/gerenciador-compras:/var/www/html/gerenciador-compras"
+      - "./dockerfiles/configs/php8.3/php.ini:/usr/local/etc/php/conf.d/local.ini"
+      - "./dockerfiles/configs/php8.3/000-default.conf:/etc/apache2/sites-enabled/000-default.conf"
+      - "./dockerfiles/configs/php8.3/ports.conf:/etc/apache2/ports.conf"
     networks:
       dev_network:
         ipv4_address: 172.20.0.9
@@ -122,13 +122,13 @@ services:
       - db-mysql-host
       - php5.6
     extra_hosts:
-      - 'injetaveis.docker.local:172.20.0.7'
-      - 'injetaveis-cron.docker.local:172.20.0.7'
-      - 'gerenciador-compras.local:172.20.0.9'
-      - 'sm-hkm.docker.local:172.20.0.6'
-      - 'sm-smart.docker.local:172.20.0.6'
-      - 'gpe.docker.local:172.20.0.6'
-      - 'selfcheckout.docker.local:172.20.0.9'
+      - "injetaveis.docker.local:172.20.0.7"
+      - "injetaveis-cron.docker.local:172.20.0.7"
+      - "gerenciador-compras.local:172.20.0.9"
+      - "sm-hkm.docker.local:172.20.0.6"
+      - "sm-smart.docker.local:172.20.0.6"
+      - "gpe.docker.local:172.20.0.6"
+      - "selfcheckout.docker.local:172.20.0.9"
 
   php8.3-swoole:
     build:
@@ -136,31 +136,26 @@ services:
       dockerfile: Dockerfile-php8-3-swoole
     privileged: true
     image: brunojoao3/docker-sm:php-8.3-swoole
-    user: 'root'
+    user: "root"
     container_name: "php8.3-swoole"
-    ports:
-      - '9501:9501'
-      - '8086:8086'
     volumes:
-      - './dockerfiles/configs/php8.3-swoole/php.ini:/usr/local/etc/php/conf.d/local.ini'
-      - '../projects/ultramonitor-swoole:/var/www/swoole-server'
-      - '../projects/ultramonitor:/var/www/ultramonitor'
-    networks:
-      dev_network:
-        ipv4_address: 172.20.0.10
+      - "./dockerfiles/configs/php8.3-swoole/php.ini:/usr/local/etc/php/conf.d/local.ini"
+      - "../projects/ultramonitor-swoole:/var/www/swoole-server"
+      - "../projects/ultramonitor:/var/www/ultramonitor"
+    network_mode: host
 
   php8.3-franken:
     build:
       context: ./dockerfiles
       dockerfile: Dockerfile-php8-3-franken
     image: brunojoao3/docker-sm:php-8.3-franken
-    user: 'root'
+    user: "root"
     container_name: "php8.3-franken"
     ports:
-      - '8087:8087'
+      - "8087:8087"
     volumes:
-      - './dockerfiles/configs/php8.3-franken/php.ini:/usr/local/etc/php/conf.d/local.ini'
-      - './dockerfiles/configs/php8.3-franken/Caddyfile:/etc/caddy/Caddyfile'
+      - "./dockerfiles/configs/php8.3-franken/php.ini:/usr/local/etc/php/conf.d/local.ini"
+      - "./dockerfiles/configs/php8.3-franken/Caddyfile:/etc/caddy/Caddyfile"
       # - '../projects/ultramonitor:/app/ultramonitor'
       - caddy_data:/data
       - caddy_config:/config

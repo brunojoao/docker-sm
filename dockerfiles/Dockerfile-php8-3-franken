@@ -8,6 +8,4 @@ RUN install-php-extensions \
     zip \
     opcache
 
-RUN echo "" | pecl install swoole 
-
 CMD ["frankenphp", "run", "--config", "/etc/caddy/Caddyfile"]
