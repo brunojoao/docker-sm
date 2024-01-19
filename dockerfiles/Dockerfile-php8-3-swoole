@@ -1,3 +1,12 @@
 FROM --platform=linux/amd64 phpswoole/swoole:php8.3
+
+RUN install-php-extensions \
+    pdo_mysql \
+    gd \
+    mysqli \
+    intl \
+    zip \
+    opcache
+
 WORKDIR /var/www
 CMD ["php swoole-server/server.php"]

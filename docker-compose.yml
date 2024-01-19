@@ -134,14 +134,17 @@ services:
     build:
       context: ./dockerfiles
       dockerfile: Dockerfile-php8-3-swoole
+    privileged: true
     image: brunojoao3/docker-sm:php-8.3-swoole
     user: 'root'
     container_name: "php8.3-swoole"
     ports:
       - '9501:9501'
+      - '8086:8086'
     volumes:
       - './dockerfiles/configs/php8.3-swoole/php.ini:/usr/local/etc/php/conf.d/local.ini'
       - '../projects/ultramonitor-swoole:/var/www/swoole-server'
+      - '../projects/ultramonitor:/app/ultramonitor'
     networks:
       dev_network:
         ipv4_address: 172.20.0.10
@@ -156,11 +159,11 @@ services:
     user: 'root'
     container_name: "php8.3-franken"
     ports:
-      - '8086:8086'
+      - '8087:8087'
     volumes:
       - './dockerfiles/configs/php8.3-franken/php.ini:/usr/local/etc/php/conf.d/local.ini'
       - './dockerfiles/configs/php8.3-franken/Caddyfile:/etc/caddy/Caddyfile'
-      - '../projects/ultramonitor:/app/ultramonitor'
+      # - '../projects/ultramonitor:/app/ultramonitor'
       - caddy_data:/data
       - caddy_config:/config
     networks:
@@ -168,7 +171,6 @@ services:
         ipv4_address: 172.20.0.11
     links:
       - php8.3
-    # command: ["sh", "-c", "cd /var/www/ultramonitor && php spark serve --host ultramonitor.docker.local --port 8086"]
 
   node-projects:
     build:
