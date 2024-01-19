@@ -17,7 +17,6 @@ RUN a2enmod rewrite \
         && ln -s /usr/local/node19/bin/npm /usr/local/bin/npm \
         && ln -s /usr/local/node19/bin/npx /usr/local/bin/npx; \
     fi \
-    && sed -i 's/APACHE_RUN_GROUP:=www-data/APACHE_RUN_GROUP:=root/g' /etc/apache2/envvars \
-    && echo "" | pecl install swoole 
+    && sed -i 's/APACHE_RUN_GROUP:=www-data/APACHE_RUN_GROUP:=root/g' /etc/apache2/envvars 
 
 CMD ["apache2-foreground"]
