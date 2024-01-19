@@ -144,7 +144,7 @@ services:
     volumes:
       - './dockerfiles/configs/php8.3-swoole/php.ini:/usr/local/etc/php/conf.d/local.ini'
       - '../projects/ultramonitor-swoole:/var/www/swoole-server'
-      - '../projects/ultramonitor:/app/ultramonitor'
+      - '../projects/ultramonitor:/var/www/ultramonitor'
     networks:
       dev_network:
         ipv4_address: 172.20.0.10
