@@ -53,7 +53,17 @@
         php_server
 }
 
-https://ultramonitor.docker.local:8086 {
+https://ultramonitor.docker.local:8085 {
 	root * /var/www/ultramonitor/public
+	php_server
+}
+
+https://gecom.docker.local:8085 {
+	root * /var/www/gerenciador-compras/public
+	php_server
+}
+
+https://selfcheckout.docker.local:8085 {
+	root * /var/www/selfcheckout/public
 	php_server
 }

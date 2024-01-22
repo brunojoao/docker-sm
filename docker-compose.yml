@@ -98,38 +98,6 @@ services:
       - "gpe.docker.local:172.20.0.6"
       - "gerenciador-compras.local:172.20.0.9"
 
-  php8.3:
-    build:
-      context: ./dockerfiles
-      dockerfile: Dockerfile-php8-3
-    image: brunojoao3/docker-sm:php-8.3-apache
-    user: "root"
-    container_name: php8.3-projects
-    ports:
-      - "8085:8085"
-      - "5173:5173"
-    volumes:
-      - "../projects/selfcheckout:/var/www/html/selfcheckout"
-      - "../projects/gerenciador-compras:/var/www/html/gerenciador-compras"
-      - "./dockerfiles/configs/php8.3/php.ini:/usr/local/etc/php/conf.d/local.ini"
-      - "./dockerfiles/configs/php8.3/000-default.conf:/etc/apache2/sites-enabled/000-default.conf"
-      - "./dockerfiles/configs/php8.3/ports.conf:/etc/apache2/ports.conf"
-    networks:
-      dev_network:
-        ipv4_address: 172.20.0.9
-    links:
-      - db-mysql8-host
-      - db-mysql-host
-      - php5.6
-    extra_hosts:
-      - "injetaveis.docker.local:172.20.0.7"
-      - "injetaveis-cron.docker.local:172.20.0.7"
-      - "gerenciador-compras.local:172.20.0.9"
-      - "sm-hkm.docker.local:172.20.0.6"
-      - "sm-smart.docker.local:172.20.0.6"
-      - "gpe.docker.local:172.20.0.6"
-      - "selfcheckout.docker.local:172.20.0.9"
-
   php8.3-swoole:
     build:
       context: ./dockerfiles
@@ -150,8 +118,14 @@ services:
     user: "root"
     container_name: "php8.3-franken"
     ports:
-      - "8086:8086"
+      - "8085:8085"
+      - "5173:5173"
+      - "5174:5174"
+      - "5175:5175"
     volumes:
+      - "../projects/selfcheckout:/var/www/selfcheckout"
+      - "../projects/gerenciador-compras:/var/www/gerenciador-compras"
+      - "./dockerfiles/configs/php8.3-franken/git-config.sh:/app/git-config.sh"
       - "./dockerfiles/configs/php8.3-franken/php.ini:/usr/local/etc/php/conf.d/local.ini"
       - "./dockerfiles/configs/php8.3-franken/Caddyfile:/etc/caddy/Caddyfile"
       - '../projects/ultramonitor:/var/www/ultramonitor'
@@ -168,6 +142,7 @@ services:
       - "sm-smart.docker.local:172.20.0.6"
       - "gpe.docker.local:172.20.0.6"
       - "selfcheckout.docker.local:172.20.0.10"
+    command: sh -c "sh /app/git-config.sh && frankenphp run --config /etc/caddy/Caddyfile"
 
   node-projects:
     build:
