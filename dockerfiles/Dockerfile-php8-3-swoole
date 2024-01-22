@@ -10,4 +10,4 @@ RUN apt-get update \
       opcache
 
 WORKDIR /var/www
-CMD ["php swoole-server/server.php"]
+CMD ["php server.php"]
