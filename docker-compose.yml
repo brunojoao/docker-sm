@@ -143,6 +143,7 @@ services:
       - "../projects/ultramonitor-swoole:/var/www/swoole-server"
       - "../projects/ultramonitor:/var/www/ultramonitor"
     network_mode: host
+    command: sh -c "cd /var/www/ultramonitor && php spark serve --host ultramonitor.docker.local --port 8086"
 
   php8.3-franken:
     build:
