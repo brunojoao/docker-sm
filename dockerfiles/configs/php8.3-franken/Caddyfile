@@ -53,7 +53,7 @@
         php_server
 }
 
-ultramonitor.docker.local:8086 {
-	root * /app/ultramonitor/public
+https://ultramonitor.docker.local:8086 {
+	root * /var/www/ultramonitor/public
 	php_server
 }

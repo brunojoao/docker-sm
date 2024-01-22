@@ -140,10 +140,7 @@ services:
     container_name: "php8.3-swoole"
     volumes:
       - "./dockerfiles/configs/php8.3-swoole/php.ini:/usr/local/etc/php/conf.d/local.ini"
-      - "../projects/ultramonitor:/var/www/ultramonitor"
     network_mode: host
-    command: sh -c "git config --global --add safe.directory /var/www/ultramonitor && 
-      cd /var/www/ultramonitor && php spark serve --host ultramonitor.docker.local --port 8086"
 
   php8.3-franken:
     build:
@@ -153,18 +150,24 @@ services:
     user: "root"
     container_name: "php8.3-franken"
     ports:
-      - "8087:8087"
+      - "8086:8086"
     volumes:
       - "./dockerfiles/configs/php8.3-franken/php.ini:/usr/local/etc/php/conf.d/local.ini"
       - "./dockerfiles/configs/php8.3-franken/Caddyfile:/etc/caddy/Caddyfile"
-      # - '../projects/ultramonitor:/app/ultramonitor'
+      - '../projects/ultramonitor:/var/www/ultramonitor'
       - caddy_data:/data
       - caddy_config:/config
     networks:
       dev_network:
-        ipv4_address: 172.20.0.11
-    links:
-      - php8.3
+        ipv4_address: 172.20.0.10
+    extra_hosts:
+      - "injetaveis.docker.local:172.20.0.7"
+      - "injetaveis-cron.docker.local:172.20.0.7"
+      - "gerenciador-compras.local:172.20.0.10"
+      - "sm-hkm.docker.local:172.20.0.6"
+      - "sm-smart.docker.local:172.20.0.6"
+      - "gpe.docker.local:172.20.0.6"
+      - "selfcheckout.docker.local:172.20.0.10"
 
   node-projects:
     build:
