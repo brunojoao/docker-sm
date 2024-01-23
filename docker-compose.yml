@@ -136,7 +136,7 @@ services:
     user: "root"
     container_name: php8-franken
     ports:
-      - 80:9996
+      - 443:443
       - 9401:9401
       - 9402:9402
       - 9403:9403
