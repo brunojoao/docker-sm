@@ -131,10 +131,10 @@ services:
   php8.3:
     build:
       context: ./dockerfiles
-      dockerfile: ./Dockerfile-php8-3
-    image: brunojoao3/docker-sm:php-8.3-apache-docker-in-docker
+      dockerfile: ./Dockerfile-php8-3-franken
+    image: brunojoao3/docker-sm:php-8.3-franken-docker-in-docker
     user: "root"
-    container_name: php8-projects
+    container_name: php8-franken
     ports:
       - 80:80
       - 9401:9401
@@ -154,31 +154,34 @@ services:
       - 5174:5174 #vite
       - 5175:5175 #vite
     volumes:
-      - ../projects/essentia-test-list:/var/www/html/essentia-test-list #menu principal
-      - ../projects/prateleira-infinita:/var/www/html/prateleira-infinita
-      - ../projects/gerenciador-compras-1:/var/www/html/gerenciador-compras-1
-      - ../projects/gerenciador-compras-2:/var/www/html/gerenciador-compras-2
-      - ../projects/gerenciador-compras-3:/var/www/html/gerenciador-compras-3
-      - ../projects/gerenciador-compras-4:/var/www/html/gerenciador-compras-4
-      - ../projects/gerenciador-compras-5:/var/www/html/gerenciador-compras-5
-      - ../projects/selfcheckout-especial:/var/www/html/selfcheckout-especial
-      - ../projects/selfcheckout-1:/var/www/html/selfcheckout-1
-      - ../projects/selfcheckout-2:/var/www/html/selfcheckout-2
-      - ../projects/selfcheckout-3:/var/www/html/selfcheckout-3
-      - ../projects/selfcheckout-4:/var/www/html/selfcheckout-4
-      - ../projects/selfcheckout-5:/var/www/html/selfcheckout-5
-      - ../projects/ultramonitor:/var/www/html/ultramonitor
-      - ./dockerfiles/configs/php8.3/php.ini:/usr/local/etc/php/conf.d/local.ini
-      - ./dockerfiles/configs/php8.3/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
-      - ./dockerfiles/configs/php8.3/ports.conf:/etc/apache2/ports.conf
-      - ./ssh-keys:/root/.ssh
-      - /var/run/docker.sock:/var/run/docker.sock
+      - "../projects/essentia-test-list:/var/www/essentia-test-list" #menu principal
+      - "../projects/prateleira-infinita:/var/www/prateleira-infinita"
+      - "../projects/gerenciador-compras-1:/var/www/gerenciador-compras-1"
+      - "../projects/gerenciador-compras-2:/var/www/gerenciador-compras-2"
+      - "../projects/gerenciador-compras-3:/var/www/gerenciador-compras-3"
+      - "../projects/gerenciador-compras-4:/var/www/gerenciador-compras-4"
+      - "../projects/gerenciador-compras-5:/var/www/gerenciador-compras-5"
+      - "../projects/selfcheckout-especial:/var/www/selfcheckout-especial"
+      - "../projects/selfcheckout-1:/var/www/selfcheckout-1"
+      - "../projects/selfcheckout-2:/var/www/selfcheckout-2"
+      - "../projects/selfcheckout-3:/var/www/selfcheckout-3"
+      - "../projects/selfcheckout-4:/var/www/selfcheckout-4"
+      - "../projects/selfcheckout-5:/var/www/selfcheckout-5"
+      - "../projects/ultramonitor:/var/www/ultramonitor"
+      - "./ssh-keys:/root/.ssh"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "./dockerfiles/configs/php8.3-franken/git-config.sh:/app/git-config.sh"
+      - "./dockerfiles/configs/php8.3-franken/php.ini:/usr/local/etc/php/conf.d/local.ini"
+      - "./dockerfiles/configs/php8.3-franken/Caddyfile:/etc/caddy/Caddyfile"
+      - caddy_data:/data
+      - caddy_config:/config
     networks:
       dev_network:
         ipv4_address: 172.20.0.8
     links:
       - db-mysql8-host
       - db-mysql-host
+    command: sh -c "sh /app/git-config.sh && frankenphp run --config /etc/caddy/Caddyfile"
 
   node-socket-sm-hkm:
     build:
@@ -333,6 +336,8 @@ volumes:
   portainer_data:
   jenkins_home:
   passbolt_data:
+  caddy_data:
+  caddy_config:
 
 networks:
   dev_network:

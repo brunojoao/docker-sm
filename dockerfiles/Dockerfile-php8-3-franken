@@ -1,9 +1,14 @@
-FROM --platform=linux/amd64 php:8.3-apache
-
-RUN a2enmod rewrite \
-    && apt-get update \
-    && apt-get -y install libxml2-dev zip unzip firebird-dev curl libjpeg-dev libpng-dev libfreetype6-dev libz-dev libtiff-dev git zlib1g-dev libonig-dev docker.io \
-    && docker-php-ext-install pdo pdo_mysql simplexml dom intl soap pdo_firebird gd mysqli \
+FROM --platform=linux/amd64 dunglas/frankenphp:00b1d0e4b674ee4cef9febbd1444180f7ff6ab41-php8.3.1
+WORKDIR /var/www
+RUN apt-get update \
+    && apt-get -y install zip unzip firebird-dev curl libjpeg-dev libpng-dev git zlib1g-dev libonig-dev libssl-dev libevent-dev \
+    && install-php-extensions \
+        pdo_mysql \
+        gd \
+        mysqli \
+        intl \
+        zip \
+        opcache \ 
     && curl --show-error https://getcomposer.org/installer -o /tmp/composer-setup.php \
     && php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer \
     && rm /tmp/composer-setup.php \
@@ -16,8 +21,6 @@ RUN a2enmod rewrite \
         && ln -s /usr/local/node19/bin/node /usr/local/bin/node \
         && ln -s /usr/local/node19/bin/npm /usr/local/bin/npm \
         && ln -s /usr/local/node19/bin/npx /usr/local/bin/npx; \
-    fi \
-    && sed -i 's/APACHE_RUN_GROUP:=www-data/APACHE_RUN_GROUP:=root/g' /etc/apache2/envvars
+    fi 
 
-
-CMD ["apache2-foreground"]
+CMD ["frankenphp", "run", "--config", "/etc/caddy/Caddyfile"]
