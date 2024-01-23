@@ -53,7 +53,7 @@
         php_server
 }
 
-https://192.168.0.66:443 {
+https://192.168.0.66 {
 	root * /var/www/essentia-test-list/public
 	php_server
 }
