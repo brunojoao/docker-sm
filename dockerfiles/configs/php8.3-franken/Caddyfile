@@ -54,75 +54,75 @@
 }
 
 http://192.168.0.66:80 {
-	root * /var/www/projects/essentia-test-list/public
+	root * /var/www/essentia-test-list/public
 	php_server
 }
 http://192.168.0.66:9996 {
-	root * /var/www/projects/essentia-test-list/public
+	root * /var/www/essentia-test-list/public
 	php_server
 }
 http://192.168.0.66:9401 {
-	root * /var/www/projects/gerenciador-compras-1/public
+	root * /var/www/gerenciador-compras-1/public
 	php_server
 }
 
 http://192.168.0.66:9402 {
-	root * /var/www/projects/gerenciador-compras-2/public
+	root * /var/www/gerenciador-compras-2/public
 	php_server
 }
 
 http://192.168.0.66:9403 {
-	root * /var/www/projects/gerenciador-compras-3/public
+	root * /var/www/gerenciador-compras-3/public
 	php_server
 }
 
 http://192.168.0.66:9404 {
-	root * /var/www/projects/gerenciador-compras-4/public
+	root * /var/www/gerenciador-compras-4/public
 	php_server
 }
 
 http://192.168.0.66:9405 {
-	root * /var/www/projects/gerenciador-compras-5/public
+	root * /var/www/gerenciador-compras-5/public
 	php_server
 }
 
 http://192.168.0.66:9420 {
-	root * /var/www/projects/selfcheckout-especial/public
+	root * /var/www/selfcheckout-especial/public
 	php_server
 }
 
 http://192.168.0.66:9421 {
-	root * /var/www/projects/selfcheckout-1/public
+	root * /var/www/selfcheckout-1/public
 	php_server
 }
 
 http://192.168.0.66:9422 {
-	root * /var/www/projects/selfcheckout-2/public
+	root * /var/www/selfcheckout-2/public
 	php_server
 }
 
 http://192.168.0.66:9423 {
-	root * /var/www/projects/selfcheckout-3/public
+	root * /var/www/selfcheckout-3/public
 	php_server
 }
 
 http://192.168.0.66:9424 {
-	root * /var/www/projects/selfcheckout-4/public
+	root * /var/www/selfcheckout-4/public
 	php_server
 }
 
 http://192.168.0.66:9425 {
-	root * /var/www/projects/selfcheckout-5/public
+	root * /var/www/selfcheckout-5/public
 	php_server
 }
 
 http://192.168.0.66:9430 {
-	root * /var/www/projects/prateleira-infinita/public
+	root * /var/www/prateleira-infinita/public
 	php_server
 }
 
 http://192.168.0.66:9440 {
-	root * /var/www/projects/ultramonitor/public
+	root * /var/www/ultramonitor/public
 	php_server
 }
 
