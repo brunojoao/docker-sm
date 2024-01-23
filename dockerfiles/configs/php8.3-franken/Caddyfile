@@ -15,7 +15,7 @@
 
 {$CADDY_EXTRA_CONFIG}
 
-{$SERVER_NAME:localhost} {
+{$SERVER_NAME:192.168.0.66} {
         log {
                 # Redact the authorization query parameter that can be set by Mercure
                 format filter {
@@ -53,75 +53,75 @@
         php_server
 }
 
-http://localhost:80 {
+http://192.168.0.66:80 {
 	root * /var/www/projects/essentia-test-list/public
 	php_server
 }
-http://localhost:9996 {
+http://192.168.0.66:9996 {
 	root * /var/www/projects/essentia-test-list/public
 	php_server
 }
-http://localhost:9401 {
+http://192.168.0.66:9401 {
 	root * /var/www/projects/gerenciador-compras-1/public
 	php_server
 }
 
-http://localhost:9402 {
+http://192.168.0.66:9402 {
 	root * /var/www/projects/gerenciador-compras-2/public
 	php_server
 }
 
-http://localhost:9403 {
+http://192.168.0.66:9403 {
 	root * /var/www/projects/gerenciador-compras-3/public
 	php_server
 }
 
-http://localhost:9404 {
+http://192.168.0.66:9404 {
 	root * /var/www/projects/gerenciador-compras-4/public
 	php_server
 }
 
-http://localhost:9405 {
+http://192.168.0.66:9405 {
 	root * /var/www/projects/gerenciador-compras-5/public
 	php_server
 }
 
-http://localhost:9420 {
+http://192.168.0.66:9420 {
 	root * /var/www/projects/selfcheckout-especial/public
 	php_server
 }
 
-http://localhost:9421 {
+http://192.168.0.66:9421 {
 	root * /var/www/projects/selfcheckout-1/public
 	php_server
 }
 
-http://localhost:9422 {
+http://192.168.0.66:9422 {
 	root * /var/www/projects/selfcheckout-2/public
 	php_server
 }
 
-http://localhost:9423 {
+http://192.168.0.66:9423 {
 	root * /var/www/projects/selfcheckout-3/public
 	php_server
 }
 
-http://localhost:9424 {
+http://192.168.0.66:9424 {
 	root * /var/www/projects/selfcheckout-4/public
 	php_server
 }
 
-http://localhost:9425 {
+http://192.168.0.66:9425 {
 	root * /var/www/projects/selfcheckout-5/public
 	php_server
 }
 
-http://localhost:9430 {
+http://192.168.0.66:9430 {
 	root * /var/www/projects/prateleira-infinita/public
 	php_server
 }
 
-http://localhost:9440 {
+http://192.168.0.66:9440 {
 	root * /var/www/projects/ultramonitor/public
 	php_server
 }
