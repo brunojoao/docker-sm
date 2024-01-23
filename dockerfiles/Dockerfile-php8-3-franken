@@ -1,7 +1,7 @@
 FROM --platform=linux/amd64 dunglas/frankenphp:00b1d0e4b674ee4cef9febbd1444180f7ff6ab41-php8.3.1
 WORKDIR /var/www
 RUN apt-get update \
-    && apt-get -y install zip unzip firebird-dev curl libjpeg-dev libpng-dev git zlib1g-dev libonig-dev libssl-dev libevent-dev \
+    && apt-get -y install zip unzip firebird-dev curl libjpeg-dev libpng-dev git zlib1g-dev libonig-dev libssl-dev libevent-dev docker.io \
     && install-php-extensions \
         pdo_mysql \
         gd \
