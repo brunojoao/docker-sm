@@ -57,7 +57,14 @@ http://localhost:80 {
 	root * /var/www/essentia-test-list/public
 	php_server
 }
-
+http://192.168.0.66:80 {
+	root * /var/www/essentia-test-list/public
+	php_server
+}
+http://192.168.0.66:9996 {
+	root * /var/www/essentia-test-list/public
+	php_server
+}
 http://192.168.0.66:9401 {
 	root * /var/www/gerenciador-compras-1/public
 	php_server
