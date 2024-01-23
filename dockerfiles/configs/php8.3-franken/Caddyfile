@@ -53,10 +53,6 @@
         php_server
 }
 
-http://192.168.0.66:80 {
-	root * /var/www/essentia-test-list/public
-	php_server
-}
 http://192.168.0.66:9996 {
 	root * /var/www/essentia-test-list/public
 	php_server
