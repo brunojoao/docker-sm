@@ -286,6 +286,9 @@ services:
       - dev_network
 
   cy-sm-hkm:
+    build:
+      context: ./dockerfiles
+      dockerfile: Dockerfile-cypress
     container_name: cy-sm-hkm
     image: brunojoao3/docker-sm:cy-sm-hkm
     working_dir: /e2e
