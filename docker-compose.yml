@@ -241,6 +241,8 @@ services:
     image: brunojoao3/docker-sm:socket-sm-12.22.9
     user: "root"
     container_name: socket_sm_hkm_especial
+    environment:
+      - DISPLAY=:0
     working_dir: /home/node/app
     networks:
       dev_network:
