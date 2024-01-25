@@ -291,6 +291,8 @@ services:
       dockerfile: Dockerfile-cypress
     container_name: cy-sm-hkm
     image: brunojoao3/docker-sm:cy-sm-hkm
+    environment:
+      - DISPLAY=${DISPLAY} # espelha o valor do display do server (host) para o client (container)
     working_dir: /e2e
     volumes:
       - ../projects/cy-sm-hkm:/e2e
