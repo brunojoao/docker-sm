@@ -15,7 +15,8 @@ RUN apt-get install -y \
     libasound2 \
     libxtst6 \
     xauth \
-    xvfb
+    xvfb \
+    dbus
 
 # Define o diretório de trabalho
 WORKDIR /e2e
