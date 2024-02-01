@@ -157,7 +157,7 @@ services:
       - 8090:8090
     volumes:
       - ../projects/api-monitor:/home/node/app/api-monitor
-    command: sh -c "tail -f /dev/null"
+    command: sh -c "cd /home/node/app/api-monitor && node ace serve"
 
   node-socket-sm-hkm:
     build:
