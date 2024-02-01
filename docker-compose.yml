@@ -144,12 +144,12 @@ services:
       - "selfcheckout.docker.local:172.20.0.10"
     command: sh -c "sh /app/git-config.sh && frankenphp run --config /etc/caddy/Caddyfile"
 
-  node-projects:
+  api-monitor:
     build:
       context: ./dockerfiles
       dockerfile: Dockerfile-alpine-node
     image: brunojoao3/docker-sm:alpine-node
-    container_name: node-projects
+    container_name: api-monitor
     networks:
       dev_network:
         ipv4_address: 172.20.0.40
