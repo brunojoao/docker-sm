@@ -270,7 +270,6 @@ services:
       - ../projects/node_server_sm_smart_especial:/home/node/app
     command: sh -c "npm update && npm start index.js"
 
-
   api-monitor:
     build:
       context: ./dockerfiles
