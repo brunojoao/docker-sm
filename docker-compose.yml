@@ -278,7 +278,7 @@ services:
     container_name: api-monitor
     networks:
       dev_network:
-        ipv4_address: 172.20.0.14
+        ipv4_address: 172.20.0.70
     ports:
       - 8033:8033
     volumes:
