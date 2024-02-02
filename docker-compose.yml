@@ -154,7 +154,7 @@ services:
       dev_network:
         ipv4_address: 172.20.0.40
     ports:
-      - 8030:8030
+      - 8033:8033
     volumes:
       - ../projects/api-monitor:/home/node/app/api-monitor
     command: sh -c "cd /home/node/app/api-monitor && node ace serve --watch"
