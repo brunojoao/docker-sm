@@ -67,3 +67,8 @@ http://selfcheckout.docker.local:8085 {
 	root * /var/www/selfcheckout/public
 	php_server
 }
+
+http://selfcheckout-pdf.docker.local:8085 {
+	root * /var/www/selfcheckout-pdf/public
+	php_server
+}
