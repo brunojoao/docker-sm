@@ -116,6 +116,11 @@ http://192.168.0.66:9425 {
 	php_server
 }
 
+http://192.168.0.66:9426 {
+	root * /var/www/html/selfcheckout-pdf/public
+	php_server
+}
+
 http://192.168.0.66:9430 {
 	root * /var/www/html/prateleira-infinita/public
 	php_server
