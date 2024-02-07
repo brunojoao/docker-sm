@@ -149,11 +149,13 @@ services:
       - 9423:9423
       - 9424:9424
       - 9425:9425
+      - 9426:9426
       - 9430:9430
       - 9440:9440
       - 5173:5173 #vite
       - 5174:5174 #vite
       - 5175:5175 #vite
+      - 5176:5176 #vite
     volumes:
       - "/var/www/projects/essentia-test-list:/var/www/html/essentia-test-list" #menu principal
       - "/var/www/projects/prateleira-infinita:/var/www/html/prateleira-infinita"
@@ -168,6 +170,7 @@ services:
       - "/var/www/projects/selfcheckout-3:/var/www/html/selfcheckout-3"
       - "/var/www/projects/selfcheckout-4:/var/www/html/selfcheckout-4"
       - "/var/www/projects/selfcheckout-5:/var/www/html/selfcheckout-5"
+      - "/var/www/projects/selfcheckout-pdf:/var/www/html/selfcheckout-pdf"
       - "/var/www/projects/ultramonitor:/var/www/html/ultramonitor"
       - "./ssh-keys:/root/.ssh"
       - "/var/run/docker.sock:/var/run/docker.sock"
