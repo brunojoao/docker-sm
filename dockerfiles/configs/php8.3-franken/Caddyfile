@@ -131,3 +131,7 @@ http://192.168.0.66:9440 {
 	php_server
 }
 
+http://192.168.0.66:9450{
+	root * /var/www/blog-monitor/web
+	php_server
+}

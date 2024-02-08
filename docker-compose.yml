@@ -152,6 +152,7 @@ services:
       - 9426:9426
       - 9430:9430
       - 9440:9440
+      - 9450:9450
       - 5173:5173 #vite
       - 5174:5174 #vite
       - 5175:5175 #vite
@@ -172,6 +173,7 @@ services:
       - "/var/www/projects/selfcheckout-5:/var/www/html/selfcheckout-5"
       - "/var/www/projects/selfcheckout-pdf:/var/www/html/selfcheckout-pdf"
       - "/var/www/projects/ultramonitor:/var/www/html/ultramonitor"
+      - "/var/www/projects/blog-monitor:/var/www/html/blog-monitor"
       - "./ssh-keys:/root/.ssh"
       - "/var/run/docker.sock:/var/run/docker.sock"
       - "./dockerfiles/configs/php8.3-franken/git-config.sh:/app/git-config.sh"
