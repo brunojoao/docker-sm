@@ -116,6 +116,7 @@ services:
       dockerfile: Dockerfile-php8-3-franken
     image: brunojoao3/docker-sm:php-8.3-franken
     user: "root"
+    restart: always
     container_name: "php8.3-franken"
     ports:
       - "8085:8085"
