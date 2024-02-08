@@ -63,6 +63,11 @@ http://gecom.docker.local:8085 {
 	php_server
 }
 
+http://blog-monitor.docker.local:8085 {
+	root * /var/www/blog-monitor/web
+	php_server
+}
+
 http://selfcheckout.docker.local:8085 {
 	root * /var/www/selfcheckout/public
 	php_server

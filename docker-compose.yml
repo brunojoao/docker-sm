@@ -123,13 +123,14 @@ services:
       - "5174:5174"
       - "5175:5175"
     volumes:
+      - "../projects/blog-monitor:/var/www/blog-monitor"
       - "../projects/selfcheckout-pdf:/var/www/selfcheckout-pdf"
       - "../projects/selfcheckout:/var/www/selfcheckout"
       - "../projects/gerenciador-compras:/var/www/gerenciador-compras"
+      - "../projects/ultramonitor:/var/www/ultramonitor"
       - "./dockerfiles/configs/php8.3-franken/git-config.sh:/app/git-config.sh"
       - "./dockerfiles/configs/php8.3-franken/php.ini:/usr/local/etc/php/conf.d/local.ini"
       - "./dockerfiles/configs/php8.3-franken/Caddyfile:/etc/caddy/Caddyfile"
-      - '../projects/ultramonitor:/var/www/ultramonitor'
       - caddy_data:/data
       - caddy_config:/config
     networks:
