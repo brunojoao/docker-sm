@@ -58,7 +58,7 @@ http://ultramonitor.docker.local:8085 {
 	php_server
 }
 
-http://gecom.docker.local:8085 {
+http://gerenciador-compras.docker.local:8085 {
 	root * /var/www/gerenciador-compras/public
 	php_server
 }

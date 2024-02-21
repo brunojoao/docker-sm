@@ -69,7 +69,7 @@ services:
     extra_hosts:
       - "injetaveis.docker.local:172.20.0.7"
       - "injetaveis-cron.docker.local:172.20.0.7"
-      - "gerenciador-compras.local:172.20.0.9"
+      - "gerenciador-compras.docker.local:172.20.0.9"
 
   php7.4:
     build:
@@ -96,7 +96,7 @@ services:
       - "sm-hkm.docker.local:172.20.0.6"
       - "sm-smart.docker.local:172.20.0.6"
       - "gpe.docker.local:172.20.0.6"
-      - "gerenciador-compras.local:172.20.0.9"
+      - "gerenciador-compras.docker.local:172.20.0.9"
 
   php8.3-swoole:
     build:
