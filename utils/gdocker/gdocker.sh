@@ -1,7 +1,7 @@
 run_from_directory() {
     current_dir=$(pwd)
     
-    cd /home/develop/docker-sm
+    cd "$HOME/docker-sm"
     
     # run all arguments
     "$@"
