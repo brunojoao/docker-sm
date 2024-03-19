@@ -7,7 +7,7 @@ A melhor maneira de rodar o script é através de aliases.
 1. Copie o arquivo gdocker.sh para seu diretório de configuração do terminal.  
 Exemplo de onde o arquivo pode ser salvo:
   ```bash
-   ~/.bashrc/config/gdocker.sh
+   ~/.bash/config/gdocker.sh
   ``` 
 > Observação: pode ser qualquer diretório desejado, você poderá cria-lo e carrega-lo de onde quiser.  
 #### Adicionando o alias
@@ -19,7 +19,7 @@ Exemplo de onde o arquivo pode ser salvo:
 4. Para o alias funcionar, é necessário também carregar o arquivo do `gocker` para seu terminal reconhece-lo.
 Exemplo:
   ```bash
-  source ~/.bashrc/config/gdocker.sh
+  source ~/.bash/config/gdocker.sh
   ```
 
 
