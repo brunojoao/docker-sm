@@ -147,19 +147,34 @@ services:
       - "selfcheckout.docker.local:172.20.0.10"
     command: sh -c "sh /app/git-config.sh && frankenphp run --config /etc/caddy/Caddyfile"
 
-  api-monitor:
+  api-monitor-hkm:
     build:
       context: ./dockerfiles
       dockerfile: Dockerfile-alpine-node
     image: brunojoao3/docker-sm:alpine-node
-    container_name: api-monitor
+    container_name: api-monitor-hkm
     networks:
       dev_network:
         ipv4_address: 172.20.0.40
     ports:
       - 8033:8033
     volumes:
-      - ../projects/api-monitor:/home/node/app/api-monitor
+      - ../projects/api-monitor-hkm:/home/node/app/api-monitor
+    command: sh -c "cd /home/node/app/api-monitor && npm update && node ace serve --watch"
+
+  api-monitor-smart:
+    build:
+      context: ./dockerfiles
+      dockerfile: Dockerfile-alpine-node
+    image: brunojoao3/docker-sm:alpine-node
+    container_name: api-monitor-smart
+    networks:
+      dev_network:
+        ipv4_address: 172.20.0.41
+    ports:
+      - 8034:8033
+    volumes:
+      - ../projects/api-monitor-smart:/home/node/app/api-monitor
     command: sh -c "cd /home/node/app/api-monitor && npm update && node ace serve --watch"
 
   node-socket-sm-hkm:
