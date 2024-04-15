@@ -289,7 +289,8 @@ services:
       - 8033:8033
     volumes:
       - ../projects/api-monitor-hkm:/home/node/app/api-monitor
-    command: sh -c "cd /home/node/app/api-monitor && npm update && node ace serve --watch"
+    working_dir: /home/node/app/api-monitor
+    command: sh -c "npm update && node ace serve --watch"
 
   api-monitor-smart:
     build:
@@ -304,7 +305,8 @@ services:
       - 8034:8033
     volumes:
       - ../projects/api-monitor-smart:/home/node/app/api-monitor
-    command: sh -c "cd /home/node/app/api-monitor && npm update && node ace serve --watch"
+    working_dir: /home/node/app/api-monitor
+    command: sh -c "npm update && node ace serve --watch"
 
   jenkins:
     build:
