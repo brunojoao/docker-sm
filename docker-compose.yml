@@ -24,6 +24,7 @@ services:
     restart: always
     volumes:
       - mysql_data:/var/lib/mysql
+      - ./dockerfiles/configs/mysql.cnf:/etc/mysql/conf.d/custom.cnf
     networks:
       dev_network:
         ipv4_address: 172.20.0.4
@@ -39,6 +40,7 @@ services:
     restart: always
     volumes:
       - mysql8_data:/var/lib/mysql
+      - ./dockerfiles/configs/mysql8.cnf:/etc/mysql/conf.d/custom.cnf
     networks:
       dev_network:
         ipv4_address: 172.20.0.5
