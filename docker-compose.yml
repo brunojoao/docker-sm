@@ -32,6 +32,7 @@ services:
         ipv4_address: 172.20.0.4
     ports:
       - 3306:3306
+    command: --ignore-db-dir=lost+found
 
   db-mysql8-host:
     build:
