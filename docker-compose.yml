@@ -20,8 +20,6 @@ services:
       context: ./dockerfiles
       dockerfile: Dockerfile-db-mysql-host
     image: brunojoao3/docker-sm:mysql-5.7.31
-    args:
-      - "--ignore-db-dir=lost+found"
     container_name: db-mysql-5.7
     restart: always
     volumes:
@@ -32,6 +30,7 @@ services:
         ipv4_address: 172.20.0.4
     ports:
       - 3306:3306
+    command: --ignore-db-dir=lost+found
 
   db-mysql8-host:
     build:
