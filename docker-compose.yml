@@ -24,11 +24,13 @@ services:
     restart: always
     volumes:
       - mysql_data:/var/lib/mysql
+      - ./dockerfiles/configs/mysql.cnf:/etc/mysql/conf.d/custom.cnf
     networks:
       dev_network:
         ipv4_address: 172.20.0.4
     ports:
       - 3306:3306
+    command: --ignore-db-dir=lost+found
 
   db-mysql8-host:
     build:
@@ -39,6 +41,7 @@ services:
     restart: always
     volumes:
       - mysql8_data:/var/lib/mysql
+      - ./dockerfiles/configs/mysql8.cnf:/etc/mysql/conf.d/custom.cnf
     networks:
       dev_network:
         ipv4_address: 172.20.0.5
@@ -147,20 +150,37 @@ services:
       - "selfcheckout.docker.local:172.20.0.10"
     command: sh -c "sh /app/git-config.sh && frankenphp run --config /etc/caddy/Caddyfile"
 
-  api-monitor:
+  api-monitor-hkm:
     build:
       context: ./dockerfiles
       dockerfile: Dockerfile-alpine-node
     image: brunojoao3/docker-sm:alpine-node
-    container_name: api-monitor
+    container_name: api-monitor-hkm
     networks:
       dev_network:
         ipv4_address: 172.20.0.40
     ports:
       - 8033:8033
     volumes:
-      - ../projects/api-monitor:/home/node/app/api-monitor
-    command: sh -c "cd /home/node/app/api-monitor && npm update && node ace serve --watch"
+      - ../projects/api-monitor-hkm:/home/node/app/api-monitor
+    working_dir: /home/node/app/api-monitor
+    command: sh -c "npm update && node ace serve --watch"
+
+  api-monitor-smart:
+    build:
+      context: ./dockerfiles
+      dockerfile: Dockerfile-alpine-node
+    image: brunojoao3/docker-sm:alpine-node
+    container_name: api-monitor-smart
+    networks:
+      dev_network:
+        ipv4_address: 172.20.0.41
+    ports:
+      - 8034:8033
+    volumes:
+      - ../projects/api-monitor-smart:/home/node/app/api-monitor
+    working_dir: /home/node/app/api-monitor
+    command: sh -c "npm update && node ace serve --watch"
 
   node-socket-sm-hkm:
     build:
@@ -206,23 +226,6 @@ services:
       - 3005:3005
     volumes:
       - ../projects/node_server_injetaveis:/home/node/app
-
-  jenkins:
-    build:
-      context: ./dockerfiles
-      dockerfile: Dockerfile-jenkins-khan
-    container_name: jenkins-khan
-    image: brunojoao3/docker-sm:jenkins-khan
-    user: root
-    privileged: true
-    ports:
-      - 9998:8080
-    volumes:
-      - jenkins_home:/var/jenkins_home
-      - /var/run/docker.sock:/var/run/docker.sock
-      #- /usr/bin/docker:/usr/bin/docker
-    networks:
-      - dev_network
 
   cy-sm-hkm:
     build:
