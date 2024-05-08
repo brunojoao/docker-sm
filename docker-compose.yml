@@ -242,6 +242,31 @@ services:
       - "gpe.docker.local:172.20.0.6"
       - "gerenciador-compras.local:172.20.0.9"
     network_mode: host
+    
+  cache:
+    image: redis:6.2-alpine
+    container_name: cache
+    restart: always
+    ports:
+      - '6382:6379'
+    volumes: 
+      - cache:/dataclear
+    networks:
+      dev_network:
+        ipv4_address: 172.20.0.60
+
+  smtp:
+    platform: linux/x86_64
+    image: mailhog/mailhog
+    container_name: mailhog
+    logging:
+      driver: 'none'
+    ports:
+      - "8003:1025"
+      - "8100:8025"
+    networks:
+      dev_network:
+        ipv4_address: 172.20.0.70
 
 volumes:
   mysql_data:
@@ -250,6 +275,8 @@ volumes:
   jenkins_home:
   caddy_data:
   caddy_config:
+  cache:
+    driver: local
 
 networks:
   dev_network:
