@@ -271,10 +271,61 @@ services:
       dev_network:
         ipv4_address: 172.20.0.70
 
+  kong-database:
+    image: postgres:12.19-alpine
+    container_name: KingKongDatabase
+    ports:
+      - "5432:5432"  # Expor a porta do PostgreSQL
+    environment:
+      POSTGRES_USER: kong
+      POSTGRES_DB: kong
+      POSTGRES_PASSWORD: kong
+    volumes:
+      - kong-database-data:/var/lib/postgresql/data
+
+  kong-migration:
+    image: kong:3.7.1
+    command: kong migrations bootstrap
+    container_name: KingKongMigration
+    restart: on-failure
+    environment:
+      KONG_DATABASE: postgres
+      KONG_PG_HOST: kong-database
+      KONG_PG_PASSWORD: kong
+      KONG_PASSWORD: kong
+    depends_on:
+      - kong-database
+
+  kong:
+    image: kong:3.7.1
+    container_name: KingKong
+    ports:
+      - "8000:8000"
+      - "8443:8443"
+      - "8001:8001"
+      - "8002:8002"
+      - "8444:8444"
+      - "8445:8445"
+    environment:
+      KONG_DATABASE: postgres
+      KONG_PG_HOST: kong-database
+      KONG_PG_PASSWORD: kong
+      KONG_PASSWORD: kong
+      KONG_ADMIN_ACCESS_LOG: /dev/stdout
+      KONG_ADMIN_ERROR_LOG: /dev/stderr
+      KONG_PROXY_ACCESS_LOG: /dev/stdout
+      KONG_PROXY_ERROR_LOG: /dev/stderr
+      KONG_PROXY_LISTEN: "0.0.0.0:8000, 0.0.0.0:8443 ssl"  # Desativa HTTPS
+      KONG_ADMIN_LISTEN: "0.0.0.0:8001, 0.0.0.0:8444 ssl"  # Desativa HTTPS
+    depends_on:
+      - kong-database
+      - kong-migration
+
 volumes:
   mysql_data:
   mysql8_data:
   portainer_data:
+  kong-database-data:
   jenkins_home:
   caddy_data:
   caddy_config:
