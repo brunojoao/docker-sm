@@ -83,7 +83,3 @@ http://sku-keeper.docker.local:8085 {
 	php_server
 }
 
-http://p-celsus.docker.local:8085 {
-	root * /var/www/p-celsus/public
-	php_server
-}
