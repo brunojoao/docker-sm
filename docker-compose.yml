@@ -133,7 +133,6 @@ services:
       - "../projects/gerenciador-compras:/var/www/gerenciador-compras"
       - "../projects/ultramonitor:/var/www/ultramonitor"
       - "../projects/sku-keeper:/var/www/sku-keeper"
-      - "../projects/p-celsus:/var/www/p-celsus"
       - "./dockerfiles/configs/php8.3-franken/git-config.sh:/app/git-config.sh"
       - "./dockerfiles/configs/php8.3-franken/php.ini:/usr/local/etc/php/conf.d/local.ini"
       - "./dockerfiles/configs/php8.3-franken/Caddyfile:/etc/caddy/Caddyfile"
@@ -151,7 +150,6 @@ services:
       - "gpe.docker.local:172.20.0.6"
       - "selfcheckout.docker.local:172.20.0.10"
       - "sku-keeper.docker.local:172.20.0.11"
-      - "p-celsus.docker.local:172.20.0.11"
     command: sh -c "sh /app/git-config.sh && frankenphp run --config /etc/caddy/Caddyfile"
 
   api-monitor-hkm:
