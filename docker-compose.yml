@@ -58,9 +58,9 @@ services:
     ports:
       - 8080:8080
     volumes:
-      - ../projects/supermonitor-hkm:/var/www/html/supermonitor-hkm
-      - ../projects/supermonitor-smart:/var/www/html/supermonitor-smart
-      - ../projects/gateway-payment-essentia:/var/www/html/gateway-payment-essentia
+      - ./projects/supermonitor-hkm:/var/www/html/supermonitor-hkm
+      - ./projects/supermonitor-smart:/var/www/html/supermonitor-smart
+      - ./projects/gateway-payment-essentia:/var/www/html/gateway-payment-essentia
       - ./dockerfiles/configs/php5.6/php.ini:/usr/local/etc/php/conf.d/local.ini
       - ./dockerfiles/configs/php5.6/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
       - ./dockerfiles/configs/php5.6/ports.conf:/etc/apache2/ports.conf
@@ -84,9 +84,9 @@ services:
     ports:
       - 8081:8081
     volumes:
-      - ../projects/injetaveisadmin:/var/www/html/injetaveisadmin
-      - ../projects/injetaveiscron:/var/www/html/injetaveiscron
-      - ../projects/sm-tracking:/var/www/html/sm-tracking
+      - ./projects/injetaveisadmin:/var/www/html/injetaveisadmin
+      - ./projects/injetaveiscron:/var/www/html/injetaveiscron
+      - ./projects/sm-tracking:/var/www/html/sm-tracking
       - ./dockerfiles/configs/php7.4/php.ini:/usr/local/etc/php/conf.d/local.ini
       - ./dockerfiles/configs/php7.4/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
       - ./dockerfiles/configs/php7.4/ports.conf:/etc/apache2/ports.conf
@@ -127,12 +127,12 @@ services:
       - "5174:5174"
       - "5175:5175"
     volumes:
-      - "../projects/blog-monitor:/var/www/blog-monitor"
-      - "../projects/selfcheckout-pdf:/var/www/selfcheckout-pdf"
-      - "../projects/selfcheckout:/var/www/selfcheckout"
-      - "../projects/gerenciador-compras:/var/www/gerenciador-compras"
-      - "../projects/ultramonitor:/var/www/ultramonitor"
-      - "../projects/sku-keeper:/var/www/sku-keeper"
+      - "./projects/blog-monitor:/var/www/blog-monitor"
+      - "./projects/selfcheckout-pdf:/var/www/selfcheckout-pdf"
+      - "./projects/selfcheckout:/var/www/selfcheckout"
+      - "./projects/gerenciador-compras:/var/www/gerenciador-compras"
+      - "./projects/ultramonitor:/var/www/ultramonitor"
+      - "./projects/sku-keeper:/var/www/sku-keeper"
       - "./dockerfiles/configs/php8.3-franken/git-config.sh:/app/git-config.sh"
       - "./dockerfiles/configs/php8.3-franken/php.ini:/usr/local/etc/php/conf.d/local.ini"
       - "./dockerfiles/configs/php8.3-franken/Caddyfile:/etc/caddy/Caddyfile"
@@ -164,7 +164,7 @@ services:
     ports:
       - 3003:3003
     volumes:
-      - ../projects/node_server_sm_hkm:/home/node/app
+      - ./projects/node_server_sm_hkm:/home/node/app
     command: sh -c "npm update && npm start index.js"
 
   node-socket-sm-smart:
@@ -179,7 +179,7 @@ services:
     ports:
       - 3004:3004
     volumes:
-      - ../projects/node_server_sm_smart:/home/node/app
+      - ./projects/node_server_sm_smart:/home/node/app
     command: sh -c "npm update && npm start index.js"
 
   node-socket-injetaveis:
@@ -195,7 +195,7 @@ services:
     ports:
       - 3005:3005
     volumes:
-      - ../projects/node_server_injetaveis:/home/node/app
+      - ./projects/node_server_injetaveis:/home/node/app
 
   cy-sm-hkm:
     build:
@@ -207,7 +207,7 @@ services:
     environment:
       - DISPLAY=${DISPLAY} # espelha o valor do display do server (host) para o client (container)
     volumes:
-      - ../projects/cy-sm-hkm:/e2e
+      - ./projects/cy-sm-hkm:/e2e
       - /dev/shm:/dev/shm # necessário para execução no modo headless
     extra_hosts:
       - "sm-hkm.docker.local:172.20.0.6"
