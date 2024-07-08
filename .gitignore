@@ -51,3 +51,5 @@ Thumbs.db
 #ssh
 /ssh-keys/*
 .env
+
+projects
