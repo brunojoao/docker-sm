@@ -21,8 +21,9 @@ pings = 5
 port = 80
 
 + EchoPingHttp
-binary = /usr/bin/echoping
+binary = /usr/bin/curl
 forks = 5
 offset = 50%
 step = 120
 pings = 5
+extraargs = "--silent --output /dev/null"
