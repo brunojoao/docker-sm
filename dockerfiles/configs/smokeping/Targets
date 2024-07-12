@@ -43,8 +43,8 @@ title = CRON SMART
 host = 192.168.3.241
 
 + SOCKET
-menu = SOCKET SMART
-title = SOCKET SMART
+menu = SOCKET SUPERMONITOR
+title = SOCKET SUPERMONITOR
 host = 192.168.0.72
 
 + Google_OAuth2
