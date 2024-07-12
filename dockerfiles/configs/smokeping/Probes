@@ -2,12 +2,10 @@
 
 + FPing
 binary = /usr/sbin/fping
-step = 120
 
 + FPing6
 binary = /usr/sbin/fping
 protocol = 6
-step = 120
 
 + DNS
 binary = /usr/bin/dig
@@ -21,7 +19,6 @@ forks = 10
 offset = random
 pings = 5
 port = 80
-step = 120
 
 + Curl
 binary = /usr/bin/curl
