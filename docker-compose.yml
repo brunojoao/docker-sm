@@ -330,6 +330,7 @@ services:
       - EMAIL_TRANSPORT_DEFAULT_TLS=true
       - EMAIL_TRANSPORT_DEFAULT_USERNAME=naoresponda@essentia.com.br
       - EMAIL_TRANSPORT_DEFAULT_PASSWORD=${EMAIL_TRANSPORT_DEFAULT_PASSWORD}
+
     ports:
       - "9997:80"
     networks:
@@ -341,6 +342,26 @@ services:
       - db-mysql8-host
     volumes:
       - passbolt_data:/var/www/passbolt
+
+  smokeping:
+    image: linuxserver/smokeping:latest
+    container_name: smokeping
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Sao_Paulo
+      #- MASTER_URL=http://<master-host-ip>:80/smokeping/ #optional
+      #- SHARED_SECRET=password #optional
+      #- CACHE_DIR=/tmp #optional
+    networks:
+      dev_network:
+        ipv4_address: 172.20.0.80
+    volumes:
+      - ./dockerfiles/configs/smokeping:/config
+      - ./dockerfiles/configs/smokeping/data:/data
+    ports:
+      - 8084:80
+    restart: unless-stopped
 
 volumes:
   mysql_data:
