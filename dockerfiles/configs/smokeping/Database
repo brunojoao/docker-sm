@@ -1,6 +1,6 @@
 *** Database ***
 
-step     = 5000
+step     = 300
 pings    = 20
 
 # consfn mrhb steps total
