@@ -25,5 +25,7 @@ step = 120
 
 + Curl
 binary = /usr/bin/curl
+forks = 5
+offset = 50%
 step = 120
-urlformat = http://%host/
+pings = 5
