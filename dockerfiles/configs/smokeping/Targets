@@ -36,12 +36,12 @@ menu = Fcerta HKM
 title = Fcerta HKM
 host = 192.168.0.10
 
-+ Endpoint3
++ SmHKM
 menu = SuperMonitor HKM
 title = SuperMonitor HKM
 host = 192.168.0.70
 
-+ Endpoint4
++ SmSMART
 menu = SuperMonitor Smart
 title = SuperMonitor Smart
 host = 192.168.3.245
