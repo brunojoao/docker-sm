@@ -26,4 +26,3 @@ forks = 5
 offset = 50%
 step = 120
 pings = 5
-extraargs = "--silent --output /dev/null"
