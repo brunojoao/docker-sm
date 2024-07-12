@@ -13,14 +13,14 @@ title = Senior
 host = 192.168.0.248
 
 + SeniorEndpoint
-probe = EchoPingHttp
+probe = Curl
 menu = SeniorEndpoint
 title = SeniorEndpoint
 host = 192.168.0.248
 urlformat = http://%host%/g5-senior-services/sapiens_Synccom_fr2_fcerta?wsdl
 
 + BucketSupermonitor
-probe = EchoPingHttp
+probe = Curl
 menu = BucketSupermonitor
 title = BucketSupermonitor
 host = supermonitor-bucket-virginia.s3.us-east-1.amazonaws.com
