@@ -19,6 +19,13 @@ title = SeniorEndpoint
 host = 192.168.0.248
 urlformat = http://%host%/g5-senior-services/sapiens_Synccom_fr2_fcerta?wsdl
 
++ Kong
+probe = Curl
+menu = Kong
+title = Kong
+host = 192.168.0.18
+urlformat = http://%host%:8000/apimonitor/
+
 + BucketSupermonitor
 probe = Curl
 menu = BucketSupermonitor
