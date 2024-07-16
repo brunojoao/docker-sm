@@ -1,5 +1,10 @@
 FROM --platform=linux/amd64 php:5.6-apache
 
+USER root
+
+RUN groupadd admin -g1000
+RUN useradd admin -u1000 -g1000 -d/var/www/html -s/bin/bash
+
 RUN a2enmod rewrite \
     && sed -i 's/deb.debian.org/archive.debian.org/g' /etc/apt/sources.list \
     && sed -i 's|security.debian.org|archive.debian.org/|g' /etc/apt/sources.list \
@@ -12,5 +17,7 @@ RUN a2enmod rewrite \
     && php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer \
     && composer self-update --1 \
     && sed -i 's/APACHE_RUN_GROUP:=www-data/APACHE_RUN_GROUP:=root/g' /etc/apache2/envvars
+
+USER admin
 
 CMD ["apache2-foreground"]

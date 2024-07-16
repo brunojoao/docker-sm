@@ -50,7 +50,6 @@ services:
       context: ./dockerfiles
       dockerfile: Dockerfile-php5-6
     image: brunojoao3/docker-sm:php-5.6-apache
-    user: "root"
     container_name: php5-projects
     ports:
       - 8080:8080
