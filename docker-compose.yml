@@ -119,11 +119,13 @@ services:
     restart: always
     container_name: "php8.3-franken"
     ports:
+      - 80:80
       - "8085:8085"
       - "5173:5173"
       - "5174:5174"
       - "5175:5175"
     volumes:
+      - "./projects/essentia-test-list:/var/www/html/essentia-test-list" #menu principal
       - "./projects/blog-monitor:/var/www/blog-monitor"
       - "./projects/selfcheckout-pdf:/var/www/selfcheckout-pdf"
       - "./projects/selfcheckout:/var/www/selfcheckout"
