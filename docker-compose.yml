@@ -74,6 +74,8 @@ services:
       - 9244:9244
       - 9245:9245
     volumes:
+      - ./projects/cron-hkm:/var/www/html/cron-hkm
+      - ./projects/cron-smart:/var/www/html/cron-smart
       - ./projects/supermonitor-hkm-especial:/var/www/html/supermonitor-hkm-especial
       - ./projects/supermonitor-hkm-1:/var/www/html/supermonitor-hkm-1
       - ./projects/supermonitor-hkm-2:/var/www/html/supermonitor-hkm-2
