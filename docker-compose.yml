@@ -55,6 +55,8 @@ services:
     ports:
       - 8080:8080
     volumes:
+      - ./projects/cron-hkm:/var/www/html/cron-hkm
+      - ./projects/cron-smart:/var/www/html/cron-smart
       - ./projects/supermonitor-hkm:/var/www/html/supermonitor-hkm
       - ./projects/supermonitor-smart:/var/www/html/supermonitor-smart
       - ./projects/gateway-payment-essentia:/var/www/html/gateway-payment-essentia
