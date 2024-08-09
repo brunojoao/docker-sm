@@ -2,7 +2,6 @@ services:
   portainer:
     image: portainer/portainer-ce
     container_name: sdock_portainer_1
-    restart: always
     networks:
       dev_network:
         ipv4_address: 172.20.0.3
@@ -18,7 +17,6 @@ services:
       dockerfile: Dockerfile-db-mysql-host
     image: brunojoao3/docker-sm:mysql-5.7.31
     container_name: db-mysql-5.7
-    restart: always
     volumes:
       - mysql_data:/var/lib/mysql
       - ./dockerfiles/configs/mysql.cnf:/etc/mysql/conf.d/custom.cnf
@@ -35,7 +33,6 @@ services:
       dockerfile: Dockerfile-db-mysql8-host
     image: brunojoao3/docker-sm:mysql-8.0.32
     container_name: db-mysql-8.0
-    restart: always
     volumes:
       - mysql8_data:/var/lib/mysql
       - ./dockerfiles/configs/mysql8.cnf:/etc/mysql/conf.d/custom.cnf
@@ -115,7 +112,6 @@ services:
       dockerfile: Dockerfile-php8-3-franken
     image: brunojoao3/docker-sm:php-8.3-franken
     user: "root"
-    restart: always
     container_name: "php8.3-franken"
     ports:
       - "8085:8085"
@@ -215,7 +211,6 @@ services:
   cache:
     image: redis:6.2-alpine
     container_name: cache
-    restart: always
     ports:
       - '6382:6379'
     volumes: 
