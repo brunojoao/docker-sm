@@ -26,6 +26,27 @@ title = Kong
 host = 192.168.0.18
 urlformat = http://%host%:8000/apimonitor/
 
++ Correios
+probe = Curl
+menu = Correios
+title = Correios
+host = portalpostal.com.br
+urlformat = http://%host%/axis2/services/PrePostagemWS
+
++ Gpe
+probe = Curl
+menu = Gpe
+title = Gpe
+host = gpe.essentia.com.br
+urlformat = https://%host%:4344
+
++ Quality
+probe = Curl
+menu = Quality
+title = Quality
+host = sistema.qualityentregas.com.br
+urlformat = http://%host%/sistema/rastreamentoSite.php
+
 + ChatGuruApi
 probe = Curl
 menu = ChatGuruApi
