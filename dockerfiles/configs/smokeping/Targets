@@ -17,7 +17,7 @@ probe = Curl
 menu = SeniorEndpoint
 title = SeniorEndpoint
 host = 192.168.0.248
-urlformat = http://%host%/g5-senior-services/sapiens_Synccom_fr2_fcerta?wsdl
+urlformat = http://%host%:8080/g5-senior-services/sapiens_Synccom_fr2_fcerta?wsdl
 
 + Kong
 probe = Curl
