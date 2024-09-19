@@ -63,6 +63,11 @@ http://gerenciador-compras.docker.local:8085 {
 	php_server
 }
 
+http://microservice-gpe.docker.local:8085 {
+	root * /var/www/microservice-gpe/public
+	php_server
+}
+
 http://blog-monitor.docker.local:8085 {
 	root * /var/www/blog-monitor/web
 	php_server

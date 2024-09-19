@@ -14,3 +14,5 @@
 ::1 sm-tracking.docker.local
 127.0.0.1 ultramonitor.docker.local
 ::1 ultramonitor.docker.local
+127.0.0.1 microservice-gpe.docker.local
+::1 microservice-gpe.docker.local
