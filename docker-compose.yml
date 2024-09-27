@@ -153,7 +153,7 @@ services:
       - "gpe.docker.local:172.20.0.6"
       - "selfcheckout.docker.local:172.20.0.10"
       - "sku-keeper.docker.local:172.20.0.11"
-    command: sh -c "sh /app/git-config.sh && frankenphp run --config /etc/caddy/Caddyfile"
+    command: sh -c "sh /app/git-config.sh && /usr/local/bin/start.sh"
 
   node-socket-sm-hkm:
     build:
