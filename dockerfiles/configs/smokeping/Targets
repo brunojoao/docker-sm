@@ -54,17 +54,17 @@ title = ChatGuruApi
 host = api.chatguru.app
 urlformat = https://%host%/service/health
 
-+ BucketSupermonitor Virginia
++ BucketSupermonitor
 probe = Curl
-menu = BucketSupermonitor Virginia
-title = BucketSupermonitor Virginia
+menu = BucketSupermonitor
+title = BucketSupermonitor
 host = supermonitor-bucket-virginia.s3.us-east-1.amazonaws.com
 urlformat = https://%host%/test_homolog/hkm/receita/varejo/default.pdf
 
-+ BucketSupermonitor Accelerate
++ BucketSupermonitorAccelerate
 probe = Curl
-menu = BucketSupermonitor Accelerate
-title = BucketSupermonitor Accelerate
+menu = BucketSupermonitorAccelerate
+title = BucketSupermonitorAccelerate
 host = supermonitor-bucket-virginia.s3-accelerate.amazonaws.com
 urlformat = https://%host%/test_homolog/hkm/receita/varejo/default.pdf
 
