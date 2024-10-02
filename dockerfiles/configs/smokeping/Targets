@@ -65,7 +65,7 @@ urlformat = https://%host%/test_homolog/hkm/receita/varejo/default.pdf
 probe = Curl
 menu = BucketSupermonitor Accelerate
 title = BucketSupermonitor Accelerate
-host = supermonitor-bucket-virginia.s3-accelerate.us-east-1.amazonaws.com
+host = supermonitor-bucket-virginia.s3-accelerate.amazonaws.com
 urlformat = https://%host%/test_homolog/hkm/receita/varejo/default.pdf
 
 + FcertaReplica
