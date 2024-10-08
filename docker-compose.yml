@@ -242,6 +242,24 @@ services:
       dev_network:
         ipv4_address: 172.20.0.70
 
+  mvc-logger:
+    build:
+      context: ./dockerfiles
+      dockerfile: Dockerfile-alpine-node
+    image: brunojoao3/docker-sm:alpine-node
+    container_name: mvc-logger
+    restart: always
+    ports:
+      - "9966:9966"
+    volumes:
+      - ./projects/mvc-logger:/home/node/app
+    working_dir: /home/node/app
+    #command: sh -c "sleep infinity"
+    command: sh -c "npm update && node ace serve --watch"
+    networks:
+      dev_network:
+        ipv4_address: 172.20.0.80
+
 volumes:
   mysql_data:
   mysql8_data:
