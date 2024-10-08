@@ -332,7 +332,6 @@ services:
       - EMAIL_TRANSPORT_DEFAULT_TLS=true
       - EMAIL_TRANSPORT_DEFAULT_USERNAME=naoresponda@essentia.com.br
       - EMAIL_TRANSPORT_DEFAULT_PASSWORD=${EMAIL_TRANSPORT_DEFAULT_PASSWORD}
-
     ports:
       - "9997:80"
     networks:
@@ -344,6 +343,23 @@ services:
       - db-mysql8-host
     volumes:
       - passbolt_data:/var/www/passbolt
+
+  mvc-logger:
+    build:
+      context: ./dockerfiles
+      dockerfile: Dockerfile-alpine-node
+    image: brunojoao3/docker-sm:alpine-node
+    container_name: mvc-logger
+    restart: always
+    ports:
+      - "9966:9966"
+    volumes:
+      - ./projects/mvc-logger:/home/node/app
+    working_dir: /home/node/app
+    command: sh -c "npm update && node ace serve --watch"
+    networks:
+      dev_network:
+        ipv4_address: 172.20.0.80
 
   smokeping:
     image: linuxserver/smokeping:latest
@@ -357,7 +373,7 @@ services:
       #- CACHE_DIR=/tmp #optional
     networks:
       dev_network:
-        ipv4_address: 172.20.0.80
+        ipv4_address: 172.20.0.90
     volumes:
       - ./dockerfiles/configs/smokeping:/config
       - ./dockerfiles/configs/smokeping/data:/data

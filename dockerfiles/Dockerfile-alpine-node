@@ -7,7 +7,3 @@ WORKDIR /home/node/app
 RUN apk update && \
     apk add --update nodejs npm git lazygit && \
     npm install -g prettier @nestjs/cli
-
-EXPOSE 8090
-
-CMD ["echo", "do > tail -f /dev/null"]
