@@ -2,16 +2,19 @@
 
 + FPing
 binary = /usr/sbin/fping
+timeout = 5
 
 + FPing6
 binary = /usr/sbin/fping
 protocol = 6
+timeout = 5
 
 + DNS
 binary = /usr/bin/dig
 lookup = google.com
 pings = 5
 step = 120
+timeout = 5
 
 + TCPPing
 binary = /usr/bin/tcpping
@@ -19,8 +22,10 @@ forks = 10
 offset = random
 pings = 5
 port = 80
+timeout = 5
 
 + Curl
 binary = /usr/bin/curl
 step = 120
 urlformat = http://%host/
+timeout = 5

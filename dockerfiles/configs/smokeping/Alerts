@@ -1,6 +1,6 @@
 *** Alerts ***
-to = alertee@address.somewhere
-from = smokealert@company.xy
+to = bruno.garcia@essentia.com.br
+from = naoresponda@essentia.com.br
 
 +someloss
 type = loss
