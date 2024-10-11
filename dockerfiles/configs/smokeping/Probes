@@ -3,11 +3,13 @@
 + FPing
 binary = /usr/sbin/fping
 timeout = 5
+step = 120
 
 + FPing6
 binary = /usr/sbin/fping
 protocol = 6
 timeout = 5
+step = 120
 
 + DNS
 binary = /usr/bin/dig
@@ -23,6 +25,7 @@ offset = random
 pings = 5
 port = 80
 timeout = 5
+step = 120
 
 + Curl
 binary = /usr/bin/curl
