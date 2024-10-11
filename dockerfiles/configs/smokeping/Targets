@@ -68,15 +68,25 @@ title = BucketSupermonitorAccelerate
 host = supermonitor-bucket-virginia.s3-accelerate.amazonaws.com
 urlformat = https://%host%/test_homolog/hkm/receita/varejo/default.pdf
 
-+ FcertaReplica
-menu = Fcerta Replica
-title = Fcerta Replica
++ FcertaHKMReplica
+menu = FcertaHKM Replica
+title = FcertaHKM Replica
 host = 192.168.0.11
 
 + FcertaHKM
 menu = Fcerta HKM
 title = Fcerta HKM
 host = 192.168.0.10
+
++ FcertaSMARTReplica
+menu = FcertaSmart Replica
+title = Fcerta Replica
+host = 192.168.3.13
+
++ FcertaSMART
+menu = Fcerta SMART
+title = Fcerta SMART
+host = 192.168.3.3
 
 + SmHKM
 menu = SuperMonitor HKM
