@@ -8,4 +8,3 @@ RUN apk update && \
     apk add --update git lazygit && \
     npm install -g prettier @nestjs/cli
 
-CMD ["echo", "do > tail -f /dev/null"]
