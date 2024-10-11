@@ -373,7 +373,7 @@ services:
       #- CACHE_DIR=/tmp #optional
     networks:
       dev_network:
-        ipv4_address: 172.20.0.90
+        ipv4_address: 172.20.0.81
     volumes:
       - ./dockerfiles/configs/smokeping:/config
       - ./dockerfiles/configs/smokeping/data:/data
