@@ -1,9 +1,11 @@
-FROM alpine:latest
+FROM alpine:20.13.1-alpine
 
 USER root
 
 WORKDIR /home/node/app
 
 RUN apk update && \
-    apk add --update nodejs npm git lazygit && \
+    apk add --update git lazygit && \
     npm install -g prettier @nestjs/cli
+
+CMD ["echo", "do > tail -f /dev/null"]
