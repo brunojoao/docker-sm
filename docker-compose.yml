@@ -72,6 +72,19 @@ services:
       - "injetaveis.docker.local:172.20.0.7"
       - "injetaveis-cron.docker.local:172.20.0.7"
       - "gerenciador-compras.docker.local:172.20.0.9"
+  
+  firebird:
+    image: jacobalberty/firebird:2.5-ss
+    networks:
+      dev_network:
+        ipv4_address: 172.20.0.75
+    ports:
+      - '3050:3050'
+    volumes:
+      - firebird_data:/firebird/data
+    environment:
+      ISC_PASSWORD: masterkey
+      FIREBIRD_DATABASE: fcerta
 
   php7.4:
     build:
@@ -263,6 +276,7 @@ services:
 volumes:
   mysql_data:
   mysql8_data:
+  firebird_data:
   portainer_data:
   jenkins_home:
   caddy_data:
