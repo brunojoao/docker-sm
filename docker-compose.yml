@@ -222,6 +222,7 @@ services:
       - DISPLAY=${DISPLAY} # espelha o valor do display do server (host) para o client (container)
     volumes:
       - ./projects/cy-sm-hkm:/e2e
+      - /tmp/.X11-unix:/tmp/.X11-unix # sockets X server
       - /dev/shm:/dev/shm # necessário para execução no modo headless
     extra_hosts:
       - "sm-hkm.docker.local:172.20.0.6"
