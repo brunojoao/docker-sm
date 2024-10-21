@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# Variables
+DB_PATH="${DBPATH}/${FIREBIRD_DATABASE}"
+DB_USER="SYSDBA"
+DB_PASS="${ISC_PASSWORD}"
+SEED_FILE="/var/lib/firebird/seeds/seed.sql"
+
+# Functions
+
+# Check if the database exists
+check_database_exists() {
+    db_exists=$("$PREFIX"/bin/isql -u "$DB_USER" -p "$DB_PASS" "$DB_PATH" -q <<EOF
+    SET HEADING OFF;
+    SELECT 1 FROM RDB\$DATABASE;
+EOF
+    )
+    db_exists=$(echo "$db_exists" | xargs)
+    if [[ "$db_exists" == *1* ]]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+# Run seed data
+run_seed() {
+    if [ -f "$SEED_FILE" ]; then
+        # Run the seed file
+        "$PREFIX"/bin/isql -u "$DB_USER" -p "$DB_PASS" "$DB_PATH" -i "$SEED_FILE"
+        echo "Seeding completed."
+    else
+        echo "Seed file $SEED_FILE does not exist."
+        exit 1
+    fi
+}
+
+# Main script logic
+if check_database_exists; then
+    run_seed
+else
+    echo "Database does not exist. Please create the database before running the seed."
+    exit 1
+fi

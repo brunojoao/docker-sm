@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# Variables
+DB_PATH="${DBPATH}/${FIREBIRD_DATABASE}"
+DB_USER="SYSDBA"
+DB_PASS="${ISC_PASSWORD}"
+DDL_FILE="/var/lib/firebird/final_DDL.sql"
+MIGRATIONS_DIR="/var/lib/firebird/migrations"
+
+# Apply the full DDL
+"$PREFIX"/bin/isql -u "$DB_USER" -p "$DB_PASS" "$DB_PATH" -i "$DDL_FILE"
+
+# Loop through each file in the migrations directory
+for migration_file in "$MIGRATIONS_DIR"/*.sql; do
+    # Extract the file name without the extension
+    migration_version=$(basename "$migration_file" .sql)
+
+    # Insert a row into the MIGRATIONS table with the extracted version
+    "$PREFIX"/bin/isql -u "$DB_USER" -p "$DB_PASS" "$DB_PATH" <<EOF
+    INSERT INTO MIGRATIONS (VERSION) VALUES ('$migration_version');
+    COMMIT;
+EOF
+done
+
+echo "Schema deployed and migrations recorded successfully."

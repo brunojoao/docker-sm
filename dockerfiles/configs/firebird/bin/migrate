@@ -1,0 +1,213 @@
+#!/bin/bash
+
+# Variables
+DB_PATH="${DBPATH}/${FIREBIRD_DATABASE}"
+DB_USER="SYSDBA"
+DB_PASS="${ISC_PASSWORD}"
+MIGRATIONS_DIR="/var/lib/firebird/migrations"
+
+# Functions
+
+# Check if MIGRATIONS table exists
+check_migrations_table() {
+    table_exists=$("$PREFIX"/bin/isql -u "$DB_USER" -p "$DB_PASS" "$DB_PATH" -q <<EOF
+    SET HEADING OFF;
+    SELECT 1 FROM RDB\$RELATIONS WHERE RDB\$RELATION_NAME = 'MIGRATIONS';
+EOF
+    )
+    table_exists=$(echo "$table_exists" | xargs)
+    if [[ "$table_exists" == *1* ]]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+# Run a migration (UP section)
+run_migration() {
+    local migration_file="$1"
+    local version
+
+    version=$(basename "$migration_file" .sql)
+
+    # Extract the "UP" part of the migration
+    awk '/-- UP/{flag=1;next}/-- DOWN/{flag=0}flag' "$migration_file" | "$PREFIX"/bin/isql -u "$DB_USER" -p "$DB_PASS" "$DB_PATH"
+
+    # Record the migration as applied
+    "$PREFIX"/bin/isql -u "$DB_USER" -p "$DB_PASS" "$DB_PATH" <<EOF
+    INSERT INTO MIGRATIONS (VERSION) VALUES ('$version');
+    COMMIT;
+EOF
+
+    echo "Migration $version applied."
+}
+
+# Rollback a migration (DOWN section)
+rollback_migration() {
+    local migration_file="$1"
+    local version
+
+    version=$(basename "$migration_file" .sql)
+
+    # Extract the "DOWN" part of the migration
+    awk '/-- DOWN/{flag=1;next}/-- UP/{flag=0}flag' "$migration_file" | "$PREFIX"/bin/isql -u "$DB_USER" -p "$DB_PASS" "$DB_PATH"
+
+    # Remove the migration record if the MIGRATIONS table exists
+    if check_migrations_table; then
+        "$PREFIX"/bin/isql -u "$DB_USER" -p "$DB_PASS" "$DB_PATH" <<EOF
+        DELETE FROM MIGRATIONS WHERE VERSION = '$version';
+        COMMIT;
+EOF
+    fi
+
+    echo "Migration $version rolled back."
+}
+
+# Run all remaining migrations
+run_all_migrations() {
+    for migration_file in "$MIGRATIONS_DIR"/*.sql; do
+        local version
+
+        version=$(basename "$migration_file" .sql)
+
+        # Check if the migration has been applied and if the MIGRATIONS table exists
+        if check_migrations_table; then
+            applied=$("$PREFIX"/bin/isql -u "$DB_USER" -p "$DB_PASS" "$DB_PATH" -q <<EOF
+            SET HEADING OFF;
+            SELECT 1 FROM MIGRATIONS WHERE VERSION = '$version';
+EOF
+            )
+            applied=$(echo "$applied" | xargs)
+        else
+            applied=""
+        fi
+
+        if [[ -z "$applied" || "$applied" != *1* ]]; then
+            run_migration "$migration_file"
+        fi
+    done
+}
+
+# Run a specific migration by version
+run_specific_migration() {
+    local version="$1"
+    local migration_file="$MIGRATIONS_DIR/$version.sql"
+
+    if [ -f "$migration_file" ]; then
+        run_migration "$migration_file"
+    else
+        echo "Migration file $version.sql does not exist."
+    fi
+}
+
+# Rollback the latest migration
+rollback_latest_migration() {
+    if check_migrations_table; then
+        # Find the latest applied migration
+        local latest_migration
+
+        latest_migration=$("$PREFIX"/bin/isql -u "$DB_USER" -p "$DB_PASS" "$DB_PATH" -q <<EOF
+        SET HEADING OFF;
+        SELECT VERSION FROM MIGRATIONS ORDER BY APPLIED_AT DESC ROWS 1;
+EOF
+        )
+
+        latest_migration=$(echo "$latest_migration" | xargs)
+
+        if [ -n "$latest_migration" ]; then
+            local migration_file="$MIGRATIONS_DIR/$latest_migration.sql"
+            if [ -f "$migration_file" ]; then
+                rollback_migration "$migration_file"
+            else
+                echo "No migration to rollback."
+            fi
+        else
+            echo "No migration to rollback."
+        fi
+    else
+        echo "MIGRATIONS table does not exist. Please run the initial migration to create it."
+    fi
+}
+
+# Rollback a specific number of migrations
+rollback_by_number() {
+    if check_migrations_table; then
+        local count="$1"
+
+        # Fetch the last 'count' applied migrations
+        local migrations_to_rollback
+
+        migrations_to_rollback=$("$PREFIX"/bin/isql -u "$DB_USER" -p "$DB_PASS" "$DB_PATH" -q <<EOF
+        SET HEADING OFF;
+        SELECT VERSION FROM MIGRATIONS ORDER BY APPLIED_AT DESC ROWS $count;
+EOF
+        )
+
+        migrations_to_rollback=$(echo "$migrations_to_rollback" | xargs -n1)
+
+        for version in $migrations_to_rollback; do
+            local migration_file="$MIGRATIONS_DIR/$version.sql"
+            rollback_migration "$migration_file"
+        done
+    else
+        echo "MIGRATIONS table does not exist. Please run the initial migration to create it."
+    fi
+}
+
+# Rollback a specific migration by version, or all if no version is provided
+rollback_specific_migration() {
+    if check_migrations_table; then
+        local version="$1"
+
+        if [ -z "$version" ]; then
+            # Rollback all applied migrations
+            local migrations_to_rollback
+
+            migrations_to_rollback=$("$PREFIX"/bin/isql -u "$DB_USER" -p "$DB_PASS" "$DB_PATH" -q <<EOF
+            SET HEADING OFF;
+            SELECT VERSION FROM MIGRATIONS ORDER BY APPLIED_AT DESC;
+EOF
+            )
+
+            migrations_to_rollback=$(echo "$migrations_to_rollback" | xargs -n1)
+
+            for version in $migrations_to_rollback; do
+                local migration_file="$MIGRATIONS_DIR/$version.sql"
+                rollback_migration "$migration_file"
+            done
+        else
+            local migration_file="$MIGRATIONS_DIR/$version.sql"
+
+            if [ -f "$migration_file" ]; then
+                rollback_migration "$migration_file"
+            else
+                echo "Migration file $version.sql does not exist."
+            fi
+        fi
+    else
+        echo "MIGRATIONS table does not exist. Please run the initial migration to create it."
+    fi
+}
+
+# Main script logic
+case "$1" in
+    run-all)
+        run_all_migrations
+        ;;
+    run)
+        run_specific_migration "$2"
+        ;;
+    rollback-latest)
+        rollback_latest_migration
+        ;;
+    rollback)
+        rollback_specific_migration "$2"
+        ;;
+    rollback-by)
+        rollback_by_number "$2"
+        ;;
+    *)
+        echo "Usage: $0 {run-all|run <version>|rollback-latest|rollback [<version>]|rollback-by <number>}"
+        exit 1
+        ;;
+esac

@@ -77,11 +77,16 @@ services:
     image: jacobalberty/firebird:2.5-ss
     networks:
       dev_network:
-        ipv4_address: 172.20.0.75
+        ipv4_address: 172.20.0.12
     ports:
       - '3050:3050'
     volumes:
       - firebird_data:/firebird/data
+      - ./dockerfiles/configs/firebird/migrations:/var/lib/firebird/migrations
+      - ./dockerfiles/configs/firebird/seeds:/var/lib/firebird/seeds
+      - ./dockerfiles/configs/firebird/bin:/usr/local/bin
+      - ./dockerfiles/configs/firebird/final_DDL.sql:/var/lib/firebird/final_DDL.sql
+      - ./dockerfiles/configs/firebird/revert_all.sql:/var/lib/firebird/revert_all.sql
     environment:
       ISC_PASSWORD: masterkey
       FIREBIRD_DATABASE: fcerta
