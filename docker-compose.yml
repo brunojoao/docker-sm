@@ -381,6 +381,19 @@ services:
       - 8084:80
     restart: unless-stopped
 
+  smtp:
+    platform: linux/x86_64
+    image: mailhog/mailhog
+    container_name: mailhog
+    logging:
+      driver: 'none'
+    ports:
+      - "8003:1025"
+      - "8100:8025"
+    networks:
+      dev_network:
+        ipv4_address: 172.20.0.70
+
 volumes:
   mysql_data:
   mysql8_data:
